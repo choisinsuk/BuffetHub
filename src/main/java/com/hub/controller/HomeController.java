@@ -22,5 +22,6 @@ public class HomeController {
 		model.addAttribute("sercerTime", formattedDate);
 		
 		return "home";
+	
 	}
 }
