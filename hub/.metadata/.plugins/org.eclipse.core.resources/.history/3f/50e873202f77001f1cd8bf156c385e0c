@@ -1,0 +1,21 @@
+package com.hub.domain;
+
+import java.util.Date;
+
+import jakarta.persistence.*;
+import lombok.*;
+@Entity
+@SequenceGenerator(name = "REVIEWBOARD_SEQ_GEN", // 시퀀스 제너레이터 이름
+sequenceName = "REVIEWBOARD_SEQ", // 시퀀스 이름
+initialValue = 1, // 시작 값
+allocationSize = 1 // 메모리를 통해 할당할 범위 사이즈
+)
+@Table(name = "tbl_reviewboard")
+@Getter
+@ToString
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+public class ReviewBoard {
+
+}

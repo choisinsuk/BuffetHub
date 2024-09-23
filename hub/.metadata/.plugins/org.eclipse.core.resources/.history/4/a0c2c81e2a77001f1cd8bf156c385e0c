@@ -1,0 +1,28 @@
+package com.hub.domain;
+
+import java.util.Date;
+
+import jakarta.persistence.*;
+import lombok.*;
+@Entity
+@Table(name = "tbl_user")
+@Getter
+@ToString
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+public class User {
+
+	@Id
+	private String ur_id; // 회원ID
+	
+	private String ur_pw; // 비밀번호
+	private String ur_nm; // 이름
+	private String ur_phn; // 전화번호
+	private String ur_eml; // 이메일
+	private boolean ur_prpl_yn; // 개인정보 이용약관 동의여부
+	private boolean ur_stmbpl_yn; // 가게 회원 약관 동의여부
+	private String ur_auth_code; // 회원 권한
+	private Date ur_join_dt; // 회원가입 일자
+	private String ur_condition_code; // 회원상태
+}
