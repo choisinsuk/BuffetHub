@@ -8,49 +8,29 @@ const BasicMenu = () => {
           <img src={logo} alt="Logo" />
         </div> 
 
-      <div className="w-4/5 bg-orange-300">
-        <ul className="flex p-4 text-white font-bold">
+      <div className="w-4/5 bg-orange-300 flex justify-center">
+        <ul className="flex p-4 text-white font-bold justify-center ">
 
-          <li className="pr-6 text-2xl"></li>
-
-          <li className="pr-6 text-2xl">
+          <li className="pr-6 text-2xl text-center">
             <Link to={"/"}>메인</Link>
           </li>
 
-          <li className="pr-6 text-2xl"></li>
-
-          <li className="pr-6 text-2xl">
-            <Link to={"/about"}>예약 관리</Link>
+          <li className="pr-6 text-2xl text-center">
+            <Link to={"/reserve"}>예약 관리</Link>
           </li>
 
-          <li className="pr-6 text-2xl"></li>
-
-          <li className="pr-6 text-2xl">
-            <Link to={"/about"}>뷔페 예약 설정</Link>
+          <li className="pr-6 text-2xl text-center">
+            <Link to={"/infoManager"}>뷔페 정보 관리</Link>
           </li>
 
-          <li className="pr-6 text-2xl"></li>
-
-          <li className="pr-6 text-2xl">
-            <Link to={"/about"}>뷔페 정보 설정</Link>
+          <li className="pr-6 text-2xl text-center">
+            <Link to={"/userManager"}>회원관리</Link>
           </li>
-
-          <li className="pr-6 text-2xl"></li>
-
-          <li className="pr-6 text-2xl">
-            <Link to={"/about"}>게시판 관리</Link>
-          </li>
-
-          <li className="pr-6 text-2xl"></li>
-
-          <li className="pr-6 text-2xl">
-            <Link to={"/about"}>회원 관리</Link>
-          </li>
-          
         </ul>
+
       </div>
       <div className="w-1/5 flex justify-end bg-orange-200 p-4 font-medium">
-        <div className="text-black font-bold text-3xl"><Link to={"/about"}>로그인</Link></div>
+        <div className="text-black font-bold text-3xl"><Link to={"/reserve"}>로그인</Link></div>
       </div>
     </nav>
   );

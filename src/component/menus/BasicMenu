@@ -9,7 +9,7 @@ const BasicMenu = () => {
             <Link to={"/"}>Main</Link>
           </li>
           <li className="pr-6 text-2xl">
-            <Link to={"/about"}>Test</Link>
+            <Link to={"/reserve"}>Test</Link>
           </li>
         </ul>
       </div>

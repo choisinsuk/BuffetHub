@@ -9,7 +9,9 @@ const Loading = <div>Loading....</div>
 
 //비동기적 메인 페이지 로드
 const Main = lazy(() => import("../pages/main"))
-const About = lazy(() => import("../pages/about"))
+const Reserve = lazy(() => import("../pages/reservation"))
+const BuffetInfo = lazy(() => import("../pages/buffetinfo"))
+const UserList = lazy(() => import("../pages/userlist"))
 
 //라우터 설정
 const root = createBrowserRouter([
@@ -21,8 +23,18 @@ const root = createBrowserRouter([
   },
   
   {
-    path: "about",
-    element: <Suspense fallback={Loading}><About/></Suspense>
+    path: "/reserve",
+    element: <Suspense fallback={Loading}><Reserve/></Suspense>
+  },
+
+  {
+    path: "/infoManager",
+    element: <Suspense fallback={Loading}><BuffetInfo/></Suspense>
+  },
+
+  {
+    path: "/userManager",
+    element: <Suspense fallback={Loading}><UserList/></Suspense>
     }
 ]);
 
