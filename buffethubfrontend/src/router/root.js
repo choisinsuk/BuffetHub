@@ -1,9 +1,12 @@
 import { lazy, Suspense } from "react";
+import userRouter from "./userRouter.js";
 import { createBrowserRouter } from "react-router-dom";
+import reserveRouter from "./reserveRouter.js";
 
 const Loading = <div>Loading...</div>;
-const Main = lazy(() => import("../pages/MainPage"));
-const Reserve = lazy(() => import("../pages/reserve/ReservePage"));
+
+const Main = lazy(() => import("../page/user/MainPage.js"));
+
 
 const root = createBrowserRouter([
   {
@@ -16,11 +19,11 @@ const root = createBrowserRouter([
   },
   {
     path: "reserve",
-    element: (
-      <Suspense fallback={Loading}>
-        <Reserve />
-      </Suspense>
-    ),
+    children: reserveRouter(),
+  },
+  {
+    path: "user",
+    children: userRouter(),
   },
 ]);
 

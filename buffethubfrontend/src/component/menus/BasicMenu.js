@@ -1,21 +1,32 @@
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 const BasicMenu = () => {
+  const loginState = useSelector((state) => state.loginSlice);
+
   return (
     <nav id="navbar" className="flex bg-blue-300">
       <div className="w-4/5 bg-gray-500">
         <ul className="flex p-4 text-white font-bold">
           <li className="pr-6 text-2xl">
-            <Link to={"/"}>main</Link>
+            <Link to={"/"}>Main</Link>
           </li>
           <li className="pr-6 text-2xl">
-            <Link to={"/reserve"}>예약</Link>
+            <Link to={"/about"}>Test</Link>
           </li>
         </ul>
       </div>
 
       <div className="w-1/5 flex justify-end bg-orange-300 p-4 font-medium">
-        <div className="text-white text-sm m-1 rounded"> login</div>
+        {!loginState.id ? (
+          <div className="text-white text-sm m-1 rounded">
+            <Link to={"/user/login"}>Login</Link>
+          </div>
+        ) : (
+          <div className="text-white text-sm m-1 rounded">
+            <Link to={"/user/logout"}>로그아웃</Link>
+          </div>
+        )}
       </div>
     </nav>
   );
