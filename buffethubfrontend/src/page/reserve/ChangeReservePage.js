@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import MakeReserveComponent from "../../component/reserve/MakeReserveComponent";
 import ReserveLayout from "../../layouts/ReserveLayout";
+import ChangeReserveComponent from "../../component/reserve/ChangeReserveComponent";
 
 const ReservePage = () => {
   const asideContent = (
@@ -9,10 +9,10 @@ const ReservePage = () => {
         <li className="mb-2">
           <Link to={"/reserve"}>예약</Link>
         </li>
-        <li className="mb-2 font-bold">
+        <li className="mb-2">
           <Link to={"/reserve/makereserve"}>-예약하기</Link>
         </li>
-        <li>
+        <li className="font-bold">
           <Link to={"/reserve/changereserve"}>-예약변경</Link>
         </li>
       </ul>
@@ -20,7 +20,7 @@ const ReservePage = () => {
   );
 
   const mainContent = (
-    <div><MakeReserveComponent/>
+    <div><ChangeReserveComponent/>
     </div>
     
   );
