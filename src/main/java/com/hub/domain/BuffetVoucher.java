@@ -22,7 +22,7 @@ public class BuffetVoucher {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "BV_SEQ_GEN")
-	@Column(name= "bv_nb", nullable = false, precision = 4)
+	@Column(name= "bv_nb", nullable = false, columnDefinition = "NUMBER(4)")
 	private Integer bv_nb; // 식사권 번호
 	
 	@Column(name = "bv_start_tm",nullable = false)
