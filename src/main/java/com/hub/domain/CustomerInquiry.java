@@ -20,21 +20,29 @@ public class CustomerInquiry {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CUSTOMERINQUIRY_SEQ_GEN")
-	private Long cq_nm; // 고객문의 번호
+	@Column(name= "cq_nb", nullable = false, precision = 8)
+	private Integer cq_nb; // 고객문의 번호
 	
 	@ManyToOne
 	@JoinColumn(name = "ur_id", nullable = false)
 	private User user; // 회원 아이디
 	
-	@Column(nullable = false)
+	@Column(name = "cq_title",nullable = false, length = 100)
 	private String cq_title; // 고객문의 제목
-	@Column(nullable = false)
+	
+	@Column(name = "cq_ctt",nullable = false, length = 4000)
 	private String cq_ctt; // 고객문의 내용
-	@Column(nullable = false)
+	
+	@Column(name = "cq_regdt",nullable = false)
 	private Date cq_regdt; // 고객문의 등록일자
 	
-	private String cq_answer_ctt; // 고객문의 답변 내용
-	private Date cq_answer_regdt; // 고객문의 답변 일자
-	private String cq_pic; // 고객문의 사진
+	@Column(name = "cq_answer_ctt",nullable = true, length = 4000)
+	private String cq_answer_ctt; // 고객문의 답변 내용(널 가능)
+	
+	@Column(name = "cq_answer_regdt",nullable = true)
+	private Date cq_answer_regdt; // 고객문의 답변 일자(널 가능)
+	
+	@Column(name = "cq_pic",nullable = true, length = 1000)
+	private String cq_pic; // 고객문의 사진(널 가능)
 
 }

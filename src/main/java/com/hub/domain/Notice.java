@@ -20,15 +20,17 @@ public class Notice {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "NOTICE_SEQ_GEN")
-	private Long nt_num; // 공지사항 번호
+	@Column(name= "nt_nb", nullable = false, precision = 8)
+	private Integer nt_nb; // 공지사항 번호
 	
-	@Column(nullable = false)
+	@Column(name = "nt_title",nullable = false, length = 100)
 	private String nt_title; // 공지사항 제목
-	@Column(nullable = false)
+	@Column(name = "nt_ctt",nullable = false, length = 4000)
 	private String nt_ctt; // 공지사항 내용
-	@Column(nullable = false)
+	@Column(name = "nt_regdt",nullable = false)
 	private Date nt_regdt; // 공지사항 등록일자
 	
-	private String nt_pic; // 공지사항 사진
+	@Column(name = "nt_pic", nullable = true,length = 1000)
+	private String nt_pic; // 공지사항 사진(널 가능)
 
 }

@@ -20,20 +20,24 @@ public class ReviewBoard {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "REVIEWBOARD_SEQ_GEN")
-	private Long rv_nb; // 후기번호
-	
-	@Column(nullable = false)
+	@Column(name="rv_nb", nullable = false, precision = 8)
+	private Integer rv_nb; // 후기번호
+	@Column(name = "rv_title",nullable = false, length = 100)
 	private String rv_title; // 제목
-	@Column(nullable = false)
+	@Column(name = "rv_ctt",nullable = false, length = 4000)
 	private String rv_ctt; // 내용
-	@Column(nullable = false)
+	@Column(name = "rv_regdt",nullable = false)
 	private Date rv_regdt; // 등록일자
+
+	@Column(name="rv_comment_ctt", nullable = true, length = 4000)
+	private String rv_comment_ctt; // 댓글내용(널 가능)
+	@Column(name="rv_comment_writer_nm", nullable = true, length = 4000)
+	private String rv_comment_writer_nm; // 댓글 작성자명(널 가능)
+	@Column(name="rv_comment_regdt", nullable = true)
+	private Date rv_comment_regdt; // 댓글 등록일자(널 가능)
 	
-	private String rv_comment_ctt; // 댓글내용
-	private String rv_comment_writer_nm; // 댓글 작성자명
-	private Date rv_comment_regdt; // 댓글 등록일자
-	
-	private String rv_pic; // 후기사진
+	@Column(name="rv_pic", nullable = true, length = 1000)
+	private String rv_pic; // 후기사진(널 가능) 
 	
 	@ManyToOne
 	@JoinColumn(name = "rs_nb", nullable = false) // 외래 키 설정
