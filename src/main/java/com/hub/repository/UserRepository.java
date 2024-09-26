@@ -8,7 +8,6 @@ import org.springframework.data.repository.query.Param;
 import com.hub.domain.User;
 
 public interface UserRepository extends JpaRepository<User, String>{
-	@EntityGraph(attributePaths = {"userRoleList"})
-	@Query("select u from User u where u.id = :id")
+	@Query("select u from User u where u.ur_id = :id")
 	User getWithRoles(@Param("id") String id);
 }
