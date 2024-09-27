@@ -1,5 +1,12 @@
 .App {
   text-align: center;
+  min-height: 100vh;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+body {
+  @apply p-4;
 }
 
 .App-logo {
@@ -42,3 +49,4 @@
   height: 100px;
   object-fit: cover;
 }
+
