@@ -1,6 +1,8 @@
 package com.hub.domain;
 
-import java.util.Date;
+
+
+import java.time.LocalDateTime;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -20,24 +22,24 @@ public class ReviewBoard {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "REVIEWBOARD_SEQ_GEN")
-	@Column(name="rv_nb", nullable = false, columnDefinition = "NUMBER(8)")
-	private Integer rv_nb; // 후기번호
-	@Column(name = "rv_title",nullable = false, columnDefinition = "VARCHAR2(100)")
-	private String rv_title; // 제목
-	@Column(name = "rv_ctt",nullable = false, columnDefinition = "VARCHAR2(4000)")
-	private String rv_ctt; // 내용
-	@Column(name = "rv_regdt",nullable = false)
-	private Date rv_regdt; // 등록일자
+	@Column( nullable = false, columnDefinition = "NUMBER(8)")
+	private Long rvNb; // 후기번호
+	@Column(nullable = false, columnDefinition = "VARCHAR2(100)")
+	private String rvTitle; // 제목
+	@Column(nullable = false, columnDefinition = "VARCHAR2(4000)")
+	private String rvCtt; // 내용
+	@Column(nullable = false)
+	private LocalDateTime rvRegdt; // 등록일자
 
-	@Column(name="rv_comment_ctt", nullable = true, columnDefinition = "VARCHAR2(4000)")
-	private String rv_comment_ctt; // 댓글내용(널 가능)
-	@Column(name="rv_comment_writer_nm", nullable = true, columnDefinition = "VARCHAR2(20)")
-	private String rv_comment_writer_nm; // 댓글 작성자명(널 가능)
-	@Column(name="rv_comment_regdt", nullable = true)
-	private Date rv_comment_regdt; // 댓글 등록일자(널 가능)
+	@Column( nullable = true, columnDefinition = "VARCHAR2(4000)")
+	private String rvCommentCtt; // 댓글내용(널 가능)
+	@Column( nullable = true, columnDefinition = "VARCHAR2(20)")
+	private String rvCommentWriterNm; // 댓글 작성자명(널 가능)
+	@Column( nullable = true)
+	private LocalDateTime rvCommentRegdt; // 댓글 등록일자(널 가능)
 	
-	@Column(name="rv_pic", nullable = true, columnDefinition = "VARCHAR2(1000)")
-	private String rv_pic; // 후기사진(널 가능) 
+	@Column( nullable = true, columnDefinition = "VARCHAR2(1000)")
+	private String rvPic; // 후기사진(널 가능) 
 	
 	@ManyToOne
 	@JoinColumn(name = "rs_nb", nullable = false) // 외래 키 설정

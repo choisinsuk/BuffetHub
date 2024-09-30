@@ -1,6 +1,8 @@
 package com.hub.domain;
 
-import java.util.Date;
+
+
+import java.time.LocalDateTime;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -20,17 +22,17 @@ public class Notice {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "NOTICE_SEQ_GEN")
-	@Column(name= "nt_nb", nullable = false, columnDefinition = "NUMBER(8)")
-	private Integer nt_nb; // 공지사항 번호
+	@Column( nullable = false, columnDefinition = "NUMBER(8)")
+	private Long ntNb; // 공지사항 번호
 	
-	@Column(name = "nt_title",nullable = false, columnDefinition = "VARCHAR2(100)")
-	private String nt_title; // 공지사항 제목
-	@Column(name = "nt_ctt",nullable = false, columnDefinition = "VARCHAR2(4000)")
-	private String nt_ctt; // 공지사항 내용
-	@Column(name = "nt_regdt",nullable = false)
-	private Date nt_regdt; // 공지사항 등록일자
+	@Column(nullable = false, columnDefinition = "VARCHAR2(100)")
+	private String ntTitle; // 공지사항 제목
+	@Column(nullable = false, columnDefinition = "VARCHAR2(4000)")
+	private String ntCtt; // 공지사항 내용
+	@Column(nullable = false)
+	private LocalDateTime ntRegdt; // 공지사항 등록일자
 	
-	@Column(name = "nt_pic", nullable = true, columnDefinition = "VARCHAR2(1000)")
-	private String nt_pic; // 공지사항 사진(널 가능)
+	@Column(nullable = true, columnDefinition = "VARCHAR2(1000)")
+	private String ntPic; // 공지사항 사진(널 가능)
 
 }

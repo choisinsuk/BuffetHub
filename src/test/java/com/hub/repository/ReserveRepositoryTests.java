@@ -35,8 +35,6 @@ public class ReserveRepositoryTests {
 //
 //		// 현재시간 가져오기
 //		LocalDateTime currentDateTime = LocalDateTime.now();
-//		// Date로 변환
-//		Date currentDate = Date.from(currentDateTime.atZone(ZoneId.systemDefault()).toInstant());
 //
 //		// 예시로 사용할 User와 Voucher생성
 //		User user = User.builder().ur_id("testUser").ur_pw(passwordEncoder.encode("password1")).ur_nm("홍길동") // 이름
@@ -52,12 +50,10 @@ public class ReserveRepositoryTests {
 //		userRepository.save(user);
 //
 //		LocalDateTime startDateTime = LocalDateTime.of(2024, 9, 25, 1, 30);
-//		Date startTime = Date.from(startDateTime.atZone(ZoneId.systemDefault()).toInstant());
-//
+//	
 //		LocalDateTime endDateTime = startDateTime.plusHours(2);
-//		Date endTime = Date.from(endDateTime.atZone(ZoneId.systemDefault()).toInstant());
 //
-//		BuffetVoucher buffetVoucher = BuffetVoucher.builder().bv_nb(21).bv_start_tm(startTime).bv_end_tm(endTime)
+//		BuffetVoucher buffetVoucher = BuffetVoucher.builder().bv_nb(86L).bv_start_tm(startDateTime).bv_end_tm(endDateTime)
 //				.build();
 //
 //		// BuffetVoucher 저장
@@ -65,8 +61,8 @@ public class ReserveRepositoryTests {
 //
 //		Reserve reserve = Reserve.builder().rs_total_person_cnt(1).rs_adult_person_cnt(1).rs_child_person_cnt(0)
 //				.rs_preage_person_cnt(0).rs_visit_adult_cnt(1).rs_visit_child_cnt(0).rs_visit_preage_cnt(0)
-//				.rs_visit_total_cnt(1).rs_visit_yn(true).rs_payment_complete_yn(true).rs_realpeople_cnt(1).rs_nb(1)
-//				.rs_dt(currentDate).user(user).voucher(buffetVoucher).build();
+//				.rs_visit_total_cnt(1).rs_visit_yn(true).rs_payment_complete_yn(true).rs_realpeople_cnt(1).rs_nb(1L)
+//				.rs_dt(currentDateTime).user(user).voucher(buffetVoucher).build();
 //
 //		reserveRepository.save(reserve);
 //
@@ -76,7 +72,7 @@ public class ReserveRepositoryTests {
 //	@Test
 //	public void testRead() {
 //		// 존재하는 번호로 확인
-//		Long rs_nb = 23L;
+//		Long rs_nb = 61L;
 //		Optional<Reserve> result = reserveRepository.findById(rs_nb);
 //		Reserve reserve = result.orElseThrow();
 //		log.info(reserve);
@@ -87,9 +83,9 @@ public class ReserveRepositoryTests {
 //	@Test
 //	public void textModify() {
 //		
-//		LocalDateTime startDateTime = LocalDateTime.of(2024, 11, 10, 15, 30);
-//		Date reserveTime = Date.from(startDateTime.atZone(ZoneId.systemDefault()).toInstant());
-//		Long rs_nb = 23L;
+//		LocalDateTime reserveTime = LocalDateTime.of(2024, 12, 1, 1, 00);
+//		
+//		Long rs_nb = 44L;
 //		
 //		Optional<Reserve> result = reserveRepository.findById(rs_nb);
 //		
@@ -110,7 +106,7 @@ public class ReserveRepositoryTests {
 	// 데이터 삭제 테스트
 	@Test
 	public void testDelete() {
-		Long rs_nb = 23L;
+		Long rs_nb = 42L;
 
 		reserveRepository.deleteById(rs_nb);
 	}

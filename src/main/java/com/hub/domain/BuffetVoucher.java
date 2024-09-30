@@ -1,6 +1,6 @@
 package com.hub.domain;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -21,16 +21,24 @@ public class BuffetVoucher {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "BV_SEQ_GEN")
-	@Column(name = "bv_nb", nullable = false, columnDefinition = "NUMBER(4)")
-	private Integer bv_nb; // 식사권 번호
+	@Column(nullable = false, columnDefinition = "NUMBER(4)")
+	private Long bvNb; // 식사권 번호
 
-	@Column(name = "bv_start_tm", nullable = false)
-	private Date bv_start_tm; // 식사 시작 시간
-	@Column(name = "bv_end_tm", nullable = false)
-	private Date bv_end_tm; // 식사 종료 시간
+	@Column(nullable = false)
+	private LocalDateTime bvStartTm; // 식사 시작 시간
+	@Column(nullable = false)
+	private LocalDateTime bvEndTm; // 식사 종료 시간
 
-	public void changeStart_tm(Date bv_start_tm) {
-		this.bv_start_tm = bv_start_tm;
+	public void changeStart_tm(LocalDateTime bvStartTm) {
+		this.bvStartTm = bvStartTm;
+
+		// end_tm 계산(start_tm에서 2시간 추가)
+		this.bvEndTm = calculateEndTime(bvStartTm);
+	}
+
+	// end_tm 계산 메서드
+	private LocalDateTime calculateEndTime(LocalDateTime startTm) {
+		return startTm.plusHours(2);
 	}
 
 	/*

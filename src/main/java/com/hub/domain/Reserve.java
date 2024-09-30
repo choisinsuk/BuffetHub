@@ -1,6 +1,8 @@
 package com.hub.domain;
 
-import java.util.Date;
+
+
+import java.time.LocalDateTime;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -22,38 +24,47 @@ public class Reserve {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "RESERVE_SEQ_GEN")
 	// 사용할 전략을 시퀀스로 선택, 식별자 생성기를 설정해 놓은 RESERVE_SEQ_GEN 으로 설정
-	@Column(name = "rs_nb", nullable = false, columnDefinition = "NUMBER(8)")
-	private Integer rs_nb; // 예약번호
+	@Column( nullable = false, columnDefinition = "NUMBER(8)")
+	private Long rsNb; // 예약번호
 
-	@Column(name = "rs_dt", nullable = false)
-	private Date rs_dt; // 예약일자
+	@Column(nullable = false)
+	private LocalDateTime rsDt; // 예약일자
 
-	@Column(name = "rs_total_person_cnt", nullable = false, columnDefinition = "NUMBER(4)")
-	private Integer rs_total_person_cnt; // 예약 총 인원수
-	@Column(name = "rs_adult_person_cnt", nullable = false, columnDefinition = "NUMBER(4)")
-	private Integer rs_adult_person_cnt; // 예약 성인 인원수
-	@Column(name = "rs_child_person_cnt", nullable = false, columnDefinition = "NUMBER(4)")
-	private Integer rs_child_person_cnt; // 예약 아동 인원수
-	@Column(name = "rs_preage_person_cnt", nullable = false, columnDefinition = "NUMBER(4)")
-	private Integer rs_preage_person_cnt; // 예약 미취학 인원수
-
-	@Column(name = "rs_visit_total_cnt", nullable = false, columnDefinition = "NUMBER(4)")
-	private Integer rs_visit_total_cnt; // 방문 총 인원수
-	@Column(name = "rs_visit_adult_cnt", nullable = false, columnDefinition = "NUMBER(4)")
-	private Integer rs_visit_adult_cnt; // 방문 성인 인원수
-	@Column(name = "rs_visit_child_cnt", nullable = false, columnDefinition = "NUMBER(4)")
-	private Integer rs_visit_child_cnt; // 방문 아동 인원수
-	@Column(name = "rs_visit_preage_cnt", nullable = false, columnDefinition = "NUMBER(4)")
-	private Integer rs_visit_preage_cnt; // 방문 미취학 인원수
-	@Column(name = "rs_realpeople_cnt", nullable = false, columnDefinition = "NUMBER(4)")
-	private Integer rs_realpeople_cnt; // 실제 방문 인원
-
-	@Column(name = "rs_visit_yn", nullable = false)
 	@Builder.Default
-	private boolean rs_visit_yn = false; // 방문여부
-	@Column(name = "rs_payment_complete_yn", nullable = false)
+	@Column( nullable = false, columnDefinition = "NUMBER(4)")
+	private Integer rsTotalPersonCnt = 1; // 예약 총 인원수
 	@Builder.Default
-	private boolean rs_payment_complete_yn = false; // 결제완료여부
+	@Column(nullable = false, columnDefinition = "NUMBER(4)")
+	private Integer rsAdultPersonCnt = 1; // 예약 성인 인원수
+	@Builder.Default
+	@Column( nullable = false, columnDefinition = "NUMBER(4)")
+	private Integer rsChildPersonCnt = 0; // 예약 아동 인원수
+	@Builder.Default
+	@Column( nullable = false, columnDefinition = "NUMBER(4)")
+	private Integer rsPreagePersonCnt = 0; // 예약 미취학 인원수
+
+	@Builder.Default
+	@Column( nullable = false, columnDefinition = "NUMBER(4)")
+	private Integer rsVisitTotalCnt = 0; // 방문 총 인원수
+	@Builder.Default
+	@Column( nullable = false, columnDefinition = "NUMBER(4)")
+	private Integer rsVisitAdultCnt = 0; // 방문 성인 인원수
+	@Builder.Default
+	@Column(nullable = false, columnDefinition = "NUMBER(4)")
+	private Integer rsVisitChildCnt = 0; // 방문 아동 인원수
+	@Builder.Default
+	@Column(nullable = false, columnDefinition = "NUMBER(4)")
+	private Integer rsVisitPreageCnt = 0; // 방문 미취학 인원수
+	@Builder.Default
+	@Column(nullable = false, columnDefinition = "NUMBER(4)")
+	private Integer rsRealpeopleCnt = 0; // 실제 방문 인원
+
+	@Builder.Default
+	@Column( nullable = false)
+	private boolean rsVisitYn = false; // 방문여부
+	@Builder.Default
+	@Column( nullable = false)
+	private boolean rsPaymentCompleteYn = false; // 결제완료여부
 
 	// 관계 설정(외래 키를 받아오는 쪽)
 	@OneToOne
@@ -71,40 +82,62 @@ public class Reserve {
 	 * 정보
 	 */
 
-	public void changeRs_dt(Date rs_dt) {
-		this.rs_dt = rs_dt;
+	public void changeRs_dt(LocalDateTime rsDt) {
+		this.rsDt = rsDt;
 	}
 
-	public void changeRs_adult_person_cnt(Integer rs_adult_person_cnt) {
-		this.rs_adult_person_cnt = rs_adult_person_cnt;
+	// 인원수 총합 계산 메서드
+	private void updateTotalPersonCount() {
+		this.rsTotalPersonCnt = this.rsAdultPersonCnt + this.rsChildPersonCnt + this.rsPreagePersonCnt;
 	}
 
-	public void changeRs_child_person_cnt(Integer rs_child_person_cnt) {
-		this.rs_child_person_cnt = rs_child_person_cnt;
+	// 예약 인원수 변경 메서드
+	public void changeRs_adult_person_cnt(Integer rsAdultPersonCnt) {
+		this.rsAdultPersonCnt = rsAdultPersonCnt;
+		updateTotalPersonCount(); // 총 인원수 업데이트
 	}
 
-	public void changeRs_preage_person_cnt(Integer rs_preage_person_cnt) {
-		this.rs_preage_person_cnt = rs_preage_person_cnt;
+	public void changeRs_child_person_cnt(Integer rsChildPersonCnt) {
+		this.rsChildPersonCnt = rsChildPersonCnt;
+		updateTotalPersonCount(); // 총 인원수 업데이트
 	}
 
-	public void changeRs_visit_adult_cnt(Integer rs_visit_adult_cnt) {
-		this.rs_visit_adult_cnt = rs_visit_adult_cnt;
+	public void changeRs_preage_person_cnt(Integer rsPreagePersonCnt) {
+		this.rsPreagePersonCnt = rsPreagePersonCnt;
+		updateTotalPersonCount(); // 총 인원수 업데이트
 	}
 
-	public void changeRs_visit_child_cnt(Integer rs_visit_child_cnt) {
-		this.rs_visit_child_cnt = rs_visit_child_cnt;
+	// 방문 인원수 총합 계산 메서드
+	private void updateVisitTotalCount() {
+		this.rsVisitTotalCnt = this.rsVisitAdultCnt + this.rsVisitChildCnt + this.rsVisitPreageCnt;
 	}
 
-	public void changeRs_visit_preage_cnt(Integer rs_visit_preage_cnt) {
-		this.rs_visit_preage_cnt = rs_visit_preage_cnt;
+	// 방문 인원수 변경 메서드
+	public void changeRs_visit_adult_cnt(Integer rsVisitAdultCnt) {
+		this.rsVisitAdultCnt = rsVisitAdultCnt;
+		updateVisitTotalCount(); // 방문 총 인원수 업데이트
 	}
 
-	public void changeRs_visit_yn(boolean rs_visit_yn) {
-		this.rs_visit_yn = rs_visit_yn;
+	public void changeRs_visit_child_cnt(Integer rsVisitChildCnt) {
+		this.rsVisitChildCnt = rsVisitChildCnt;
+		updateVisitTotalCount(); // 방문 총 인원수 업데이트
 	}
 
-	public void changeRs_payment_complete_yn(boolean rs_payment_complete_yn) {
-		this.rs_payment_complete_yn = rs_payment_complete_yn;
+	public void changeRs_visit_preage_cnt(Integer rsVisitPreageCnt) {
+		this.rsVisitPreageCnt = rsVisitPreageCnt;
+		updateVisitTotalCount(); // 방문 총 인원수 업데이트
+	}
+	
+	public void changeRs_realpeople_cnt(Integer rsRealpeopleCnt) {
+		this.rsRealpeopleCnt = rsRealpeopleCnt;
+	}
+
+	public void changeRs_visit_yn(boolean rsVisitYn) {
+		this.rsVisitYn = rsVisitYn;
+	}
+
+	public void changeRs_payment_complete_yn(boolean rsPaymentCompleteYn) {
+		this.rsPaymentCompleteYn = rsPaymentCompleteYn;
 	}
 
 }
