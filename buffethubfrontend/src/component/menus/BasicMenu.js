@@ -1,35 +1,58 @@
-import { useSelector } from "react-redux";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
 const BasicMenu = () => {
-  const loginState = useSelector((state) => state.loginSlice);
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
+  };
 
   return (
-    <nav id="navbar" className="flex bg-blue-300">
-      <div className="w-4/5 bg-gray-500">
-        <ul className="flex p-4 text-white font-bold">
-          <li className="pr-6 text-2xl">
-            <Link to={"/"}>Main</Link>
-          </li>
-          <li className="pr-6 text-2xl">
-            <Link to={"/about"}>Test</Link>
-          </li>
-        </ul>
-      </div>
+    <nav id='navbar' className="flex bg-blue-300">
+      <div className="w-full bg-white flex justify-between items-center p-4">
+        {/* 왼쪽에 로고 배치 */}
+        <div className="text-2xl text-yellow-500 font-bold">
+          <Link to={'/'}>BuffetHub</Link>
+        </div>
 
-      <div className="w-1/5 flex justify-end bg-orange-300 p-4 font-medium">
-        {!loginState.id ? (
-          <div className="text-white text-sm m-1 rounded">
-            <Link to={"/user/login"}>Login</Link>
+        {/* 오른쪽 메뉴 배치 및 햄버거 아이콘 */}
+        <div className="flex items-center md:space-x-4">
+          {/* 오른쪽 메뉴 배치 - 햄버거 아이콘 옆으로 정렬 */}
+          <ul className={`flex flex-col md:flex-row md:space-x-6 text-black font-bold ${isOpen ? "block" : "hidden"} md:flex`}>
+            <li className="text-1xl p-2">
+              <Link to={'/'}>메인페이지</Link>
+            </li>
+            <li className="text-1xl p-2">
+              <Link to={'/buffet-info'}>뷔페정보</Link>
+            </li>
+            <li className="text-1xl p-2">
+              <Link to={'/reservation'}>예약하기</Link> 
+            </li>
+            <li className="text-1xl p-2">
+              <Link to={'/board'}>게시판</Link> 
+            </li>
+            <li className="text-1xl p-2">
+              <Link to={'/mypage'}>마이페이지</Link>
+            </li>
+            <li className="text-1xl p-2">
+              <Link to={'/signup'}>회원가입</Link> 
+            </li>
+            <li className="text-1xl p-2">
+              <Link to={'/login'}>로그인</Link> 
+            </li>
+          </ul>
+
+          {/* 반응형 햄버거 아이콘 */}
+          <div className="md:hidden cursor-pointer" onClick={toggleMenu}>
+            <div className="bg-black w-6 h-0.5 mb-0.5"></div>
+            <div className="bg-black w-6 h-0.5 mb-0.5"></div>
+            <div className="bg-black w-6 h-0.5"></div>
           </div>
-        ) : (
-          <div className="text-white text-sm m-1 rounded">
-            <Link to={"/user/logout"}>로그아웃</Link>
-          </div>
-        )}
+        </div>
       </div>
     </nav>
   );
-};
+}
 
 export default BasicMenu;
