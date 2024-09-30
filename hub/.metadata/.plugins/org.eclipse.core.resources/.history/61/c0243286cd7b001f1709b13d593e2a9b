@@ -1,0 +1,23 @@
+package com.hub.service;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+
+import com.hub.dto.BuffetVoucherDTO;
+
+import lombok.extern.log4j.Log4j2;
+
+@SpringBootTest
+@Log4j2
+public class BuffetVoucherServiceTests {
+
+	@Autowired
+	private BuffetVoucherService buffetVoucherService;
+	
+	@Test
+	public void testRegister() {
+		BuffetVoucherDTO buffetVoucherDTO = BuffetVoucherDTO.builder()
+				.bv_start_tm(null).bv_end_tm(null).build();
+	}
+}

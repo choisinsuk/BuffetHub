@@ -1,0 +1,39 @@
+package com.hub.service;
+
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+
+import com.hub.dto.BuffetVoucherDTO;
+
+import lombok.extern.log4j.Log4j2;
+
+@SpringBootTest
+@Log4j2
+public class BuffetVoucherServiceTests {
+
+	@Autowired
+	private BuffetVoucherService buffetVoucherService;
+	
+	@Test
+	public void testRegister() {
+		// 시작시간 설정(년,월,일,시,분)
+		LocalDateTime startDateTime = LocalDateTime.of(2024, 9, 27, 17, 30);
+		Date startTime = Date.from(startDateTime.atZone(ZoneId.systemDefault()).toInstant());
+
+		// 종료시간 설정(시작 시간에 2시간 추가)
+		LocalDateTime endDateTime = startDateTime.plusHours(2);
+		Date endTime = Date.from(endDateTime.atZone(ZoneId.systemDefault()).toInstant());
+		
+		
+		BuffetVoucherDTO buffetVoucherDTO = BuffetVoucherDTO.builder()
+				.bv_start_tm(startTime).bv_end_tm(endTime).build();
+		
+		Long bv_nb = buffetVoucherService.register(buffetVoucherDTO);
+		log.info("bv_nb: " + bv_nb);
+	}
+}

@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import ReserveLayout from "../../layouts/ReserveLayout";
 import ChangeReserveComponent from "../../component/reserve/ChangeReserveComponent";
 
-const ReservePage = () => {
+const ChangeReservePage = () => {
   const asideContent = (
     <nav id="rvaside" className="flex">
       <ul className="flex flex-col p-4">
@@ -34,4 +34,4 @@ const ReservePage = () => {
   );
 };
 
-export default ReservePage;
+export default ChangeReservePage;

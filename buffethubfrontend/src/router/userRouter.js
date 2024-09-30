@@ -3,6 +3,7 @@ import LogoutPage from "../page/user/LogoutPage";
 
 const Loading = <div>Loading...</div>;
 const Login = lazy(() => import("../page/user/LoginPage"));
+const Myreserve = lazy(() => import("../page/reserve/MyReservePage"))
 
 const userRouter = () => {
   return [
@@ -22,6 +23,14 @@ const userRouter = () => {
         </Suspense>
       ),
     },
+    {
+      path: "myreserve",
+      element: (
+        <Suspense fallback={Loading}>
+          <Myreserve/>
+        </Suspense>
+      )
+    }
   ];
 };
 

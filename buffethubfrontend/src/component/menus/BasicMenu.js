@@ -27,7 +27,7 @@ const BasicMenu = () => {
               <Link to={'/buffet-info'}>뷔페정보</Link>
             </li>
             <li className="text-1xl p-2">
-              <Link to={'/reservation'}>예약하기</Link> 
+              <Link to={'/reserve'}>예약하기</Link> 
             </li>
             <li className="text-1xl p-2">
               <Link to={'/board'}>게시판</Link> 
@@ -39,7 +39,7 @@ const BasicMenu = () => {
               <Link to={'/signup'}>회원가입</Link> 
             </li>
             <li className="text-1xl p-2">
-              <Link to={'/login'}>로그인</Link> 
+              <Link to={'/user/login'}>로그인</Link> 
             </li>
           </ul>
 

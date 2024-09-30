@@ -1,0 +1,77 @@
+package com.hub.repository;
+
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
+import com.hub.domain.Reserve;
+import com.hub.domain.User;
+
+import lombok.extern.log4j.Log4j2;
+
+@Log4j2
+@SpringBootTest
+public class ReserveRepositoryTests {
+	
+	@Autowired
+	private UserRepository userRepository;
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+	@Autowired
+	private ReserveRepository reserveRepository;
+	@Autowired
+	private BuffetVoucherRepository buffetVoucherRepository;
+	
+	@Test
+	public void testInsert() {
+		
+		
+		
+		for (int i = 1; i <= 10; i++) {
+			// 현재시간 가져오기
+			LocalDateTime currentDateTime = LocalDateTime.now();
+			// Date로 변환
+			Date currentDate = Date.from(currentDateTime.atZone(ZoneId.systemDefault()).toInstant());
+			
+			// 예시로 사용할 User와 Voucher생성
+			User user = User.builder()
+					.ur_id("testUser")
+					.ur_pw(passwordEncoder.encode("password1"))
+	                .ur_nm("홍길동")                        // 이름
+	                .ur_phn("01012345678")                      // 전화번호
+	                .ur_eml("test@example.com")                   // 이메일
+	                .ur_prpl_yn("1")                             // 개인정보 이용약관 동의 여부
+	                .ur_stmbpl_yn("1")                           // 가게 회원 약관 동의 여부
+	                .ur_join_dt(new Date())                       // 회원가입 일자
+	                .ur_condition_code("ACTIVE")                   // 회원 상태
+	                .build();
+			
+			Reserve reserve = Reserve.builder()
+					.rs_total_person_cnt(i)
+					.rs_adult_person_cnt(i)
+					.rs_child_person_cnt(0)
+					.rs_preage_person_cnt(0)
+					.rs_visit_adult_cnt(i)
+					.rs_visit_child_cnt(0)
+					.rs_visit_preage_cnt(0)
+					.rs_visit_total_cnt(i)
+					.rs_visit_yn(true)
+					.rs_payment_complete_yn(true)
+					.rs_realpeople_cnt(i)
+					.rs_nb(i)
+					.rs_dt(currentDate)
+					.user(null)
+					.voucher(null)
+					.build();
+			
+			reserveRepository.save(reserve);
+			
+			
+		}
+	}
+}

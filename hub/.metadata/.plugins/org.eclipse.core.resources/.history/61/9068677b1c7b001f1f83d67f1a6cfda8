@@ -1,0 +1,5 @@
+package com.hub.dto;
+
+public class ReserveDTO {
+
+}

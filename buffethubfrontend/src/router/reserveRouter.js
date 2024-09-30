@@ -4,6 +4,7 @@ const Loading = <div>Loading...</div>;
 const Reserve = lazy(() => import("../page/reserve/ReservePage"));
 const MakeReserve = lazy(() => import("../page/reserve/MakeReservePage"))
 const ChangeReserve = lazy(() => import("../page/reserve/ChangeReservePage"))
+const ModifyReserve = lazy(() => import("../page/reserve/ModifyReservePage"))
 
 const reserveRouter = () => {
   return [
@@ -26,7 +27,14 @@ const reserveRouter = () => {
       element: <Suspense fallback={Loading}>
         <ChangeReserve/>
       </Suspense>
+    },
+    {
+      path: "modifyreserve",
+      element: <Suspense fallback={Loading}>
+        <ModifyReserve/>
+      </Suspense>
     }
+    
   ];
 };
 

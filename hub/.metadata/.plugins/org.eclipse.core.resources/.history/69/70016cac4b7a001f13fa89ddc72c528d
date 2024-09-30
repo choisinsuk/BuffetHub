@@ -1,0 +1,5 @@
+package com.hub.repository;
+
+public interface CustomerInquiryRepository {
+
+}

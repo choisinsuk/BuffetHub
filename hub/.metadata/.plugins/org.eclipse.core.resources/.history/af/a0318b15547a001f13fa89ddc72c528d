@@ -1,0 +1,43 @@
+package com.hub.repository;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+
+import com.hub.domain.BuffetVoucher;
+
+import lombok.extern.log4j.Log4j2;
+
+@SpringBootTest
+@Log4j2
+public class BuffetVoucherRepositoryTests {
+
+	@Autowired
+	private BuffetVoucherRepository buffetVoucherRepository;
+	
+	@Test
+	public void testInsert() {
+		
+        
+		for (Long i = 1L; i <= 10L; i++) {
+			
+//			LocalDateTime startTime = LocalDateTime.now(); // 현재 시간
+//	        LocalDateTime endTime = startTime.plusHours(2); // 현재 시간으로부터 2시간 뒤
+//	        
+//	        Date startDate = Date.from(startTime.atZone(ZoneId.systemDefault()).toInstant());
+//            Date endDate = Date.from(endTime.atZone(ZoneId.systemDefault()).toInstant());
+            
+			BuffetVoucher buffetVoucher = BuffetVoucher.builder().bv_nb(i).
+					bv_start_tm(LocalDateTime.now()).bv_end_tm(LocalDateTime.now().plusHours(2))
+					.build();
+			
+			buffetVoucherRepository.save(buffetVoucher);
+					
+		}
+	}
+}

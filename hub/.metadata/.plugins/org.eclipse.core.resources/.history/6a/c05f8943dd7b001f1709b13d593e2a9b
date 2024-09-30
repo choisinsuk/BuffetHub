@@ -1,0 +1,8 @@
+package com.hub.service;
+
+import com.hub.dto.BuffetVoucherDTO;
+
+public interface BuffetVoucherService {
+
+	Long register(BuffetVoucherDTO buffetVoucherDTO);
+}
