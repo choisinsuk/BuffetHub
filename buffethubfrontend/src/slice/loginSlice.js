@@ -2,10 +2,11 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { loginPost } from "../api/userApi";
 
 const initState = {
-  id: "",
+  ur_id: "",
 };
 
 export const loginPostAsync = createAsyncThunk("loginPostAsync", (param) => {
+  console.log("서버로 전달되는 param: ", param); // 전달되는 데이터 확인
   return loginPost(param);
 });
 
@@ -20,7 +21,7 @@ const loginSlice = createSlice({
       const data = action.payload;
 
       // 새로운 상태
-      return { id: data.id };
+      return { ur_id: data.id };
     },
     logout: (state, action) => {
       console.log("로그아웃...");

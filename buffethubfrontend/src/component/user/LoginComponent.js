@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 import { login, loginPostAsync } from "../../slice/loginSlice";
 
 const initState = {
-  id: "",
-  pw: "",
+  ur_id: "",
+  ur_pw: "",
 };
 
 const LoginComponent = () => {
@@ -16,62 +16,62 @@ const LoginComponent = () => {
   const handleChange = (e) => {
     loginParam[e.target.name] = e.target.value;
     setLoginParam({ ...loginParam });
+    console.log("loginParam 상태확인 : ", loginParam)
   };
 
   const handleClickLogin = (e) => {
     dispatch(loginPostAsync(loginParam))
-    .unwrap()
-    .then(data => {
-      console.log("after unwrap...")
-      console.log(data)
-    })
+      .unwrap()
+      .then((data) => {
+        console.log("after unwrap...");
+        console.log("서버 응답 데이터: ", data);
+      });
   };
 
   return (
-    <>
-      <div className="border-2 border-sky-200 mt-10 m-2 p-4">
-        <div className="flex justify-center">
-          <div className="text-4xl m-4 p-4 font-extrabold text-blue-500">
-            로그인
-          </div>
+    <div className="border-2 border-sky-200 mt-10 m-2 p-4">
+      <div className="flex justify-center">
+        <div className="text-4xl m-4 p-4 font-extrabold text-blue-500">
+          로그인
         </div>
-        <div className="flex justify-center">
-          <div className="relative mb-4 flex w-full flex-wrap items-stretch">
-            <input
-              className="w-full p-3 rounded-r border border-solid border-neutral-500 shadow-md"
-              placeholder="아이디"
-              name="id"
-              type={"text"}
-              value={loginParam.id}
-              onChange={handleChange}
-            ></input>
-          </div>
+      </div>
+      <div className="flex justify-center">
+        <div className="relative mb-4 flex w-full flex-wrap items-stretch">
+          <input
+            className="w-full p-3 rounded-r border border-solid border-neutral-500 shadow-md"
+            placeholder="아이디"
+            name="ur_id"
+            type={"text"}
+            value={loginParam.ur_id}
+            onChange={handleChange}
+          ></input>
         </div>
-        <div className="flex justify-center">
-          <div className="relative mb-4 flex w-full flex-wrap items-stretch">
-            <input
-              className="w-full p-3 rounded-r border border-solid border-neutral-500 shadow-md"
-              placeholder="비밀번호"
-              name="pw"
-              type={"password"}
-              value={loginParam.pw}
-              onChange={handleChange}
-            ></input>
-          </div>
+      </div>
+      <div className="flex justify-center">
+        <div className="relative mb-4 flex w-full flex-wrap items-stretch">
+          <input
+            className="w-full p-3 rounded-r border border-solid border-neutral-500 shadow-md"
+            placeholder="비밀번호"
+            name="ur_pw"
+            type={"password"}
+            value={loginParam.ur_pw}
+            onChange={handleChange}
+          ></input>
         </div>
-        <div className="flex justify-center">
-          <div className="relative mb-4 flex w-full justify-center">
-            <div className="w-4/5 p-6 flex justify-center font-bold">
-              <button
-                className="rounded p-4 w-36 bg-blue-500 text-xl text-white"
-                onClick={handleClickLogin}
-              >
-                로그인
-              </button>
-            </div>
+      </div>
+      <div className="flex justify-center">
+        <div className="relative mb-4 flex w-full justify-center">
+          <div className="w-4/5 p-6 flex justify-center font-bold">
+            <button
+              className="rounded p-4 w-36 bg-blue-500 text-xl text-white"
+              onClick={handleClickLogin}
+            >
+              로그인
+            </button>
           </div>
         </div>
       </div>
+
       <div className="w-4/5">
         <ul className="flex p-4 text-white font-bold">
           <li className="pr-6 text-2xl text-gray-500">
@@ -85,7 +85,7 @@ const LoginComponent = () => {
           </li>
         </ul>
       </div>
-    </>
+    </div>
   );
 };
 
