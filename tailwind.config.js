@@ -6,11 +6,10 @@ module.exports = {
   theme: {
     extend: {
       colors:{
-        customColor1 : '#BD9E00',
-        customColor2 : '#789b00',
-        customColor3 : '#1B9217',
-        customColor4 : '#008541',
-        customColor5 : '#007560'
+        customColor1 : '#FFA500',
+        customColor2 : '#FF9900',
+        customColor3 : '#FEA948',
+        customColor4 : '#F2AC29'
       }
     },
   },

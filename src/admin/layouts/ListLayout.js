@@ -10,10 +10,9 @@ const ListLayout = ({ children }) => {
       {/*div태그는 메인 콘텐츠와 사이드바를 포함하는 컨테이너. 반응형 레이아웃을 위해 flexbox를 사용한다.*/}
       <div className="bg-white my-5 w-full flex-row space-y-4 md:flex-row md:space-y-0">
         {/*main태그는 메인 콘텐츠 영역을 저의하며, 배경색과 패딩을 설정한다.*/}
-        <main className="bg-sky-200 w-full px-5 py-20 text-center">
-          <div className="text-3xl">예약 정보 관리</div>
+        <main className="bg-customColor2 w-full px-3 py-20 flex items-center justify-center">
+          <div className="text-3xl font-bold text-white">예약 정보 관리</div>
         </main>
-
         <div className="bg-red-200 w-full px-2 py-4 text-center">
           <div className="text-3xl">검색창</div>
         </div>  

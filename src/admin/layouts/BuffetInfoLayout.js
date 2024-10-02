@@ -19,10 +19,12 @@ const MyPage = () => {
     <div className="p-5">
       <div className="bg-white my-5 w-full flex-row space-y-4 md:flex-row md:space-x-4 md:space-y-0">
         {/* main 태그는 메인 콘텐츠 영역을 저의하며, 배경색과 패딩을 설정한다. */}
-        <main className="bg-sky-200 w-full px-5 py-20 text-center">
-          <div className="text-3xl">예약 정보 관리</div>
+        <main className="bg-customColor2 w-full px-3 py-20 rounded-lg flex items-center justify-center">
+          <div className="text-3xl font-bold text-white">예약 정보 관리</div>
         </main>
       </div>
+
+      <hr className="my-4" />
 
       <div className="space-x-4 mb-4 text-center">
         <button

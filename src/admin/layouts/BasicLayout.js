@@ -30,9 +30,9 @@ const BasicLayout = ({ children }) => {
       <BasicMenu />
 
       {/* 메인 콘텐츠 컨테이너 */}
-      <div className="bg-white my-5 w-full flex flex-col space-y-4 md:flex-row md:space-x-4 md:space-y-0 px-8 md:px-12 pb-8">
+      <div className="bg-white my-4 w-full flex flex-col space-y-4 md:flex-row md:space-x-4 md:space-y-0 px-8 md:px-12 pb-8">
         {/* 메인 페이지 환영 메시지 */}
-        <main className="bg-customColor2 w-full px-3 py-20 rounded-lg flex items-center justify-center">
+        <main className="bg-customColor1 w-full px-3 py-20 rounded-lg flex items-center justify-center">
           <h1 className="text-white text-4xl font-bold text-center">
             관리자로 로그인하셨습니다.
             <br />
@@ -40,14 +40,14 @@ const BasicLayout = ({ children }) => {
           </h1>
         </main>
       </div>
-
+      <hr className="my-4" />
       {/* 버튼 컨테이너 */}
       <div className="container mx-auto mt-5 mb-20 w-full">
         {/* 예약 리스트 확인 버튼 */}
         <div className="flex justify-center">
           <button
             type="button"
-            className="bg-customColor3 text-white font-bold w-full rounded-lg p-4 border border-solid border-neutral-100 text-xl"
+            className="bg-customColor2 text-white font-bold w-full rounded-lg p-4 border border-solid border-neutral-100 text-xl"
             onClick={handleToReserve}
           >
             예약 리스트 확인
@@ -58,7 +58,7 @@ const BasicLayout = ({ children }) => {
         <div className="flex justify-center mt-4">
           <button
             type="button"
-            className="bg-customColor3 text-white font-bold w-full rounded-lg p-4 border border-solid border-neutral-100 text-xl"
+            className="bg-customColor2 text-white font-bold w-full rounded-lg p-4 border border-solid border-neutral-100 text-xl"
             onClick={handleGoToNotice}
           >
             공지사항 작성
