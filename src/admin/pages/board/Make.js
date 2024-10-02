@@ -1,7 +1,7 @@
 import React, { useState } from "react"; // React 및 useState 훅 가져오기
 import { useNavigate } from "react-router-dom"; // 라우팅을 위한 useNavigate 훅 가져오기
 import axios from "axios"; // HTTP 요청을 위한 axios 가져오기
-import BoardLayout from "../../layouts/BoardLayout"; // 레이아웃 컴포넌트 가져오기
+import BoardLayout from "../../layouts/BoardParts/BoardLayout"; // 레이아웃 컴포넌트 가져오기
 
 const Make = () => {
   const navigate = useNavigate(); // navigate 함수 초기화
@@ -58,9 +58,7 @@ const Make = () => {
           <thead>
             <tr>
               <th className="p-2 text-left">
-                <div
-                  contentEditable
-                  className="w-full border border-gray-400 rounded p-2"
+                <div contentEditable  className="w-full border border-gray-400 rounded p-2"
                   onInput={(e) => setTitle(e.currentTarget.textContent)} // 제목 입력 시 상태 업데이트
                   suppressContentEditableWarning={true} // 경고 방지
                 >
@@ -68,8 +66,7 @@ const Make = () => {
                 </div>
               </th>
               <th className="p-2 text-left">
-                <div
-                  contentEditable
+                <div contentEditable
                   className="w-full border border-gray-400 rounded p-2"
                   onInput={(e) => setMenuTitle(e.currentTarget.textContent)} // 메뉴 제목 입력 시 상태 업데이트
                   suppressContentEditableWarning={true} // 경고 방지

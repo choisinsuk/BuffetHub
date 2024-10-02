@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import BoardLayout from "../../layouts/BoardLayout";
+import BoardLayout from "../../layouts/BoardParts/BoardLayout";
 
 const Answer = () => {
   const navigate = useNavigate();

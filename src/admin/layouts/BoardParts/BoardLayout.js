@@ -1,5 +1,5 @@
 //필요한 모듈 가져오기
-import BasicMenu from "../components/menu/BasicMenu";
+import BasicMenu from "../../components/menu/BasicMenu";
 
 //컴포넌트 정의
 //BasicLayout 컴포넌트는 children 이라는 props를 받아서 렌더링한다.

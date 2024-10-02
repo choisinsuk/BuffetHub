@@ -9,9 +9,9 @@ const Loading = <div>Loading....</div>;
 
 //비동기적 메인 페이지 로드
 const Main = lazy(() => import("../pages/main"));
-const Notice = lazy(() => import("../pages/board/Notice"));
-const CustomErinquiry = lazy(() => import("../pages/board/CustomErinquiry"));
-const ReviewBoard = lazy(() => import("../pages/board/ReviewBoard"));
+const Notice = lazy(() => import("../pages/board/Notice/Notice"));
+const UserInquiries = lazy(() => import("../pages/board/UserInquiries/UserInquiries"));
+const ReviewBoard = lazy(() => import("../pages/board/review/ReviewBoard"));
 const TodoIndex = lazy(() => import("../pages/todo/Indexpage"));
 const Make = lazy(() => import("../pages/board/Make"));
 const Answer = lazy(() => import("../pages/board/Answer"));
@@ -23,13 +23,8 @@ const UserList = lazy(() => import("../pages/userlist"))
 
 const root = createBrowserRouter([
   {
-    /*경로가 빈 문자열인 경우, Suspense 컴포넌트를 사용하여 Main컴포넌트를 로드한다.*/
     path: "",
-    element: (
-      <Suspense fallback={Loading}>
-        <Main />
-      </Suspense>
-    ),
+    element:<Suspense fallback={Loading}><Main /></Suspense>
   },
   
   {
@@ -49,29 +44,17 @@ const root = createBrowserRouter([
 
   {
     path: "notice",
-    element: (
-      <Suspense fallback={Loading}>
-        <Notice />
-      </Suspense>
-    ),
+    element:<Suspense fallback={Loading}><Notice /></Suspense>
   },
 
   {
-    path: "customErinquiry",
-    element: (
-      <Suspense fallback={Loading}>
-        <CustomErinquiry />
-      </Suspense>
-    ),
+    path: "UserInquiries",
+    element:<Suspense fallback={Loading}><UserInquiries /></Suspense>
   },
 
   {
     path: "reviewBoard",
-    element: (
-      <Suspense fallback={Loading}>
-        <ReviewBoard />
-      </Suspense>
-    ),
+    element:  <Suspense fallback={Loading}><ReviewBoard /></Suspense>
   },
 
   {

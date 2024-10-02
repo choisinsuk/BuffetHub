@@ -1,10 +1,12 @@
 
 import React, { useState } from "react"; // React와 useState 가져오기
 import { useNavigate } from "react-router-dom"; // useNavigate 훅 가져오기
-import BoardLayout from "../../layouts/BoardLayout"; // BoardLayout 컴포넌트 가져오기
-import Make from "./Make"; // make 컴포먼트 가져오기
+import BoardLayout from "../../../layouts/BoardParts/BoardLayout"; // BoardLayout 컴포넌트 가져오기
+import Make from "../Make"; // make 컴포먼트 가져오기
+import InquiriesList from "../UserInquiries/InquiriesList"
+import BoardNav from "../BoardNav";
 
-const CustomErinquiry = () => {
+const UserInquiries = () => {
     const navigate = useNavigate(); // navigate 함수 선언
     const [searchTerm, setSearchTerm] = useState(""); // 검색어 상태 관리
   const [posts, setPosts] = useState([]); // 게시글 목록 상태
@@ -38,54 +40,8 @@ const CustomErinquiry = () => {
     <BoardLayout>
       <div className="text-5xl text-center">
         <div>고객 문의</div>
-      
-        <div className="mt-8 flex justify-center space-x-4">
-          <button
-            type="button"
-            className="w-1/4 max-w-lg rounded p-3 border border-gray-500 text-2xl"
-            onClick={() => handleNavigate("/Notice")}
-          >
-            공지사항 관리
-          </button>
-
-          <button
-            type="button"
-            className="w-1/4 max-w-lg rounded p-3 border border-gray-500 text-2xl"
-            onClick={() => handleNavigate("/reviewBoard")}
-          >
-            후기 게시판 관리
-          </button>
-
-          <button
-            type="button"
-            className="w-1/4 max-w-lg rounded p-3 border border-gray-500 text-2xl"
-            onClick={() => handleNavigate("/CustomErinquiry")}
-          >
-            고객문의 관리
-          </button>
-        </div>
-
-        {/* 6줄 4칸 표 추가 */}
-        <table className="mt-8 mx-auto border border-gray-500 p-1 w-full max-w-4xl text-center">
-          <thead className="text-xl">         
-            <tr>
-              <th className="border border-gray-400 p-2">문의 번호</th>
-              <th className="border border-gray-400 p-2">문의 제목</th>
-              <th className="border border-gray-400 p-2">글쓴이</th>
-              <th className="border border-gray-400 p-2">입력날짜</th>
-            </tr>
-          </thead>
-          <tbody className="text-xl">
-            {[...Array(6)].map((_, rowIndex) => (
-              <tr key={rowIndex}>
-                <td className="border border-gray-400 p-5"></td>
-                <td className="border border-gray-400 p-5"></td>
-                <td className="border border-gray-400 p-5"></td>
-                <td className="border border-gray-400 p-5"></td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <BoardNav />
+        <InquiriesList />
 
         {/* 검색어 입력 필드와 검색 버튼 및 작성 버튼 추가: 표 아래에 위치 */}
         <div className="mt-4 flex justify-center space-x-2">
@@ -131,4 +87,4 @@ const CustomErinquiry = () => {
   );
 }
 
-export default CustomErinquiry;
+export default UserInquiries;
