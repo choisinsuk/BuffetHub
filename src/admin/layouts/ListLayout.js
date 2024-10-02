@@ -23,7 +23,7 @@ const ListLayout = ({ children }) => {
 
       <div className="bg-white my-5 w-full flex-row space-y-4 md:flex-row md:space-x-4 md:space-y-0">
         <main className="bg-sky-200 w-full px-5 py-20 text-center">
-        <div className="text-3xl">회원 리스트 들어갈 자리ㅁㄴㅇ</div>
+        <div className="text-3xl">회원 리스트 들어갈 자리</div>
         </main>
       </div>
       

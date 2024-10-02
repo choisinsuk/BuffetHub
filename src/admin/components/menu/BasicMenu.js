@@ -16,18 +16,23 @@ const BasicMenu = () => {
           </li>
 
           <li className="pr-6 text-2xl">
-            <Link to={"/reserve"}>예약 관리</Link>
-          </li>
-          <li className="pr-6 text-2xl">
-            <Link to={"/infoManager"}>정보 설정</Link>         
+            <Link to={"/about"}>예약 관리</Link>
           </li>
 
           <li className="pr-6 text-2xl">
-            <Link to={"/CustomErinquiry"}>게시판 관리</Link>
+            <Link to={"/about"}>뷔페 예약 설정</Link>
           </li>
 
           <li className="pr-6 text-2xl">
-            <Link to={"/userManager"}>회원 관리</Link>
+            <Link to={"/about"}>뷔페 정보 설정</Link>         
+          </li>
+
+          <li className="pr-6 text-2xl">
+            <Link to={"/Notice"}>게시판 관리</Link>
+          </li>
+
+          <li className="pr-6 text-2xl">
+            <Link to={"/about"}>회원 관리</Link>
           </li>  
         </ul>
       </div>
