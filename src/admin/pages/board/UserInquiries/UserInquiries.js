@@ -39,7 +39,7 @@ const UserInquiries = () => {
   return (
     <BoardLayout>
       <div className="text-5xl text-center">
-        <div>고객 문의</div>
+      <div className="bg-customColor1 w-full px-3 py-20 rounded-lg flex items-center justify-center text-white text-bold">고객 문의 관리</div>
         <BoardNav />
         <InquiriesList />
 

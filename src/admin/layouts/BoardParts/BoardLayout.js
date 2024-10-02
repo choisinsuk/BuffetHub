@@ -9,13 +9,15 @@ const BoardLayout = ({ children }) => {
       <BasicMenu></BasicMenu>
 
       {/*div태그는 메인 콘텐츠와 사이드바를 포함하는 컨테이너. 반응형 레이아웃을 위하 flexbox를 사용한다.*/}
+
       <div className="bg-white my-5 w-full flex flex-col space-y-4 md:flex-row md:space-x-4 md:space-y-0">
-      <main className="bg-sky-300 w-full px-5 py-10">
-          <h1 className="text-2xl md:text-4xl">{children}</h1>
+      <main className="w-full px-5 py-10">
+          <h1 className="text-2xl md:text-4xl ">{children}</h1>
         </main>
-
-
       </div>
+
+      
+
     </>
   );
 }

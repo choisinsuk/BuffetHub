@@ -38,7 +38,7 @@ const [posts, setPosts] = useState([]); // 게시글 목록 상태
   return (
     <BoardLayout>
       <div className="text-5xl text-center">
-        <div>게시판 관리</div>
+        <div className="bg-customColor1 w-full px-3 py-20 rounded-lg flex items-center justify-center text-white text-bold">공지사항 관리</div>
         <BoardNav />
         <NoticeList />
 

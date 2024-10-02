@@ -33,7 +33,7 @@ const ReviewBoard = () => {
   return (
     <BoardLayout>
       <div className="text-5xl text-center">
-        <div>후기 게시판</div>
+      <div className="bg-customColor1 w-full px-3 py-20 rounded-lg flex items-center justify-center text-white text-bold">후기 게시판 관리</div>
         <BoardNav />
         <ReviewList />
 
