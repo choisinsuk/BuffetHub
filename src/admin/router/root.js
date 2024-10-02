@@ -9,21 +9,21 @@ const Loading = <div>Loading....</div>;
 
 //비동기적 메인 페이지 로드
 const Main = lazy(() => import("../pages/main"));
-const About = lazy(() => import("../pages/about"));
 const Notice = lazy(() => import("../pages/board/Notice"));
 const CustomErinquiry = lazy(() => import("../pages/board/CustomErinquiry"));
 const ReviewBoard = lazy(() => import("../pages/board/ReviewBoard"));
-const TodoIndex = lazy(() => import("../pages/todo/Indexpage")); //todo 이하 메뉴에서 필요한 하위 메뉴를 보여주고 페이지들의 화면을 보여주는 아웃렛 설정
-//중첩적으로 라우팅이 적용될 때 기존 컴포넌트의 구조 유지
-// const TodoList = lazy(() => import("../pages/todo/ListPage")); 페이지 주소 안바끼고 다른 페이지로 넘어감
-//라우터 설정
+const TodoIndex = lazy(() => import("../pages/todo/Indexpage"));
 const Make = lazy(() => import("../pages/board/Make"));
 const Answer = lazy(() => import("../pages/board/Answer"));
+
+const Reserve = lazy(() => import("../pages/reservation"))
+const BuffetInfo = lazy(() => import("../pages/buffetinfo"))
+const UserList = lazy(() => import("../pages/userlist"))
+
 
 const root = createBrowserRouter([
   {
     /*경로가 빈 문자열인 경우, Suspense 컴포넌트를 사용하여 Main컴포넌트를 로드한다.*/
-
     path: "",
     element: (
       <Suspense fallback={Loading}>
@@ -31,15 +31,21 @@ const root = createBrowserRouter([
       </Suspense>
     ),
   },
+  
+  {
+    path: "/reserve",
+    element: <Suspense fallback={Loading}><Reserve/></Suspense>
+  },
 
   {
-    path: "about",
-    element: (
-      <Suspense fallback={Loading}>
-        <About />
-      </Suspense>
-    ),
+    path: "/infoManager",
+    element: <Suspense fallback={Loading}><BuffetInfo/></Suspense>
   },
+
+  {
+    path: "/userManager",
+    element: <Suspense fallback={Loading}><UserList/></Suspense>
+    },
 
   {
     path: "notice",

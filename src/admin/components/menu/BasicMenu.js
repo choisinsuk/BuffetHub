@@ -15,26 +15,24 @@ const BasicMenu = () => {
             <Link to={"/"}>메인 페이지</Link>
           </li>
 
-          <li className="pr-6 text-2xl">
-            <Link to={"/about"}>예약 관리</Link>
+          <li className="pr-6 text-2xl text-center">
+            <Link to={"/reserve"}>예약 관리</Link>
           </li>
 
-          <li className="pr-6 text-2xl">
-            <Link to={"/about"}>뷔페 예약 설정</Link>
+          <li className="pr-6 text-2xl text-center">
+            <Link to={"/infoManager"}>뷔페 정보 관리</Link>
           </li>
 
-          <li className="pr-6 text-2xl">
-            <Link to={"/about"}>뷔페 정보 설정</Link>         
+          <li className="pr-6 text-2xl text-center">
+            <Link to={"/userManager"}>회원관리</Link>
           </li>
+        
 
           <li className="pr-6 text-2xl">
             <Link to={"/Notice"}>게시판 관리</Link>
           </li>
 
-          <li className="pr-6 text-2xl">
-            <Link to={"/about"}>회원 관리</Link>
-          </li>  
-        </ul>
+          </ul>
       </div>
     </nav>
   );
