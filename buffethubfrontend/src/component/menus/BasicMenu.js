@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 const BasicMenu = () => {
@@ -7,6 +8,8 @@ const BasicMenu = () => {
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
+
+  const loginState = useSelector(state => state.loginSlice)
 
   return (
     <nav id='navbar' className="flex bg-blue-300">
@@ -36,10 +39,12 @@ const BasicMenu = () => {
               <Link to={'/mypage'}>마이페이지</Link>
             </li>
             <li className="text-1xl p-2">
-              <Link to={'/signup'}>회원가입</Link> 
+            {!loginState.ur_id ? 
+              <Link to={'/signup'}>회원가입</Link> : <></> }
             </li>
             <li className="text-1xl p-2">
-              <Link to={'/user/login'}>로그인</Link> 
+              {!loginState.ur_id ? 
+              <Link to={'/user/login'}>로그인</Link> : <Link to = {'/user/logout'}>로그아웃</Link> }
             </li>
           </ul>
 

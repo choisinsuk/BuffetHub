@@ -1,13 +1,11 @@
-import { useDispatch } from "react-redux";
-import { logout } from "../../slice/loginSlice";
+import useCustomLogin from "../../hooks/useCustomLogin";
 
 const LogoutComponent = () => {
-  const dispatch = useDispatch();
-  // useDispatch는 Redux 액션을 디스패치하는 함수인 dispatch를 반환
-  // 액션을 디스패치한다 = 특정 이벤트나 작업이 발생했을 때 그에 대한 정보를 Redux 스토어에 보내어 상태를 업데이트 하라고 요청을 하는것임(여기서 Redux 스토어는 store.js 파일에서 설정한 Redux 스토어를 의미함)
+  const { doLogout, moveToPath } = useCustomLogin();
 
   const handleClickLogout = () => {
-    dispatch(logout());
+    doLogout();
+    moveToPath("/");
   };
 
   return (
