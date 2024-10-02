@@ -39,7 +39,7 @@ const Make = () => {
   return (
     <BoardLayout>
       <div className="text-5xl text-center">
-        <div>공지사항 작성</div> {/* 페이지 제목 */}
+        <div className="bg-customColor1 w-full px-3 py-20 rounded-lg flex items-center justify-center text-white text-bold">공지사항 작성</div> {/* 페이지 제목 */}
       </div>
       <div className="mt-8">
         {/* 컨테이너로 변경, 전체 너비 설정 */}
