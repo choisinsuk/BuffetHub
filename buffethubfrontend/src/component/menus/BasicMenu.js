@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import logo from "../../image/Logo.png";
 
 const BasicMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -13,7 +14,9 @@ const BasicMenu = () => {
       <div className="w-full bg-white flex justify-between items-center p-4">
         {/* 왼쪽에 로고 배치 */}
         <div className="text-2xl text-yellow-500 font-bold">
-          <Link to={'/'}>BuffetHub</Link>
+          <Link to={'/'}>
+          <img src={logo} alt="BuffetHub Logo" className="h-14 w-auto"/>
+          </Link>
         </div>
 
         {/* 오른쪽 메뉴 배치 및 햄버거 아이콘 */}
