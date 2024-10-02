@@ -1,6 +1,7 @@
 package com.hub.domain;
 
-import java.util.Date;
+import java.time.LocalDateTime;
+
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -20,21 +21,31 @@ public class CustomerInquiry {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CUSTOMERINQUIRY_SEQ_GEN")
-	private Long cq_nm; // 고객문의 번호
+	@Column(nullable = false, columnDefinition = "NUMBER(8)")
+	private Long cqNb; // 고객문의 번호
 	
 	@ManyToOne
-	@JoinColumn(name = "ur_id", nullable = false)
+	@JoinColumn( nullable = false)
 	private User user; // 회원 아이디
 	
-	@Column(nullable = false)
+
+	@Column(nullable = false, columnDefinition = "VARCHAR2(100)")
 	private String cqTitle; // 고객문의 제목
-	@Column(nullable = false)
-	private String cq_ctt; // 고객문의 내용
-	@Column(nullable = false)
-	private Date cq_regdt; // 고객문의 등록일자
+
 	
-	private String cq_answer_ctt; // 고객문의 답변 내용
-	private Date cq_answer_regdt; // 고객문의 답변 일자
-	private String cq_pic; // 고객문의 사진
+	@Column(nullable = false, columnDefinition = "VARCHAR2(4000)")
+	private String cqCtt; // 고객문의 내용
+	
+	@Column(nullable = false)
+	private LocalDateTime cqRegdt; // 고객문의 등록일자
+	
+	@Column(nullable = true, columnDefinition = "VARCHAR2(4000)")
+	private String cqAnswerCtt; // 고객문의 답변 내용(널 가능)
+	
+	@Column(nullable = true)
+	private LocalDateTime cqAnswerRegdt; // 고객문의 답변 일자(널 가능)
+	
+	@Column(nullable = true, columnDefinition = "VARCHAR2(1000)")
+	private String cqPic; // 고객문의 사진(널 가능)
 
 }
