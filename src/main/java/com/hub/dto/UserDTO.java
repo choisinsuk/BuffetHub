@@ -52,6 +52,7 @@ public class UserDTO extends User {
 	public Map<String, Object> getClaims() {
 		Map<String, Object> map = new HashMap<>();
 		map.put("ur_id", this.ur_id);
+		map.put("ur_pw", this.ur_pw);
 		map.put("ur_nm", this.ur_nm);
 		map.put("ur_phn", this.ur_phn);
 		map.put("ur_eml", this.ur_eml);

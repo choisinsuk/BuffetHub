@@ -26,16 +26,16 @@ public class UserRepositoryTests {
 	        
 	        // 새로운 User 엔티티 생성
 	        User user = User.builder()
-	                .ur_id("testUser2")
+	                .ur_id("testUser3")
 	                .ur_pw(passwordEncoder.encode("password1"))   // 비밀번호 인코딩
-	                .ur_nm("김태희")                              // 이름
-	                .ur_phn("01098765432")                        // 전화번호
-	                .ur_eml("testUser@example.com")          // 이메일
+	                .ur_nm("지오디")                              // 이름
+	                .ur_phn("01066665555")                        // 전화번호
+	                .ur_eml("testUser3@example.com")          // 이메일
 	                .ur_prpl_yn("1")                              // 개인정보 이용약관 동의 여부
 	                .ur_stmbpl_yn("1")                            // 가게 회원 약관 동의 여부
 	                .ur_join_dt(new Date())                       // 회원가입 일자
 	                .ur_condition_code("ACTIVE")  				  // 회원 상태
-	                .ur_auth_code(UserRole.ADMIN)
+	                .ur_auth_code(UserRole.USER)
 	                .build();
 	
 			// 사용자 저장

@@ -27,7 +27,7 @@ public class CustomerInquiry {
 	private User user; // 회원 아이디
 	
 	@Column(nullable = false)
-	private String cq_title; // 고객문의 제목
+	private String cqTitle; // 고객문의 제목
 	@Column(nullable = false)
 	private String cq_ctt; // 고객문의 내용
 	@Column(nullable = false)
