@@ -60,7 +60,7 @@ const BasicMenu = () => {
             </li>
           </ul>
 
-          {/* 반응형 햄버거 아이콘 - 모바일 화면에서만 표시 */}
+          {/* 반응형 햄버거 아이콘 */}
           <div className="md:hidden cursor-pointer" onClick={toggleMenu}>
             {/* 햄버거 아이콘을 구성하는 3개의 선 */}
             <div className="bg-black w-6 h-0.5 mb-0.5"></div>
