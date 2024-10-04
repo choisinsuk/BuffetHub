@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import logo from "../../image/Logo.png";
+import logo from "../../images/Logo.png";
 
 const BasicMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -27,7 +27,7 @@ const BasicMenu = () => {
               <Link to={'/'}>메인페이지</Link>
             </li>
             <li className="text-1xl p-2">
-              <Link to={'/buffet-info'}>뷔페정보</Link>
+              <Link to={'/buffetinfo'}>뷔페정보</Link>
             </li>
             <li className="text-1xl p-2">
               <Link to={'/reserve'}>예약하기</Link> 

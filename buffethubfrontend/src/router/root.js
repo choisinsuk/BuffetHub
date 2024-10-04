@@ -1,7 +1,12 @@
 import { lazy, Suspense } from "react";
 import userRouter from "./userRouter.js";
-import { createBrowserRouter } from "react-router-dom";
 import reserveRouter from "./reserveRouter.js";
+import buffetinfoRouter from "./buffetinfoRouter";
+import boardRouter from "./boardRouter.js";
+import mypageRouter from "./mypageRouter.js";
+
+
+const { createBrowserRouter } = require("react-router-dom");
 
 const Loading = <div>Loading...</div>;
 
@@ -16,6 +21,18 @@ const root = createBrowserRouter([
         <Main />
       </Suspense>
     ),
+  },
+  {
+    path: "mypage",
+    children: mypageRouter(),
+  },
+  {
+    path: "board",
+    children: boardRouter(),
+  },
+  {
+    path: "buffetinfo",
+    children: buffetinfoRouter(),
   },
   {
     path: "reserve",
