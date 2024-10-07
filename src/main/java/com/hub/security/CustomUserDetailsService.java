@@ -33,14 +33,14 @@ public class CustomUserDetailsService implements UserDetailsService {
 		}
 
 		// UserDTO 객체 생성
-		UserDTO userDTO = new UserDTO(user.getUr_id(), user.getUr_pw(), user.getUr_nm(), user.getUr_phn(),
-				user.getUr_eml(), user.getUr_prpl_yn(), user.getUr_stmbpl_yn(), user.getUr_auth_code(),
-				user.getUr_join_dt(), user.getUr_condition_code());
+		UserDTO userDTO = new UserDTO(user.getUrId(), user.getUrPw(), user.getUrNm(), user.getUrPhn(),
+				user.getUrEml(), user.getUrPrplYn(), user.getUrStmbplYn(), user.getUrAuthCode(),
+				user.getUrJoinDt(), user.getUrConditionCode());
 		log.info(userDTO);
 
 		 //사용자 권한 설정
 		Collection<SimpleGrantedAuthority> authorities = Collections
-				.singletonList(new SimpleGrantedAuthority("ROLE_" + userDTO.getUr_auth_code()));
+				.singletonList(new SimpleGrantedAuthority("ROLE_" + userDTO.getUrAuthCode()));
 
 		return userDTO;
 	}

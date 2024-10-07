@@ -21,7 +21,7 @@ public class UserRepositoryTests {
 		@Autowired
 		private PasswordEncoder passwordEncoder;
 		
-
+		@Test
 		public void testInsertUser() {
 			
 			User user = User.builder()

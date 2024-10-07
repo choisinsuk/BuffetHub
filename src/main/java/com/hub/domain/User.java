@@ -29,8 +29,10 @@ public class User {
 	private String urPrplYn; // 개인정보 이용약관 동의여부
 	@Column(nullable = false, columnDefinition = "VARCHAR2(1)")
 	private String urStmbplYn; // 가게 회원 약관 동의여부
+	
+	@Enumerated(EnumType.STRING)
 	@Column(nullable = false, columnDefinition = "VARCHAR2(10)")
-	private String urAuthCode; // 회원 권한
+	private UserRole urAuthCode; // 회원 권한
 
 	@Column(nullable = false)
 	private Date urJoinDt; // 회원가입 일자
@@ -39,7 +41,7 @@ public class User {
 	private String urConditionCode; // 회원상태
 
 	public void addRole(UserRole userRole) { // 사용자의 권한을 추가하는 메서드
-		this.urAuthCode = userRole.name();
+		this.urAuthCode = userRole;
 	}
 
 	public void clearRole() { // 사용자의 권한 초기화 하는 메서드
