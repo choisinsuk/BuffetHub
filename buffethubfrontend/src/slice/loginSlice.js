@@ -3,7 +3,7 @@ import { loginPost } from "../api/userApi";
 import { getCookie, removeCookie, setCookie } from "../util/cookieUtil";
 
 const initState = {
-  ur_id: "",
+  urId: "",
 };
 
 const loadUserCookie = () => {
@@ -11,8 +11,8 @@ const loadUserCookie = () => {
   const userInfo = getCookie("user");
 
   // 아이디 처리
-  if (userInfo && userInfo.ur_id) {
-    userInfo.ur_id = decodeURIComponent(userInfo.ur_id);
+  if (userInfo && userInfo.urId) {
+    userInfo.urId = decodeURIComponent(userInfo.urId);
   }
   return userInfo;
 };

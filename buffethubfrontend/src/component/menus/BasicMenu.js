@@ -49,14 +49,12 @@ const BasicMenu = () => {
               <Link to={'/mypage'}>마이페이지</Link>
             </li>
             <li className="text-1xl p-2">
-              {/* 로그인 상태에 따라 회원가입 링크를 조건부로 표시 */}
-              {!loginState.ur_id ? 
-                <Link to={'/signup'}>회원가입</Link> : <></>}
+            {!loginState.urId ? 
+              <Link to={'/signup'}>회원가입</Link> : <></> }
             </li>
             <li className="text-1xl p-2">
-              {/* 로그인 상태에 따라 로그인 또는 로그아웃 링크를 조건부로 표시 */}
-              {!loginState.ur_id ? 
-                <Link to={'/user/login'}>로그인</Link> : <Link to={'/user/logout'}>로그아웃</Link>}
+              {!loginState.urId ? 
+              <Link to={'/user/login'}>로그인</Link> : <Link to = {'/user/logout'}>로그아웃</Link> }
             </li>
           </ul>
 
