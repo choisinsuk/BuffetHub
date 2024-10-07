@@ -50,7 +50,7 @@ const BasicMenu = () => {
             </li>
             <li className="text-1xl p-2">
             {!loginState.urId ? 
-              <Link to={'/signup'}>회원가입</Link> : <></> }
+              <Link to={'/user/register'}>회원가입</Link> : <></> }
             </li>
             <li className="text-1xl p-2">
               {!loginState.urId ? 
