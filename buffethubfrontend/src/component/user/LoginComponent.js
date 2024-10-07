@@ -1,30 +1,34 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { login, loginPostAsync } from "../../slice/loginSlice";
+import useCustomLogin from "../../hooks/useCustomLogin";
+import { getCookie } from "../../util/cookieUtil";
 
 const initState = {
-  ur_id: "",
-  ur_pw: "",
+  username: "",
+  password: "",
 };
 
 const LoginComponent = () => {
   const [loginParam, setLoginParam] = useState({ ...initState });
 
-  const dispatch = useDispatch();
+  const { doLogin, moveToPath } = useCustomLogin();
 
   const handleChange = (e) => {
     loginParam[e.target.name] = e.target.value;
     setLoginParam({ ...loginParam });
-    console.log("loginParam 상태확인 : ", loginParam)
   };
 
   const handleClickLogin = (e) => {
-    dispatch(loginPostAsync(loginParam))
-      .unwrap()
+    doLogin(loginParam) //loginSlice 비동기 호출
       .then((data) => {
-        console.log("after unwrap...");
-        console.log("서버 응답 데이터: ", data);
+        console.log(data);
+        if (data.error) {
+          alert("이메일과 패스워드를 다시 확인하세요");
+        } else {
+          // alert("로그인 성공");
+          console.log("로그인 성공, 쿠키 확인: ", getCookie("user"));
+          moveToPath(-1);
+        }
       });
   };
 
@@ -40,9 +44,9 @@ const LoginComponent = () => {
           <input
             className="w-full p-3 rounded-r border border-solid border-neutral-500 shadow-md"
             placeholder="아이디"
-            name="ur_id"
+            name="username"
             type={"text"}
-            value={loginParam.ur_id}
+            value={loginParam.username}
             onChange={handleChange}
           ></input>
         </div>
@@ -52,9 +56,9 @@ const LoginComponent = () => {
           <input
             className="w-full p-3 rounded-r border border-solid border-neutral-500 shadow-md"
             placeholder="비밀번호"
-            name="ur_pw"
+            name="password"
             type={"password"}
-            value={loginParam.ur_pw}
+            value={loginParam.password}
             onChange={handleChange}
           ></input>
         </div>
