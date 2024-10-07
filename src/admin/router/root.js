@@ -19,7 +19,7 @@ const Answer = lazy(() => import("../pages/board/Answer"));
 const Reserve = lazy(() => import("../pages/reservation"))
 const BuffetInfo = lazy(() => import("../pages/buffetinfo"))
 const UserList = lazy(() => import("../pages/userlist"))
-
+const Inquiry = lazy(() => import("../pages/board/Inquiry"))
 
 const root = createBrowserRouter([
   {
@@ -79,6 +79,14 @@ const root = createBrowserRouter([
         <Answer />
       </Suspense>
   },
+  {
+    path: "inquiry",
+    element: 
+      <Suspense fallback={Loading}>
+        <Inquiry />
+      </Suspense>
+  },
+  
 ])
 
 //라우터 내보내기

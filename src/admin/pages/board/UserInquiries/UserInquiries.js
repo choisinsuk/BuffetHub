@@ -28,12 +28,12 @@ const UserInquiries = () => {
   
     // 작성 버튼 클릭 핸들러
     const handleMake = () => {
-      navigate("/Make"); // make 페이지로 이동
+      navigate("/Inquiry"); // Inquiry 페이지로 이동
     };
        // 게시글 추가 핸들러
     const handlePostCreate = (post) => {
       setPosts([...posts, post]); // 새로운 게시글 추가
-      navigate("/CustomErinquiry"); // 고객 문의 페이지로 이동
+      navigate("/UserInquiries"); // 고객 문의 페이지로 이동
     };
 
   return (
