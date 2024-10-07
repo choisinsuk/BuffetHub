@@ -39,11 +39,11 @@ const BasicMenu = () => {
               <Link to={'/mypage'}>마이페이지</Link>
             </li>
             <li className="text-1xl p-2">
-            {!loginState.ur_id ? 
+            {!loginState.urId ? 
               <Link to={'/signup'}>회원가입</Link> : <></> }
             </li>
             <li className="text-1xl p-2">
-              {!loginState.ur_id ? 
+              {!loginState.urId ? 
               <Link to={'/user/login'}>로그인</Link> : <Link to = {'/user/logout'}>로그아웃</Link> }
             </li>
           </ul>
