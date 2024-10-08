@@ -1,12 +1,13 @@
-import BasicLayout from "../layouts/ReservationLayout";
-
+import ReservationLayout from "../layouts/ReservationLayout";
+import React from "react";
+import axios from "axios";
 
 const Reserve = () => {
   return (
    
-    <BasicLayout>
+    <ReservationLayout>
        
-    </BasicLayout>
+    </ReservationLayout>
     
   );
 }
