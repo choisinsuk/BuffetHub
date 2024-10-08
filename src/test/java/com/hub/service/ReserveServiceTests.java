@@ -53,16 +53,17 @@ public class ReserveServiceTests {
 				.rsChildPersonCnt(0)
 				.rsPaymentCompleteYn(false)
 				.rsPreagePersonCnt(0)
-				.rsRealpeopleCnt(1)
 				.rsTotalPersonCnt(1)
 				.rsVisitAdultCnt(0)
 				.rsVisitChildCnt(0)
 				.rsVisitPreageCnt(0)
 				.rsVisitTotalCnt(1)
 				.rsVisitYn(false)
-				.rsDt(LocalDateTime.now())
+				.rsDt(LocalDateTime.of(2024, 9, 29, 8, 30))
+				.rsNm("홍길동")
+				.rsPhn("01012345678")
 				.urId(user.getUrId())
-				.bvNb(101L).build();
+				.build();
 		
 		Long rs_nb = reserveService.register(reserveDTO);
 		log.info("rs_nb: " + rs_nb);

@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import com.hub.domain.BuffetVoucher;
 import com.hub.domain.Reserve;
 import com.hub.domain.User;
 
@@ -26,8 +25,7 @@ public class ReserveRepositoryTests {
 	private PasswordEncoder passwordEncoder;
 	@Autowired
 	private ReserveRepository reserveRepository;
-	@Autowired
-	private BuffetVoucherRepository buffetVoucherRepository;
+
 
 	// 데이터 삽입 테스트
 //	@Test

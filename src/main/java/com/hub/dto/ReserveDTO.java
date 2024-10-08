@@ -26,12 +26,14 @@ public class ReserveDTO {
 	private Integer rsVisitAdultCnt; // 방문 성인 인원수
 	private Integer rsVisitChildCnt; // 방문 아동 인원수
 	private Integer rsVisitPreageCnt; // 방문 미취학 인원수
-	private Integer rsRealpeopleCnt; // 실제 방문 인원
+	
+	private String rsNm; // 예약자 이름
+	private String rsPhn; // 예약자 전화번호
+	private String rsSignificant; // 특이사항
 
 	private boolean rsVisitYn; // 방문여부
 	private boolean rsPaymentCompleteYn; // 결제완료여부
 
 	private String urId; // 사용자 ID
-	private Long bvNb; // 식사권 번호
 
 }

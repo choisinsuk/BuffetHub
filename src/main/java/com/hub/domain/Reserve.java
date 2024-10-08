@@ -55,9 +55,6 @@ public class Reserve {
 	@Builder.Default
 	@Column(nullable = false, columnDefinition = "NUMBER(4)")
 	private Integer rsVisitPreageCnt = 0; // 방문 미취학 인원수
-	@Builder.Default
-	@Column(nullable = false, columnDefinition = "NUMBER(4)")
-	private Integer rsRealpeopleCnt = 0; // 실제 방문 인원
 
 	@Builder.Default
 	@Column( nullable = false)
@@ -65,11 +62,15 @@ public class Reserve {
 	@Builder.Default
 	@Column( nullable = false)
 	private boolean rsPaymentCompleteYn = false; // 결제완료여부
-
-	// 관계 설정(외래 키를 받아오는 쪽)
-	@OneToOne
-	@JoinColumn(name = "bv_nb", nullable = false) // 외래 키 설정
-	private BuffetVoucher voucher; // 식사권 번호
+	
+	@Column(nullable = false, columnDefinition = "VARCHAR2(20)")
+	private String rsNm; // 예약자 이름
+	
+	@Column(nullable = false, columnDefinition = "VARCHAR2(11)")
+	private String rsPhn; // 예약자 전화번호
+	
+	@Column(nullable = true, columnDefinition = "VARCHAR2(4000)")
+	private String rsSignificant; // 특이사항
 
 	@ManyToOne
 	@JoinColumn(name = "ur_id", nullable = false)
@@ -128,16 +129,29 @@ public class Reserve {
 		updateVisitTotalCount(); // 방문 총 인원수 업데이트
 	}
 	
-	public void changeRs_realpeople_cnt(Integer rsRealpeopleCnt) {
-		this.rsRealpeopleCnt = rsRealpeopleCnt;
-	}
-
+	// 방문여부 변경 메서드
 	public void changeRs_visit_yn(boolean rsVisitYn) {
 		this.rsVisitYn = rsVisitYn;
 	}
 
+	// 결제여부 변경 메서드
 	public void changeRs_payment_complete_yn(boolean rsPaymentCompleteYn) {
 		this.rsPaymentCompleteYn = rsPaymentCompleteYn;
+	}
+	
+	// 예약자 이름 변경 메서드
+	public void changeRs_nm(String rsNm) {
+		this.rsNm = rsNm;
+	}
+	
+	// 예약자 전화번호 변경 메서드
+	public void changeRs_phn(String rsPhn) {
+		this.rsPhn = rsPhn;
+	}
+	
+	// 특이사항 변경 메서드
+	public void changeRs_significant(String rsSignificant) {
+		this.rsSignificant = rsSignificant;
 	}
 
 }

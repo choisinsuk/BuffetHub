@@ -68,10 +68,12 @@ public class ReserveServiceImpl implements ReserveService {
 		reserve.changeRs_visit_child_cnt(reserveDTO.getRsVisitChildCnt());
 		reserve.changeRs_visit_preage_cnt(reserveDTO.getRsVisitPreageCnt());
 		
-		reserve.changeRs_realpeople_cnt(reserveDTO.getRsRealpeopleCnt());
-		
 		reserve.changeRs_payment_complete_yn(reserveDTO.isRsPaymentCompleteYn());
 		reserve.changeRs_visit_yn(reserveDTO.isRsVisitYn());
+		
+		reserve.changeRs_nm(reserveDTO.getRsNm());
+		reserve.changeRs_phn(reserveDTO.getRsPhn());
+		reserve.changeRs_significant(reserveDTO.getRsSignificant());
 		
 		reserveRepository.save(reserve);
 		
