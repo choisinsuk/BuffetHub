@@ -1,10 +1,36 @@
-import { Link } from "react-router-dom";
+import {
+  createSearchParams,
+  Link,
+  useNavigate,
+  useParams,
+  useSearchParams,
+} from "react-router-dom";
 
 import ReserveLayout from "../../layouts/ReserveLayout";
 import MyReserveComponent from "../../component/reserve/MyReserveComponent";
-
+import { useCallback } from "react";
 
 const MyReservePage = () => {
+  
+  const { rsNb } = useParams();
+  const navigate = useNavigate();
+  const [queryParams] = useSearchParams();
+
+  const page = queryParams.get("page") ? parseInt(queryParams.get("page")) : 1;
+  const size = queryParams.get("size") ? parseInt(queryParams.get("size")) : 10;
+
+  const queryStr = createSearchParams({ page, size }).toString();
+
+  const moveToModify = useCallback(
+    (rsNb) => {
+      navigate({
+        pathname: `/reserve/modifyreserve/${rsNb}`,
+        search: queryStr,
+      });
+    },
+    [rsNb, page, size]
+  );
+
   const asideContent = (
     <nav id="rvaside" className="flex">
       <ul className="flex flex-col p-4">
@@ -17,17 +43,15 @@ const MyReservePage = () => {
         <li>
           <Link to={"/user/myinfo"}>-내 정보 관리</Link>
         </li>
-        
       </ul>
     </nav>
   );
 
   const mainContent = (
-    <div className="flex justify-center items-center"><MyReserveComponent/>
+    <div className="flex justify-center items-center">
+      <MyReserveComponent />
     </div>
-    
   );
-  
 
   return (
     <ReserveLayout

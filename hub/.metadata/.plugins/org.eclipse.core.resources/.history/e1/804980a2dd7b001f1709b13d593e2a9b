@@ -1,9 +1,0 @@
-package com.hub.service;
-
-import com.hub.dto.ReserveDTO;
-
-public interface ReserveService {
-
-	Long register(ReserveDTO reserveDTO);
-	
-}

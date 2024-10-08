@@ -1,0 +1,54 @@
+package com.hub.controller.advice;
+
+import java.util.Map;
+import java.util.NoSuchElementException;
+<<<<<<< HEAD
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+@RestControllerAdvice
+public class CustomControllerAdvice {
+
+=======
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import com.hub.util.CustomJWTException;
+
+@RestControllerAdvice
+public class CustomControllerAdvice {
+>>>>>>> b6a73453724e1c1e22d763e204595cd632e40381
+	@ExceptionHandler(NoSuchElementException.class)
+	protected ResponseEntity<?> notExist(NoSuchElementException e) {
+		String msg = e.getMessage();
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("msg", msg));
+	}
+
+	@ExceptionHandler(MethodArgumentNotValidException.class)
+<<<<<<< HEAD
+	protected ResponseEntity<?> handleIllegalArgumentException(MethodArgumentNotValidException e) {
+		String msg = e.getMessage();
+		return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(Map.of("msg", msg));
+	}
+=======
+	protected ResponseEntity<?> handleIllegaArgumentException(MethodArgumentNotValidException e) {
+		String msg = e.getMessage();
+		return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(Map.of("msg", msg));
+	}
+
+	@ExceptionHandler(CustomJWTException.class)
+	protected ResponseEntity<?> handleJWTException(CustomJWTException e) {
+		String msg = e.getMessage();
+
+		return ResponseEntity.ok().body(Map.of("error", msg));
+	}
+>>>>>>> b6a73453724e1c1e22d763e204595cd632e40381
+}

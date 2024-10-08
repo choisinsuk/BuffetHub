@@ -2,25 +2,13 @@ import { Link } from "react-router-dom";
 
 import ReserveLayout from "../../layouts/ReserveLayout";
 import ModifyReserveComponent from "../../component/reserve/ModifyReserveComponent";
+import AsideComponent from "../../component/reserve/AsideComponent";
 
 const ModifyReservePage = () => {
   const asideContent = (
-    <nav id="rvaside" className="flex">
-      <ul className="flex flex-col p-4">
-        <li className="mb-2">
-          <Link to={"/reserve"}>예약</Link>
-        </li>
-        <li className="mb-2">
-          <Link to={"/reserve/makereserve"}>-예약하기</Link>
-        </li>
-        <li>
-          <Link to={"/reserve/changereserve"}>-예약변경</Link>
-        </li>
-        <li className="text-sm pl-5 font-bold">
-          <Link to={"/reserve/changereserve"}>-예약수정</Link>
-        </li>
-      </ul>
-    </nav>
+    <div>
+      <AsideComponent></AsideComponent>
+    </div>
   );
 
   const mainContent = (

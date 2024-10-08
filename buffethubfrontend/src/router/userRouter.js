@@ -23,7 +23,7 @@ const userRouter = () => {
         </Suspense>
       ),
     },
-    {
+    { // 예약 리스트를 보여주는 페이지
       path: "myreserve",
       element: (
         <Suspense fallback={Loading}>

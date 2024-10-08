@@ -8,28 +8,28 @@ const ModifyReserve = lazy(() => import("../page/reserve/ModifyReservePage"))
 
 const reserveRouter = () => {
   return [
-    {
+    {// 예약 전단계 페이지
       path: "",
       element: (
-        <Suspense fallback={Loading}>
+        <Suspense fallback={Loading}>   
           <Reserve />
         </Suspense>
       ),
     },
-    {
+    { // 예약 페이지(register)
       path: "makereserve",
       element: <Suspense fallback={Loading}>
         <MakeReserve/>
       </Suspense>
     },
-    {
+    { // 예약 리스트 페이지(list)
       path: "changereserve",
       element: <Suspense fallback={Loading}>
         <ChangeReserve/>
       </Suspense>
     },
-    {
-      path: "modifyreserve",
+    { // 예약 수정 페이지(modify)
+      path: "modifyreserve/:rsNb",
       element: <Suspense fallback={Loading}>
         <ModifyReserve/>
       </Suspense>
