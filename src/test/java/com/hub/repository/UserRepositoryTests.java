@@ -25,8 +25,8 @@ public class UserRepositoryTests {
 		public void testInsertUser() {
 			
 			User user = User.builder()
-					.urId("testUser")
-					.urPw(passwordEncoder.encode("password1"))
+					.urId("testUser4")
+					.urPw(passwordEncoder.encode("1234"))
 	                .urNm("홍길동")                        // 이름
 	                .urPhn("01012345678")                      // 전화번호
 	                .urEml("test@example.com")                   // 이메일
@@ -35,11 +35,12 @@ public class UserRepositoryTests {
 	                .urJoinDt(new Date())                       // 회원가입 일자
 	                .urConditionCode("ACTIVE")                   // 회원 상태
 	                .build();
-			
-			user.addRole(UserRole.USER); //역할 추가 시 ur_auth_code에 값 설정
-			
+	
 			// 사용자 저장
 			userRepository.save(user);
+			
+	        // 저장된 사용자 조회
+	        User savedUser = userRepository.findById(user.getUrId()).orElse(null);
 
 			
 		}

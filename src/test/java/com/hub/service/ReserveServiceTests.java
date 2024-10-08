@@ -9,6 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.hub.domain.User;
+import com.hub.domain.UserRole;
 import com.hub.dto.PageRequestDTO;
 import com.hub.dto.PageResponseDTO;
 import com.hub.dto.ReserveDTO;
@@ -34,14 +35,14 @@ public class ReserveServiceTests {
 	public void testRegister() {
 		
 
-		// 예시로 사용할 User와 Voucher생성
+		// 예시로 사용할 User생성
 		User user = User.builder().urId("testUser").urPw(passwordEncoder.encode("password1")).urNm("홍길동") // 이름
 				.urPhn("01012345678") // 전화번호
 				.urEml("test@example.com") // 이메일
 				.urPrplYn("1") // 개인정보 이용약관 동의 여부
 				.urStmbplYn("1") // 가게 회원 약관 동의 여부
 				.urJoinDt(new Date()) // 회원가입 일자
-				.urConditionCode("ACTIVE").urAuthCode("testmem")// 회원 상태
+				.urConditionCode("ACTIVE").urAuthCode(UserRole.USER)// 회원 상태
 				.build();
 		
 		// User 저장

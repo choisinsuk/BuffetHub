@@ -28,8 +28,10 @@ public class CustomerInquiry {
 	@JoinColumn( nullable = false)
 	private User user; // 회원 아이디
 	
+
 	@Column(nullable = false, columnDefinition = "VARCHAR2(100)")
 	private String cqTitle; // 고객문의 제목
+
 	
 	@Column(nullable = false, columnDefinition = "VARCHAR2(4000)")
 	private String cqCtt; // 고객문의 내용

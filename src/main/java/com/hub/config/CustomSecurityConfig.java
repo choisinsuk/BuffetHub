@@ -4,15 +4,22 @@ import java.util.Arrays;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import com.hub.security.filter.JWTCheckFilter;
+import com.hub.security.handler.APILoginFailHandler;
+import com.hub.security.handler.APILoginSuccessHandler;
+import com.hub.security.handler.CustomAccessDeniedHandler;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -21,6 +28,7 @@ import lombok.extern.log4j.Log4j2;
 @EnableWebSecurity // 없으니 HttpSecurity 타입의 빈(bean)을 찾지 못해 발생하는 문제가 발생하여 추가함
 @Log4j2
 @RequiredArgsConstructor
+@EnableMethodSecurity
 public class CustomSecurityConfig {
 
 	@Bean
@@ -38,6 +46,18 @@ public class CustomSecurityConfig {
 
 		http.sessionManagement(sessionConfig -> sessionConfig.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 		http.csrf(config -> config.disable());
+		
+		http.formLogin(config -> {
+			config.loginPage("/api/user/login");
+			config.successHandler(new APILoginSuccessHandler());  // 로그인 후 처리는 APILoginSuccessHandler
+			config.failureHandler(new APILoginFailHandler()); // 로그인 실패 후 처리 APILoginFailHandler
+		});
+		
+		http.addFilterBefore(new JWTCheckFilter(), UsernamePasswordAuthenticationFilter.class); // JWT 체크
+		
+		http.exceptionHandling(config -> {
+			config.accessDeniedHandler(new CustomAccessDeniedHandler());
+		});
 
 		return http.build();
 	}
