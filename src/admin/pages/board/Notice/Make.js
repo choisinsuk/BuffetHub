@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios"; 
 import BoardLayout from "../../../layouts/BoardParts/BoardLayout"; 
 
+
 const API_URL = 'http://localhost:8080/api'; // Spring Boot 서버 URL
 
 const Make = () => {
@@ -11,6 +12,7 @@ const Make = () => {
   const [menuTitle, setMenuTitle] = useState("");
   const [content, setContent] = useState("");
 
+  
   const handleGoBack = () => {
     navigate(-1);
   };
@@ -77,6 +79,7 @@ const Make = () => {
         >
           작성완료
         </button>
+     
       </div>
     </BoardLayout>
   );

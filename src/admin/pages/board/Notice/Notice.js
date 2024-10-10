@@ -62,7 +62,7 @@ const Notice = () => {
         <button
           type="button"
           onClick={handleSearchSubmit}
-          className="rounded p-0.125 bg-blue-500 text-white"
+          className="rounded p-0.5 bg-blue-500 text-white"
         >
           검색
         </button>
@@ -81,7 +81,7 @@ const Notice = () => {
             key={index + 1}
             type="button"
             onClick={() => handleNavigate(`/page${index + 1}`)}
-            className="rounded p-2 text-white"
+            className="rounded p-2 bg-indigo-600 text-white hover:bg-indigo-500 transition duration-200"
           >
             {index + 1}
           </button>

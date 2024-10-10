@@ -82,7 +82,7 @@ const UserInquiries = () => {
             key={index + 1}
             type="button"
             onClick={() => handleNavigate(`/page${index + 1}`)}
-            className="rounded p-2 text-white"
+            className="rounded p-2 bg-indigo-600 text-white hover:bg-indigo-500 transition duration-200"
           >
             {index + 1}
           </button>
