@@ -1,6 +1,8 @@
 import { useState } from "react";
 import DateTimePicker from "./calendar";
 import { postRegist } from "../../api/reserveApi";
+import ResultModal from "../common/ResultModal";
+import useCustomMove from "../../hook/useCustomMove";
 
 const initState = {
   rsAdultPersonCnt: 0,
@@ -28,6 +30,11 @@ const initState = {
 const MakeReserveComponent = () => {
   const [reserve, setReserve] = useState({ ...initState });
   const [selectedDate, setSelectedDate] = useState(null);
+
+  // 결과 데이터가 있는 경우 ResultModal을 보여준다
+  const [result, setResult] = useState(null) // 결과 상태
+
+  const {moveToChangeReserve} = useCustomMove()
 
   const handleChangeReserve = (e) => {
     const { name, value } = e.target;
@@ -95,6 +102,7 @@ const MakeReserveComponent = () => {
     postRegist(reserve)
       .then((result) => {
         console.log(result);
+        setResult(result.RSNB) // 결과 데이터 변경
         // 초기화
         setReserve({ ...initState });
       })
@@ -103,8 +111,15 @@ const MakeReserveComponent = () => {
       });
   };
 
+  const closeModal = () => {
+    setResult(null)
+    moveToChangeReserve()
+  }
+
   return (
     <div className="border border-black">
+      {/* 모달처리 */}
+      {result ? <ResultModal title={'Add result'} content={`New ${result} Added`} callbackFn={closeModal}/> :<></>}
       <div className="p-2">
         <div className="flex flex-row text-sm m-2 ">
           <div className="p-3 pr-0">예약자 성함</div>

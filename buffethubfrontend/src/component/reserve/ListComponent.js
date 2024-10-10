@@ -3,6 +3,7 @@ import useCustomMove from "../../hook/useCustomMove";
 import { getList } from "../../api/reserveApi";
 import PageComponent from "../common/pagecomponent";
 
+
 const initState = {
   dtoList: [],
   pageNumList: [],

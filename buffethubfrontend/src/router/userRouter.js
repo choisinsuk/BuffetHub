@@ -1,9 +1,10 @@
 import { lazy, Suspense } from "react";
 import LogoutPage from "../page/user/LogoutPage";
+import JoinPage from "../page/user/JoinPage";
 
 const Loading = <div>Loading...</div>;
 const Login = lazy(() => import("../page/user/LoginPage"));
-const Myreserve = lazy(() => import("../page/reserve/MyReservePage"))
+const Myreserve = lazy(() => import("../page/reserve/MyReservePage"));
 
 const userRouter = () => {
   return [
@@ -27,10 +28,18 @@ const userRouter = () => {
       path: "myreserve",
       element: (
         <Suspense fallback={Loading}>
-          <Myreserve/>
+          <Myreserve />
         </Suspense>
-      )
-    }
+      ),
+    },
+    {
+      path: "register",
+      element: (
+        <Suspense fallback={Loading}>
+          <JoinPage />
+        </Suspense>
+      ),
+    },
   ];
 };
 
