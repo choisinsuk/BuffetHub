@@ -62,6 +62,7 @@ const useCustomLogin = () => {
     moveToLogin,
     moveToPath,
     moveToLoginReturn,
+    exceptionHandle
   };
 };
 
