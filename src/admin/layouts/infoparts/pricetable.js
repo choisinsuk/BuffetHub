@@ -3,15 +3,23 @@ import axios from "axios";
 
 const PriceTable = () => {
   /* 상태 초기화 */
-  const [priceTable, setPriceTable] = useState(null);  // 객체 형태로 수정
   const [loading, setLoading] = useState(true);
+  const [priceTable, setPriceTable] = useState({
+    dayAdultPrice: 0,
+    dayChildPrice: 0,
+    dayKidsPrice: 0,
+    weekAdultPrice: 0,
+    weekChildPrice: 0,
+    weekKidsPrice: 0,
+  });
 
+  /*가격 정보 불러오기 */
   useEffect(() => {
     axios
       .get("http://localhost:8080/api/prices")
       .then((response) => {
         console.log(response.data);
-        setPriceTable(response.data);  // 객체로 설정
+        setPriceTable(response.data); // 객체로 설정
         setLoading(false);
       })
       .catch((error) => {
@@ -20,6 +28,34 @@ const PriceTable = () => {
       });
   }, []);
 
+  const handleUpdate = async (priceType) => {
+    const currentPrice = priceTable[priceType];
+    const newPriceinput = prompt(`새 가격을 입력해주세요 (${currentPrice}원)`);
+
+    if (newPriceinput == null) return;
+
+    const newPrice = parseInt(newPriceinput, 10);
+
+    if (isNaN(newPrice)) {
+      alert("정보가 올바르지 않습니다. 다시 입력하세요.");
+      return;
+    }
+
+    // 업데이트할 데이터 객체 생성
+    const updatedPriceTable = { ...priceTable, [priceType]: newPrice };
+
+    try {
+      // 업데이트 요청 보내기 (id=1로 가정)
+      await axios.put("http://localhost:8080/api/prices/1", updatedPriceTable);
+      // 상태 업데이트하여 UI 갱신
+      setPriceTable(updatedPriceTable);
+      alert("가격이 성공적으로 업데이트되었습니다.");
+    } catch (error) {
+      console.error("가격 업데이트 중 오류가 발생했습니다:", error);
+      alert("가격 업데이트에 실패했습니다. 다시 시도해주세요.");
+    }
+  };
+
   if (loading) {
     return <div>로딩 중...</div>;
   }
@@ -27,7 +63,7 @@ const PriceTable = () => {
   // 객체에서 값을 직접 접근하여 렌더링
   return (
     <div className="center">
-      <table className="w-5/6 bg-white border border-black rounded-lg shadow-lg shadow-gray-400/50 text-center mx-auto">
+      <table className="w-5/6 h-1/2 bg-white border border-black rounded-lg shadow-lg shadow-gray-400/50 text-center mx-auto">
         <thead>
           <tr className="bg-gray-400 text-black">
             <th className="py-2 px-1 border border-black">항목</th>
@@ -43,14 +79,35 @@ const PriceTable = () => {
             <td className="py-2 px-1 border border-black" rowSpan="2">
               평일 <br /> 가격
             </td>
-            <td className="py-2 px-1 border border-black">{priceTable.dayAdultPrice}원</td>
-            <td className="py-2 px-1 border border-black">{priceTable.dayChildPrice}원</td>
-            <td className="py-2 px-1 border border-black">{priceTable.dayKidsPrice}원</td>
+            <td className="py-2 px-1 border border-black">
+              {priceTable.dayAdultPrice}원
+            </td>
+            <td className="py-2 px-1 border border-black">
+              {priceTable.dayChildPrice}원
+            </td>
+            <td className="py-2 px-1 border border-black">
+              {priceTable.dayKidsPrice}원
+            </td>
           </tr>
           <tr>
-            <td className="py-2 px-1 border border-black">버튼자리</td>
-            <td className="py-2 px-1 border border-black">버튼자리</td>
-            <td className="py-2 px-1 border border-black">버튼자리</td>
+            <td className="py-2 px-1 border border-black">
+              <button className="ml-2 px-2 py-1 bg-customColor4 text-black font-bold rounded"
+              onClick={() => handleUpdate("dayAdultPrice")}>
+                수정
+              </button>
+            </td>
+            <td className="py-2 px-1 border border-black">
+              <button className="ml-2 px-2 py-1 bg-customColor4 text-black font-bold rounded"
+              onClick={() => handleUpdate("dayChildPrice")}>
+                수정
+              </button>
+            </td>
+            <td className="py-2 px-1 border border-black">
+              <button className="ml-2 px-2 py-1 bg-customColor4 text-black font-bold rounded"
+              onClick={() => handleUpdate("dayKidsPrice")}>
+                수정
+              </button>
+            </td>
           </tr>
 
           {/* 주말 가격 */}
@@ -58,14 +115,35 @@ const PriceTable = () => {
             <td className="py-2 px-1 border border-black" rowSpan="2">
               주말 <br /> 가격
             </td>
-            <td className="py-2 px-1 border border-black">{priceTable.weekAdultPrice}원</td>
-            <td className="py-2 px-1 border border-black">{priceTable.weekChildPrice}원</td>
-            <td className="py-2 px-1 border border-black">{priceTable.weekKidsPrice}원</td>
+            <td className="py-2 px-1 border border-black">
+              {priceTable.weekAdultPrice}원
+            </td>
+            <td className="py-2 px-1 border border-black">
+              {priceTable.weekChildPrice}원
+            </td>
+            <td className="py-2 px-1 border border-black">
+              {priceTable.weekKidsPrice}원
+            </td>
           </tr>
           <tr>
-            <td className="py-2 px-1 border border-black">버튼자리</td>
-            <td className="py-2 px-1 border border-black">버튼자리</td>
-            <td className="py-2 px-1 border border-black">버튼자리</td>
+            <td className="py-2 px-1 border border-black">
+              <button className="ml-2 px-2 py-1 bg-customColor4 text-black font-bold rounded"
+              onClick={() => handleUpdate("weekAdultPrice")}>
+                수정
+              </button>
+            </td>
+            <td className="py-2 px-1 border border-black">
+              <button className="ml-2 px-2 py-1 bg-customColor4 text-black font-bold rounded"
+              onClick={() => handleUpdate("weekChildPrice")}>
+                수정
+              </button>
+            </td>
+            <td className="py-2 px-1 border border-black">
+              <button className="ml-2 px-2 py-1 bg-customColor4 text-black font-bold rounded"
+              onClick={() => handleUpdate("weekKidsPrice")}>
+                수정
+              </button>
+            </td>
           </tr>
         </tbody>
       </table>
