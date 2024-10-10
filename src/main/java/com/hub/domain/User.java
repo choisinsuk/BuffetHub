@@ -1,6 +1,12 @@
 package com.hub.domain;
 
 import java.util.Date;
+
+import org.springframework.security.crypto.password.PasswordEncoder;
+
+import com.hub.dto.UserDTO;
+import com.hub.dto.UserJoinDTO;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -51,6 +57,27 @@ public class User {
 	public void changePw(String urPw) { // 비밀번호를 변경하는 메서드
 		this.urPw = urPw;
 	}
+	
+    // 정적 팩토리 메서드로 사용자를 생성하는 메서드
+    public static User createUser(UserJoinDTO userJoinDTO, PasswordEncoder passwordEncoder) {
+        // 비밀번호를 암호화하여 설정
+        String encodedPassword = passwordEncoder.encode(userJoinDTO.getUrPw());
+
+        return User.builder()
+                .urId(userJoinDTO.getUrId())
+                .urPw(encodedPassword)
+                .urNm(userJoinDTO.getUrNm())
+                .urPhn(userJoinDTO.getUrPhn())
+                .urEml(userJoinDTO.getUrEml())
+                .urPrplYn(userJoinDTO.getUrPrplYn())
+                .urStmbplYn(userJoinDTO.getUrStmbplYn())
+                .urJoinDt(new Date())
+                .urAuthCode(UserRole.USER)
+                .urConditionCode("ACTIVE")
+                .build();
+    }
+	
+
 
 	/*
 	 * // Reserve와의 관계 설정
@@ -64,4 +91,6 @@ public class User {
 	 * // ReviewBoard와의 관계 설정
 	 * 
 	 * @OneToMany(mappedBy = "user") private ReviewBoard reviewBoard; // 예약 정보
-	 */}
+	 */
+    
+}

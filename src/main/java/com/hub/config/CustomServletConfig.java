@@ -16,6 +16,7 @@ public class CustomServletConfig implements WebMvcConfigurer{
 		registry.addFormatter(new LocalDateFormatter());
 	}
 	
+	
 	@Override
 	public void addCorsMappings(CorsRegistry registry) {
 		registry.addMapping("/**")
