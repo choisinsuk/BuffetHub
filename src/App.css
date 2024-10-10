@@ -50,3 +50,6 @@ body {
   object-fit: cover;
 }
 
+.center {
+  text-align : center;
+}

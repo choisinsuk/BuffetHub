@@ -5,7 +5,7 @@ import BasicMenu from "../components/menu/BasicMenu";
 import Calendar from "../pages/parts/calendars";
 
 // 컴포넌트 정의
-const ReservationLayout = ({ children }) => {
+const ReservationLayout = () => {
   const [reserves, setReserves] = useState([]);
 
   // API 호출 및 데이터 설정
