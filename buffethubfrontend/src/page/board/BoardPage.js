@@ -11,14 +11,14 @@ const Board = () => {
         </div>
         
         <div className="flex space-x-4 text-center" style={{ fontSize: '18px' }}> {/* 메뉴 링크를 가로로 나열 */}
-          <Link to="/notice" className="border-2 border-black p-3 w-40 flex items-center justify-center"> {/* 공지사항 링크 */}
+          <Link to="/notices" className="border-2 border-black p-3 w-40 flex items-center justify-center"> {/* 공지사항 링크 */}
             공지사항
           </Link>
           <Link to="/reviews" className="border-2 border-black p-3 w-40 flex items-center justify-center"> {/* 후기 게시판 링크 */}
             후기 게시판
           </Link>
           <Link to="/qa" className="border-2 border-black p-3 w-40 flex items-center justify-center"> {/* Q&A 링크 */}
-            Q&A
+            고객문의
           </Link>
         </div>
       </div>
