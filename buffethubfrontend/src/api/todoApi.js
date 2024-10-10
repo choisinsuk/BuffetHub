@@ -1,4 +1,3 @@
-import axios from "axios";
 import jwtAxios from "../util/jwtUtil";
 
 //서버 주소

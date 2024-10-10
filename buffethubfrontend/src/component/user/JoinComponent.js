@@ -3,42 +3,34 @@ import { joinPostAsync } from "../../slice/JoinSlice";
 import { useDispatch } from "react-redux";
 
 const JoinComponent = () => {
-
   const dispatch = useDispatch();
   
-  const [userId, setUserId] = useState(""); // 아이디 입력값 상태
-  const [password, setPassword] = useState(""); // 비밀번호 입력값 상태
-  const [confirmPassword, setConfirmPassword] = useState(""); // 비밀번호 확인 입력값 상태
-  const [passwordMatch, setPasswordMatch] = useState(true); // 비밀번호 일치 여부 상태
-  const [username, setUserName] = useState(""); // 사용자 성명 입력값 상태
-  const [userPhone, setUserPhone] = useState(""); // 사용자 전화번호 입력값 상태
-  const [userEmail, setUserEmail] = useState(""); // 사용자 이메일 입력값 상태
-  const [selectedEmail, setSelectedEmail] = useState(""); // 선택된 이메일 도메인 상태
-  const [agreeTerms, setAgreeTerms] = useState(false); // 약관 동의 상태
+  const [userId, setUserId] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [passwordMatch, setPasswordMatch] = useState(true);
+  const [username, setUserName] = useState("");
+  const [userPhone, setUserPhone] = useState("");
+  const [userEmail, setUserEmail] = useState("");
+  const [selectedEmail, setSelectedEmail] = useState("");
+  const [agreeTerms, setAgreeTerms] = useState(false);
 
-
-  // 비밀번호 확인 함수
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
     setPasswordMatch(e.target.value === confirmPassword);
   };
 
-    // 비밀번호 확인 입력 시, 비밀번호와 일치 여부를 검사
-    const handleConfirmPasswordChange = (e) => {
-      setConfirmPassword(e.target.value);
-      setPasswordMatch(password === e.target.value);
-    };
-
-  const handleTermsChange = () => {
-    setAgreeTerms(!agreeTerms); // 체크박스 상태 토글
+  const handleConfirmPasswordChange = (e) => {
+    setConfirmPassword(e.target.value);
+    setPasswordMatch(password === e.target.value);
   };
 
+  const handleTermsChange = () => {
+    setAgreeTerms(!agreeTerms);
+  };
 
-  // 회원가입 제출 함수
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    }
 
     const userData = {
       urId: userId,
@@ -46,19 +38,19 @@ const JoinComponent = () => {
       urNm: username,
       urPhn: userPhone,
       urEml: `${userEmail}@${selectedEmail}`,
-      urPrplYn: "Y", // 개인정보 이용약관 동의 여부
-      urStmbplYn: "Y" // 가게 회원 약관 동의 여부
+      urPrplYn: "Y",
+      urStmbplYn: "Y",
     };
 
     try {
-      const response = await dispatch(joinPostAsync(userData)); // 회원가입 요청 디스패치
+      const response = await dispatch(joinPostAsync(userData));
       if (response && response.success) {
-        window.location.href = "/user/login"; // 로그인 페이지로 이동
+        window.location.href = "/user/login";
       } else {
-        alert("회원가입에 실패했습니다."); // 오류 처리
+        alert("회원가입에 실패했습니다.");
       }
     } catch (error) {
-      console.error("회원가입 실패:", error); // 오류 처리
+      console.error("회원가입 실패:", error);
     }
   };
 
@@ -102,7 +94,6 @@ const JoinComponent = () => {
             }}
           />
           <button
-            onClick={handleCheckDuplicate}
             style={{
               padding: "10px 20px",
               backgroundColor: "#ccc",
