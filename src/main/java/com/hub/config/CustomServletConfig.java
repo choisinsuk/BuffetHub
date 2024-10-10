@@ -1,5 +1,7 @@
 package com.hub.config;
 
+
+
 import org.springframework.context.annotation.Configuration;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
@@ -22,4 +24,5 @@ public class CustomServletConfig implements WebMvcConfigurer{
 		.maxAge(300)
 		.allowedHeaders("Authorization","Cache-Control", "Content-Type");
 	}
+	
 }
