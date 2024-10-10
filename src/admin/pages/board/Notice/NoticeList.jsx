@@ -5,7 +5,7 @@ const NoticeList = () => {
     <table className="mt-8 mx-auto border border-gray-500 p-1 w-full max-w-4xl text-center">
           <thead className="text-xl">         
             <tr>
-              <th className="border border-gray-400 p-2">공지사항 관리</th>
+              <th className="border border-gray-400 p-2">공지사항 번호</th>
               <th className="border border-gray-400 p-2">공지사항 제목</th>
               <th className="border border-gray-400 p-2">글쓴이</th>
               <th className="border border-gray-400 p-2">입력날짜</th>

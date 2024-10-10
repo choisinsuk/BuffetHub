@@ -1,9 +1,9 @@
 import React, { useState } from "react"; 
 import { useNavigate } from "react-router-dom"; 
 import axios from "axios"; 
-import BoardLayout from "../../layouts/BoardParts/BoardLayout"; 
+import BoardLayout from "../../../layouts/BoardParts/BoardLayout"; 
 
-const Inquiry = () => {
+const Answer = () => {
   const navigate = useNavigate(); // 네비게이션을 위한 훅
   const [title, setTitle] = useState(""); // 제목 상태
   const [menuTitle, setMenuTitle] = useState(""); // 작성자 상태
@@ -12,7 +12,7 @@ const Inquiry = () => {
 
   // 뒤로가기 버튼 핸들러
   const handleGoBack = () => {
-    navigate(-1); // 이전 페이지로 이동
+    navigate("/reviewBoard"); // 후기 게시판 페이지로 이동
   };
 
   // 폼 제출 핸들러
@@ -29,18 +29,34 @@ const Inquiry = () => {
     try {
       // API에 포스트 요청
       const response = await axios.post('/api/posts', newPost); 
-      console.log("고객문의 작성 성공:", response.data);
-      navigate("/UserInquiries"); // 성공 시 후기 게시판으로 이동
+      console.log("후기게시판 작성 성공:", response.data);
+      // navigate("/reviewBoard"); // 성공 시 후기 게시판으로 이동 (주석 처리)
     } catch (error) {
       console.error("게시물 작성 중 오류:", error);
       alert("게시물 작성 중 오류가 발생했습니다."); // 오류 발생 시 알림
     }
   };
 
+  // 답글 달기 핸들러
+  const handleReply = () => {
+    navigate("/answer"); // 답글 달기 버튼 클릭 시 Answer 페이지로 이동
+  };
+
+  // 수정 핸들러
+  const handleEdit = () => {
+    navigate("/editPost"); // 수정 페이지로 이동 (경로는 필요에 따라 수정)
+  };
+
+  // 삭제 핸들러
+  const handleDelete = () => {
+    // 삭제 처리 후 Answer 페이지로 이동
+    navigate("/answer"); 
+  };
+
   return (
     <BoardLayout>
       <div className="text-5xl text-center">
-        <div>공지사항 작성</div> {/* 페이지 제목 */}
+        <div>후기 게시판 답변</div> {/* 페이지 제목 */}
       </div>
       <div className="mt-8">
         <div className="mx-auto w-full">
@@ -69,7 +85,7 @@ const Inquiry = () => {
             />
             <div className="flex justify-end mb-4"> {/* 답글 달기 버튼 */}
               <button
-                onClick={handleGoBack} 
+                onClick={handleReply} // 답글 달기 버튼 클릭 시 Answer 페이지로 이동
                 className="bg-blue-500 text-white rounded p-0.125 mr-2"
               >
                 답글 달기
@@ -90,13 +106,13 @@ const Inquiry = () => {
             />
             <div className="flex justify-end mb-4"> {/* 수정 및 삭제 버튼 */}
               <button
-                onClick={handleGoBack} 
+                onClick={handleEdit} // 수정 페이지로 이동
                 className="bg-blue-500 text-white rounded p-0.125 mr-2"
               >
                 수정하기
               </button>
               <button
-                onClick={handleGoBack} 
+                onClick={handleDelete} // 삭제 처리 후 Answer 페이지로 이동
                 className="bg-blue-500 text-white rounded p-0.125 mr-2"
               >
                 삭제하기
@@ -129,4 +145,4 @@ const Inquiry = () => {
   );
 };
 
-export default Inquiry;
+export default Answer;
