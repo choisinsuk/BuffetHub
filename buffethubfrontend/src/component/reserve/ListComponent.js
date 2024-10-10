@@ -22,8 +22,8 @@ const ListComponent = () => {
     page,
     size,
     moveToMyReserve,
-    moveToModifyReserve,
-    moveToChangeReserve,
+    moveToModify,
+    moveToList,
   } = useCustomMove();
 
   const [serverData, setServerData] = useState(initState);
@@ -49,12 +49,12 @@ const ListComponent = () => {
   // 현재 경로에 따라 이동 함수 선택
   const getMoveFunction = () => {
     const currentPath = window.location.pathname;
-    if (currentPath.includes("/reserve/changereserve")) {
-      return moveToChangeReserve;
+    if (currentPath.includes("/reserve/list")) {
+      return moveToList;
     } else if (currentPath.includes("/user/myreserve")) {
       return moveToMyReserve;
-    } else if (currentPath.includes("/user/modifypage")) {
-      return moveToModifyReserve; // 추가적인 경로에 대한 처리
+    } else if (currentPath.includes("/user/modify")) {
+      return moveToModify;
     }
     return null; // 기본값
   };

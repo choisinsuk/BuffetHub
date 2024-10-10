@@ -2,9 +2,9 @@ import { lazy, Suspense } from "react";
 
 const Loading = <div>Loading...</div>;
 const Reserve = lazy(() => import("../page/reserve/ReservePage"));
-const MakeReserve = lazy(() => import("../page/reserve/MakeReservePage"))
-const ChangeReserve = lazy(() => import("../page/reserve/ChangeReservePage"))
-const ModifyReserve = lazy(() => import("../page/reserve/ModifyReservePage"))
+const Regist = lazy(() => import("../page/reserve/RegistPage"))
+const List = lazy(() => import("../page/reserve/ListPage"))
+const Modify = lazy(() => import("../page/reserve/ModifyPage"))
 
 const reserveRouter = () => {
   return [
@@ -17,21 +17,21 @@ const reserveRouter = () => {
       ),
     },
     { // 예약 페이지(register)
-      path: "makereserve",
+      path: "regist",
       element: <Suspense fallback={Loading}>
-        <MakeReserve/>
+        <Regist/>
       </Suspense>
     },
     { // 예약 리스트 페이지(list)
-      path: "changereserve",
+      path: "list",
       element: <Suspense fallback={Loading}>
-        <ChangeReserve/>
+        <List/>
       </Suspense>
     },
     { // 예약 수정 페이지(modify)
-      path: "modifyreserve/:rsNb",
+      path: "modify/:rsNb",
       element: <Suspense fallback={Loading}>
-        <ModifyReserve/>
+        <Modify/>
       </Suspense>
     }
     

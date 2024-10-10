@@ -9,12 +9,12 @@ const AsideContent = () => {
     navigate({ pathname: "/reserve" });
   });
 
-  const handleClickMakeReserve = useCallback(() => {
-    navigate({ pathname: "/reserve/makereserve" });
+  const handleClickRegist = useCallback(() => {
+    navigate({ pathname: "/reserve/regist" });
   });
 
-  const handleClickChangeReserve = useCallback(() => {
-    navigate({ pathname: "/reserve/changereserve" });
+  const handleClickList = useCallback(() => {
+    navigate({ pathname: "/reserve/list" });
   });
 
   return (
@@ -31,7 +31,7 @@ const AsideContent = () => {
         <li className="mb-2">
           <div
             className={`cursor-pointer ${location.pathname === "/reserve/makereserve" ? "font-bold" : ""}`}
-            onClick={handleClickMakeReserve}
+            onClick={handleClickRegist}
           >
             -예약하기
           </div>
@@ -39,7 +39,7 @@ const AsideContent = () => {
         <li>
           <div
             className={`cursor-pointer ${location.pathname === "/reserve/changereserve" ? "font-bold" : ""}`}
-            onClick={handleClickChangeReserve}
+            onClick={handleClickList}
           >
             -예약변경
           </div>
