@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import logo from "../../images/Logo.png";
+import logo from "../../images/logoimage/Logo.png";
 
 const BasicMenu = () => {
   /* 메뉴의 열림 상태를 관리하기 위한 상태 변수 */

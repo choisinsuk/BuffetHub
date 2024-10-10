@@ -3,9 +3,8 @@ import { joinPostAsync } from "../../slice/JoinSlice";
 import { useDispatch } from "react-redux";
 
 const JoinComponent = () => {
-
   const dispatch = useDispatch();
-  
+
   const [userId, setUserId] = useState(""); // 아이디 입력값 상태
   const [password, setPassword] = useState(""); // 비밀번호 입력값 상태
   const [confirmPassword, setConfirmPassword] = useState(""); // 비밀번호 확인 입력값 상태
@@ -16,30 +15,33 @@ const JoinComponent = () => {
   const [selectedEmail, setSelectedEmail] = useState(""); // 선택된 이메일 도메인 상태
   const [agreeTerms, setAgreeTerms] = useState(false); // 약관 동의 상태
 
-
   // 비밀번호 확인 함수
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
     setPasswordMatch(e.target.value === confirmPassword);
   };
 
-    // 비밀번호 확인 입력 시, 비밀번호와 일치 여부를 검사
-    const handleConfirmPasswordChange = (e) => {
-      setConfirmPassword(e.target.value);
-      setPasswordMatch(password === e.target.value);
-    };
+  // 비밀번호 확인 입력 시, 비밀번호와 일치 여부를 검사
+  const handleConfirmPasswordChange = (e) => {
+    setConfirmPassword(e.target.value);
+    setPasswordMatch(password === e.target.value);
+  };
 
   const handleTermsChange = () => {
     setAgreeTerms(!agreeTerms); // 체크박스 상태 토글
   };
 
+  // 중복 확인 함수 (예시, 실제 구현 필요)
+  const handleCheckDuplicate = () => {
+    // 아이디 중복 확인 로직 구현
+    console.log("중복 확인 로직 실행");
+  };
 
   // 회원가입 제출 함수
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    }
-
+    // 사용자 데이터 객체 생성
     const userData = {
       urId: userId,
       urPw: password,
@@ -50,6 +52,17 @@ const JoinComponent = () => {
       urStmbplYn: "Y" // 가게 회원 약관 동의 여부
     };
 
+    // 비밀번호 일치 여부 및 약관 동의 체크
+    if (!passwordMatch) {
+      alert("비밀번호가 일치하지 않습니다.");
+      return;
+    }
+
+    if (!agreeTerms) {
+      alert("약관에 동의해야 합니다.");
+      return;
+    }
+
     try {
       const response = await dispatch(joinPostAsync(userData)); // 회원가입 요청 디스패치
       if (response && response.success) {
@@ -59,6 +72,7 @@ const JoinComponent = () => {
       }
     } catch (error) {
       console.error("회원가입 실패:", error); // 오류 처리
+      alert("회원가입 중 오류가 발생했습니다.");
     }
   };
 
@@ -233,7 +247,7 @@ const JoinComponent = () => {
             <option value="gmail.com">gmail.com</option>
             <option value="naver.com">naver.com</option>
             <option value="daum.net">daum.net</option>
-            {/* 추가 이메일 도메인 옵션 추가 가능 */}
+      {/* 추가 이메일 도메인 옵션 추가 가능 */}
           </select>
         </div>
       </div>
