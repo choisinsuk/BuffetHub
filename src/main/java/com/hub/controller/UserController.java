@@ -42,12 +42,7 @@ public class UserController {
         }
     }
     
-    // 사용자 ID 중복 확인 요청 처리
-    @GetMapping("/check-duplicate")
-    public ResponseEntity<Boolean> checkDuplicate(@RequestParam String urId) {
-        boolean isDuplicate = userService.isUserIdDuplicate(urId);
-        return ResponseEntity.ok(isDuplicate); // 중복 여부 반환
-    }
+
     
 
 }
