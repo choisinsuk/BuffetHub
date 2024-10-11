@@ -59,12 +59,12 @@ public class CustomSecurityConfig {
 			config.accessDeniedHandler(new CustomAccessDeniedHandler());
 		});
 		
-	    // 회원가입 엔드포인트 및 기타 요청 권한 설정
-	    http.authorizeHttpRequests(authorizeRequests -> {
-	        authorizeRequests
-	            .requestMatchers("/api/user/register").permitAll() // 인증 없이 회원가입 엔드포인트 접근 허용
-	            .anyRequest().authenticated(); // 그 외의 모든 요청은 인증 필요
-	    });
+//	    // 회원가입 엔드포인트 및 기타 요청 권한 설정
+//	    http.authorizeHttpRequests(authorizeRequests -> {
+//	        authorizeRequests
+//	            .requestMatchers("/api/user/register").permitAll() // 인증 없이 회원가입 엔드포인트 접근 허용
+//	            .anyRequest().authenticated(); // 그 외의 모든 요청은 인증 필요
+//	    });
 
 		return http.build();
 	}
