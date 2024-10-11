@@ -13,7 +13,7 @@ import lombok.*;
 		initialValue = 1, // 시작 값
 		allocationSize = 1 // 메모리를 통해 할당할 범위 사이즈
 )
-@Table(name = "tbl_reserve")
+@Table(name = "tbl_reserve", indexes = {@Index(columnList = "ur_id", name = "idx_reserve_ur")})
 @Getter
 @ToString
 @Builder
@@ -153,5 +153,10 @@ public class Reserve {
 	public void changeRs_significant(String rsSignificant) {
 		this.rsSignificant = rsSignificant;
 	}
+	
+    // User 설정 메서드 추가
+    public void setUser(User user) {
+        this.user = user;
+    }
 
 }

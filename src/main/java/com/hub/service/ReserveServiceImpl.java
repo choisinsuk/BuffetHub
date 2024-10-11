@@ -12,10 +12,12 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.hub.domain.Reserve;
+import com.hub.domain.User;
 import com.hub.dto.PageRequestDTO;
 import com.hub.dto.PageResponseDTO;
 import com.hub.dto.ReserveDTO;
 import com.hub.repository.ReserveRepository;
+import com.hub.repository.UserRepository;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -30,13 +32,32 @@ public class ReserveServiceImpl implements ReserveService {
 	// 자동주입 대상은 final로
 	private final ModelMapper modelMapper;
 	private final ReserveRepository reserveRepository;
-	
+	private final UserRepository userRepository;
+
 	// 데이터 삽입 메서드
 	@Override
 	public Long register(ReserveDTO reserveDTO) {
+
+		// 유저 ID로 유저 정보 조회
+		String urId = reserveDTO.getUrId();
+
+		// 유저가 존재하는지 확인 후, 존재하지 않으면 예외 처리
+		User user = userRepository.findByUrId(urId);
+		if (user == null) {
+			throw new RuntimeException("User not found with ID: " + urId);
+		}
+
+		// ReserveDTO를 Reserve 엔티티로 변환
 		Reserve reserve = modelMapper.map(reserveDTO, Reserve.class);
+
+		// 유저 설정
+		reserve.setUser(user);
+
+		log.info("@@@@@@@@@urId : " + reserve.getUser());
+
+		// 예약 정보 저장
 		Reserve savedReserve = reserveRepository.save(reserve);
-		
+
 		return savedReserve.getRsNb();
 	}
 
@@ -44,10 +65,10 @@ public class ReserveServiceImpl implements ReserveService {
 	@Override
 	public ReserveDTO get(Long rs_nb) {
 		Optional<Reserve> result = reserveRepository.findById(rs_nb);
-		
+
 		Reserve reserve = result.orElseThrow();
 		ReserveDTO dto = modelMapper.map(reserve, ReserveDTO.class);
-		
+
 		return dto;
 	}
 
@@ -55,56 +76,54 @@ public class ReserveServiceImpl implements ReserveService {
 	@Override
 	public void modify(ReserveDTO reserveDTO) {
 		Optional<Reserve> result = reserveRepository.findById(reserveDTO.getRsNb());
-		
+
 		Reserve reserve = result.orElseThrow();
-		
+
 		reserve.changeRs_dt(reserveDTO.getRsDt());
-		
+
 		reserve.changeRs_adult_person_cnt(reserveDTO.getRsAdultPersonCnt());
 		reserve.changeRs_child_person_cnt(reserveDTO.getRsChildPersonCnt());
 		reserve.changeRs_preage_person_cnt(reserveDTO.getRsPreagePersonCnt());
-		
+
 		reserve.changeRs_visit_adult_cnt(reserveDTO.getRsVisitAdultCnt());
 		reserve.changeRs_visit_child_cnt(reserveDTO.getRsVisitChildCnt());
 		reserve.changeRs_visit_preage_cnt(reserveDTO.getRsVisitPreageCnt());
-		
+
 		reserve.changeRs_payment_complete_yn(reserveDTO.isRsPaymentCompleteYn());
 		reserve.changeRs_visit_yn(reserveDTO.isRsVisitYn());
-		
+
 		reserve.changeRs_nm(reserveDTO.getRsNm());
 		reserve.changeRs_phn(reserveDTO.getRsPhn());
 		reserve.changeRs_significant(reserveDTO.getRsSignificant());
-		
+
 		reserveRepository.save(reserve);
-		
+
 	}
 
 	// 데이터 삭제 메서드
 	@Override
 	public void remove(Long rs_nb) {
 		reserveRepository.deleteById(rs_nb);
-		
+
 	}
 
 	// 데이터 리스트 조회 메서드
 	@Override
 	public PageResponseDTO<ReserveDTO> list(PageRequestDTO pageRequestDTO) {
-		Pageable pageable = PageRequest.of(
-				pageRequestDTO.getPage() -1,  // 1페이지가 0이므로 주의
+		Pageable pageable = PageRequest.of(pageRequestDTO.getPage() - 1, // 1페이지가 0이므로 주의
 				pageRequestDTO.getSize(), Sort.by("rsNb").descending());
-		
+
 		Page<Reserve> result = reserveRepository.findAll(pageable);
-		
-		List<ReserveDTO> dtoList = result.getContent().stream().map(reserve ->
-		modelMapper.map(reserve, ReserveDTO.class)).collect(Collectors.toList());
-		
+
+		List<ReserveDTO> dtoList = result.getContent().stream()
+				.map(reserve -> modelMapper.map(reserve, ReserveDTO.class)).collect(Collectors.toList());
+
 		long totalCount = result.getTotalElements();
-		
-		PageResponseDTO<ReserveDTO> responseDTO = PageResponseDTO.<ReserveDTO>withAll()
-				.dtoList(dtoList).pageRequestDTO(pageRequestDTO).totalCount(totalCount).build();
-		
+
+		PageResponseDTO<ReserveDTO> responseDTO = PageResponseDTO.<ReserveDTO>withAll().dtoList(dtoList)
+				.pageRequestDTO(pageRequestDTO).totalCount(totalCount).build();
+
 		return responseDTO;
 	}
-	
-	
+
 }
