@@ -1,5 +1,8 @@
 package com.hub.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -26,7 +29,11 @@ public class UserController {
 
 	// 회원가입 요청 처리
 	@PostMapping("/register")
-	public ResponseEntity<String> registerUser(@RequestBody UserJoinDTO userJoinDTO) {
+	public ResponseEntity<Map<String, Object>> registerUser(@RequestBody UserJoinDTO userJoinDTO) {
+		
+	    Map<String, Object> response = new HashMap<>();
+
+		
 		try {
 			// UserJoinDTO를 기반으로 User 객체 생성
 			User user = User.createUser(userJoinDTO, passwordEncoder);
@@ -34,12 +41,16 @@ public class UserController {
 			// UserService를 사용해 사용자 저장
 			userService.saveUser(user);
 
-			// 회원가입 성공 시 HTTP 201 응답과 성공 메시지 반환
-			return new ResponseEntity<>("회원가입이 성공적으로 완료되었습니다.", HttpStatus.CREATED);
-		} catch (Exception e) {
-			// 회원가입 중 예외 발생 시 HTTP 500 응답과 에러 메시지 반환
-			return new ResponseEntity<>("회원가입 중 오류가 발생했습니다.", HttpStatus.INTERNAL_SERVER_ERROR);
-		}
+	        // 회원가입 성공 시 성공 메시지와 성공 여부 반환
+	        response.put("success", true);
+	        response.put("message", "회원가입이 성공적으로 완료되었습니다.");
+	        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+	    } catch (Exception e) {
+	        // 회원가입 중 예외 발생 시 실패 메시지와 실패 여부 반환
+	        response.put("success", false);
+	        response.put("message", "회원가입 중 오류가 발생했습니다.");
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+	    }
 	}
 
 }
