@@ -1,0 +1,19 @@
+package com.hub.dto;
+
+import java.time.LocalDateTime;
+
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@Builder
+@NoArgsConstructor
+public class ReserveListDTO {
+
+	private Long rsNb;
+	private LocalDateTime rsDt; // 예약일
+	private LocalDateTime rsTm; // 예약시간
+	private Integer rsAdultPersonCnt;
+	
+}
