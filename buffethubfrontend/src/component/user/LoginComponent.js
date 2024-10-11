@@ -27,7 +27,7 @@ const LoginComponent = () => {
         } else {
           // alert("로그인 성공");
           console.log("로그인 성공, 쿠키 확인: ", getCookie("user"));
-          moveToPath(-1);
+          moveToPath('/');
         }
       });
   };
