@@ -2,6 +2,9 @@ package com.hub.controller;
 
 import java.util.Map;
 
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,16 +30,17 @@ public class ReserveController {
 
 	private final ReserveService service;
 
-	// 데이터 1개 읽어오기
-	@GetMapping("/{rsNb}")
-	public ReserveDTO get(@PathVariable(name = "rsNb") Long rsNb) {
-		return service.get(rsNb);
-	}
+	// 데이터 1개 읽어오기(read 기능. 하지만 리스트를 보여주는 것으로 대체함)
+//	@GetMapping("/{rsNb}")
+//	public ReserveDTO get(@PathVariable(name = "rsNb") Long rsNb) {
+//		return service.get(rsNb);
+//	}
 
 	// 데이터 리스트 읽어오기
+	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')") // 임시 권한 
 	@GetMapping("/list")
 	public PageResponseDTO<ReserveDTO> list(PageRequestDTO pageRequestDTO) {
-		log.info(pageRequestDTO);
+		log.info("list@@@@@ : " +pageRequestDTO);
 
 		return service.list(pageRequestDTO);
 	}

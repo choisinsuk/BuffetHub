@@ -9,6 +9,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.google.gson.Gson;
+import com.hub.domain.UserRole;
 import com.hub.dto.UserDTO;
 import com.hub.util.JWTUtil;
 
@@ -32,14 +33,14 @@ public class JWTCheckFilter extends OncePerRequestFilter {
 			log.info("JWT claims: " + claims);
 			// filterChain.doFilter(request, response);
 
-			String ur_id = (String) claims.get("ur_id");
-			String ur_pw = (String) claims.get("ur_pw");
-			String ur_nm = (String) claims.get("ur_nm");
-			String ur_phn = (String) claims.get("ur_phn");
-			String ur_eml = (String) claims.get("ur_eml");
-			String ur_auth_code = (String) claims.get("ur_auth_code");
+			String ur_id = (String) claims.get("urId");
+			String ur_pw = (String) claims.get("urPw");
+			String ur_nm = (String) claims.get("urNm");
+			String ur_phn = (String) claims.get("urPhn");
+			String ur_eml = (String) claims.get("urEml");
+			UserRole ur_auth_code = UserRole.valueOf((String) claims.get("urAuthCode")); // String을 UserRole로 변환
 
-			UserDTO userDTO = new UserDTO(ur_id, ur_pw, ur_nm, ur_phn, ur_eml, ur_auth_code, null, null, null, null);
+			UserDTO userDTO = new UserDTO(ur_id, ur_pw, ur_nm, ur_phn, ur_eml, null, null, ur_auth_code, null, null);
 
 			log.info("----------------------------------------");
 			log.info(userDTO);
