@@ -5,6 +5,7 @@ import ResultModal from "../common/ResultModal";
 import useCustomMove from "../../hook/useCustomMove";
 
 const initState = {
+
   rsAdultPersonCnt: 0,
   rsChildPersonCnt: 0,
   rsPreagePersonCnt: 0,
@@ -76,6 +77,18 @@ const RegistComponent = () => {
   };
 
   const handleClickRegist = () => {
+
+      // 예약자 성함과 전화번호가 공란인지 체크
+  if (!reserve.rsNm.trim()) {
+    alert("예약자 성함을 입력해 주세요."); // 알림 표시
+    return;
+  }
+  
+  if (!reserve.rsPhn.trim()) {
+    alert("전화번호를 입력해 주세요."); // 알림 표시
+    return;
+  }
+
     // 0~20 사이의 값 체크
     if (
       reserve.rsAdultPersonCnt < 0 ||
@@ -99,12 +112,25 @@ const RegistComponent = () => {
       return;
     }
 
-    postRegist(reserve)
+    // 사용자 정보를 설정
+    const user = {
+      urId: reserve.urId,
+    };
+    
+    // reserve 객체에 user 필드 추가
+    const reserveWithUser = { ...reserve, user };
+
+
+    postRegist(reserveWithUser)
       .then((result) => {
         console.log(result);
         setResult(result.RSNB) // 결과 데이터 변경
         // 초기화
         setReserve({ ...initState });
+
+      // 예약 성공 후 moveToList 호출
+      alert("예약이 완료되었습니다.")
+      moveToList();
       })
       .catch((e) => {
         console.error(e);

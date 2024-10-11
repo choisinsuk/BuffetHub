@@ -3,7 +3,6 @@ import useCustomMove from "../../hook/useCustomMove";
 import { getList } from "../../api/reserveApi";
 import PageComponent from "../common/pagecomponent";
 
-
 const initState = {
   dtoList: [],
   pageNumList: [],
@@ -17,15 +16,8 @@ const initState = {
   current: 0,
 };
 
-const ListComponent = () => {
-  const {
-    page,
-    size,
-    moveToMyReserve,
-    moveToModify,
-    moveToList,
-  } = useCustomMove();
-
+const ListComponent = ({ setSelectedReserve }) => { // setSelectedReserve를 props로 받아옴
+  const { page, size, moveToMyReserve, moveToModify, moveToList } = useCustomMove();
   const [serverData, setServerData] = useState(initState);
 
   useEffect(() => {
@@ -38,32 +30,16 @@ const ListComponent = () => {
   // 날짜와 시간을 나누는 함수
   const formatDate = (dateTimeString) => {
     const date = new Date(dateTimeString);
-    const formattedDate = date.toLocaleDateString(); // 날짜 부분만 추출
+    const formattedDate = date.toLocaleDateString();
     const formattedTime = date.toLocaleTimeString([], {
       hour: "2-digit",
       minute: "2-digit",
-    }); // 시간 부분만 추출 (HH:MM)
+    });
     return { formattedDate, formattedTime };
   };
 
-  // 현재 경로에 따라 이동 함수 선택
-  const getMoveFunction = () => {
-    const currentPath = window.location.pathname;
-    if (currentPath.includes("/reserve/list")) {
-      return moveToList;
-    } else if (currentPath.includes("/user/myreserve")) {
-      return moveToMyReserve;
-    } else if (currentPath.includes("/user/modify")) {
-      return moveToModify;
-    }
-    return null; // 기본값
-  };
-
-  const movePage = getMoveFunction(); // 동적으로 이동 함수 선택
-
   return (
     <>
-      {/* 테이블을 하나로 합치고 그 안에 예약 정보들을 추가 */}
       <table className="m-10">
         <thead>
           <tr>
@@ -81,17 +57,18 @@ const ListComponent = () => {
             return (
               <tr key={reserve.rsNb}>
                 <td className="border border-black">
-                  <input type="radio" name="reserve" />
+                  <input
+                    type="radio"
+                    name="reserve"
+                    value={reserve.rsNb}
+                    onChange={() => setSelectedReserve(reserve.rsNb)} // 선택된 예약 업데이트
+                  />
                 </td>
                 <td className="border border-black">{reserve.rsNb}</td>
-                <td className="border border-black">{formattedDate}</td>{" "}
-                {/* 날짜만 출력 */}
-                <td className="border border-black">{formattedTime}</td>{" "}
-                {/* 시간만 출력 */}
+                <td className="border border-black">{formattedDate}</td>
+                <td className="border border-black">{formattedTime}</td>
                 <td className="border border-black">
-                  성인 {reserve.rsAdultPersonCnt}명, 아동{" "}
-                  {reserve.rsChildPersonCnt}명, 미취학{" "}
-                  {reserve.rsPreagePersonCnt}명
+                  성인 {reserve.rsAdultPersonCnt}명, 아동 {reserve.rsChildPersonCnt}명, 미취학 {reserve.rsPreagePersonCnt}명
                 </td>
               </tr>
             );
@@ -100,7 +77,7 @@ const ListComponent = () => {
         <tfoot>
           <tr>
             <td>
-              <PageComponent serverData={serverData} movePage={movePage}></PageComponent>
+              <PageComponent serverData={serverData} movePage={moveToList}></PageComponent>
             </td>
           </tr>
         </tfoot>

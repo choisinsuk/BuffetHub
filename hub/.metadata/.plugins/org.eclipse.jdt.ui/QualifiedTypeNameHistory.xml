@@ -1,21 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-    <fullyQualifiedTypeName name="java.time.ZoneId"/>
-    <fullyQualifiedTypeName name="com.hub.service.BuffetVoucherService"/>
-    <fullyQualifiedTypeName name="org.junit.jupiter.api.Test"/>
-    <fullyQualifiedTypeName name="com.hub.domain.User"/>
-    <fullyQualifiedTypeName name="com.hub.repository.ReserveRepository"/>
-    <fullyQualifiedTypeName name="ch.qos.logback.core.pattern.Converter"/>
-    <fullyQualifiedTypeName name="org.modelmapper.Converter"/>
-    <fullyQualifiedTypeName name="org.modelmapper.spi.MappingContext"/>
-    <fullyQualifiedTypeName name="java.text.SimpleDateFormat"/>
     <fullyQualifiedTypeName name="java.text.ParseException"/>
     <fullyQualifiedTypeName name="java.util.Optional"/>
     <fullyQualifiedTypeName name="com.hub.dto.BuffetVoucherDTO"/>
     <fullyQualifiedTypeName name="lombok.experimental.SuperBuilder"/>
     <fullyQualifiedTypeName name="lombok.AllArgsConstructor"/>
-    <fullyQualifiedTypeName name="lombok.NoArgsConstructor"/>
-    <fullyQualifiedTypeName name="lombok.Data"/>
     <fullyQualifiedTypeName name="java.util.stream.IntStream"/>
     <fullyQualifiedTypeName name="org.springframework.data.domain.Pageable"/>
     <fullyQualifiedTypeName name="org.springframework.data.domain.PageRequest"/>
@@ -26,11 +15,8 @@
     <fullyQualifiedTypeName name="lombok.RequiredArgsConstructor"/>
     <fullyQualifiedTypeName name="lombok.extern.log4j.Log4j2"/>
     <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestMapping"/>
-    <fullyQualifiedTypeName name="com.hub.service.ReserveService"/>
     <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.GetMapping"/>
     <fullyQualifiedTypeName name="com.hub.dto.PageRequestDTO"/>
-    <fullyQualifiedTypeName name="java.time.LocalDateTime"/>
-    <fullyQualifiedTypeName name="java.util.Date"/>
     <fullyQualifiedTypeName name="com.hub.domain.BuffetVoucher"/>
     <fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Autowired"/>
     <fullyQualifiedTypeName name="com.hub.repository.BuffetVoucherRepository"/>
@@ -50,9 +36,7 @@
     <fullyQualifiedTypeName name="org.springframework.web.servlet.config.annotation.CorsRegistry"/>
     <fullyQualifiedTypeName name="lombok.Builder.Default"/>
     <fullyQualifiedTypeName name="jakarta.persistence.Column"/>
-    <fullyQualifiedTypeName name="lombok.Builder"/>
     <fullyQualifiedTypeName name="org.springframework.security.access.prepost.PreAuthorize"/>
-    <fullyQualifiedTypeName name="java.util.List"/>
     <fullyQualifiedTypeName name="org.springframework.http.converter.HttpMessageConverter"/>
     <fullyQualifiedTypeName name="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"/>
     <fullyQualifiedTypeName name="java.net.http.HttpHeaders"/>
@@ -60,4 +44,20 @@
     <fullyQualifiedTypeName name="com.hub.dto.PageResponseDTO"/>
     <fullyQualifiedTypeName name="org.springframework.http.ResponseEntity"/>
     <fullyQualifiedTypeName name="org.springframework.http.HttpStatus"/>
+    <fullyQualifiedTypeName name="org.springframework.security.core.Authentication"/>
+    <fullyQualifiedTypeName name="org.springframework.security.core.context.SecurityContextHolder"/>
+    <fullyQualifiedTypeName name="java.util.Date"/>
+    <fullyQualifiedTypeName name="com.hub.domain.UserRole"/>
+    <fullyQualifiedTypeName name="jakarta.persistence.Index"/>
+    <fullyQualifiedTypeName name="lombok.Data"/>
+    <fullyQualifiedTypeName name="lombok.Builder"/>
+    <fullyQualifiedTypeName name="lombok.NoArgsConstructor"/>
+    <fullyQualifiedTypeName name="java.time.LocalDateTime"/>
+    <fullyQualifiedTypeName name="java.util.List"/>
+    <fullyQualifiedTypeName name="com.hub.dto.ReserveListDTO"/>
+    <fullyQualifiedTypeName name="com.hub.dto.UserDTO"/>
+    <fullyQualifiedTypeName name="com.hub.service.UserService"/>
+    <fullyQualifiedTypeName name="com.hub.service.ReserveService"/>
+    <fullyQualifiedTypeName name="com.hub.domain.User"/>
+    <fullyQualifiedTypeName name="com.hub.repository.UserRepository"/>
 </qualifiedTypeNameHistroy>
