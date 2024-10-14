@@ -30,18 +30,18 @@ public class Reserve {
 	@Column(nullable = false)
 	private LocalDateTime rsDt; // 예약일자
 
-	@Builder.Default
+	
 	@Column( nullable = false, columnDefinition = "NUMBER(4)")
-	private Integer rsTotalPersonCnt = 1; // 예약 총 인원수
-	@Builder.Default
+	private Integer rsTotalPersonCnt; // 예약 총 인원수
+	
 	@Column(nullable = false, columnDefinition = "NUMBER(4)")
-	private Integer rsAdultPersonCnt = 1; // 예약 성인 인원수
-	@Builder.Default
+	private Integer rsAdultPersonCnt; // 예약 성인 인원수
+	
 	@Column( nullable = false, columnDefinition = "NUMBER(4)")
-	private Integer rsChildPersonCnt = 0; // 예약 아동 인원수
-	@Builder.Default
+	private Integer rsChildPersonCnt; // 예약 아동 인원수
+	
 	@Column( nullable = false, columnDefinition = "NUMBER(4)")
-	private Integer rsPreagePersonCnt = 0; // 예약 미취학 인원수
+	private Integer rsPreagePersonCnt; // 예약 미취학 인원수
 
 	@Builder.Default
 	@Column( nullable = false, columnDefinition = "NUMBER(4)")
@@ -76,12 +76,10 @@ public class Reserve {
 	@JoinColumn(name = "ur_id", nullable = false)
 	private User user; // 사용자 ID
 
-	/*
-	 * // ReviewBoard와의 관계 설정
-	 * 
-	 * @OneToOne(mappedBy = "review_board") private ReviewBoard reviewBoard; // 예약
-	 * 정보
-	 */
+	// 총 인원수 설정 메서드
+    public void setRsTotalPersonCnt(Integer rsTotalPersonCnt) {
+        this.rsTotalPersonCnt = rsTotalPersonCnt;
+    }
 
 	public void changeRs_dt(LocalDateTime rsDt) {
 		this.rsDt = rsDt;

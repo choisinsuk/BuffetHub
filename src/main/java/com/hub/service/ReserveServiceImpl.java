@@ -9,6 +9,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.hub.domain.Reserve;
@@ -52,6 +54,13 @@ public class ReserveServiceImpl implements ReserveService {
 
 		// 유저 설정
 		reserve.setUser(user);
+		
+		// rsTotalPersonCnt 계산
+	    reserve.setRsTotalPersonCnt(
+	        reserve.getRsAdultPersonCnt() + 
+	        reserve.getRsChildPersonCnt() + 
+	        reserve.getRsPreagePersonCnt()
+	    );
 
 		log.info("@@@@@@@@@urId : " + reserve.getUser());
 
@@ -110,10 +119,32 @@ public class ReserveServiceImpl implements ReserveService {
 	// 데이터 리스트 조회 메서드
 	@Override
 	public PageResponseDTO<ReserveDTO> list(PageRequestDTO pageRequestDTO) {
+
+		String loginUrId = SecurityContextHolder.getContext().getAuthentication().getName(); // 로그인한 사용자 아이디
+
+		// User 객체를 찾는 로직
+		User user = userRepository.findByUrId(loginUrId); // 사용자 이름으로 User 객체 조회
+		if (user == null) {
+            throw new RuntimeException("User not found with ID: " + loginUrId);
+        }
+		
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		
+		 boolean isAdmin = authentication.getAuthorities().stream()
+                 .anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals("ROLE_ADMIN")); // 관리자 권한 여부
+
 		Pageable pageable = PageRequest.of(pageRequestDTO.getPage() - 1, // 1페이지가 0이므로 주의
 				pageRequestDTO.getSize(), Sort.by("rsNb").descending());
 
-		Page<Reserve> result = reserveRepository.findAll(pageable);
+		Page<Reserve> result;
+		
+		if (isAdmin) {
+	        // 관리자일 경우 모든 데이터 조회
+	        result = reserveRepository.findAll(pageable);
+	    } else {
+	        // 일반 사용자일 경우 자신의 urId와 일치하는 데이터만 조회
+	        result = reserveRepository.findByUser(user, pageable);
+	    }
 
 		List<ReserveDTO> dtoList = result.getContent().stream()
 				.map(reserve -> modelMapper.map(reserve, ReserveDTO.class)).collect(Collectors.toList());
