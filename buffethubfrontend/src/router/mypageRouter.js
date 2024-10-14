@@ -2,7 +2,7 @@ import { lazy, Suspense } from "react";
 import MyPage from "../page/mypage/MyPage"; // 마이 페이지 컴포넌트 가져오기
 
 const Loading = <div>Loading...</div>;
-const MyReserve = lazy(() => import("../page/reserve/MyReservePage")); // 예약 페이지 컴포넌트
+const MyReserve = lazy(() => import("../component/reserve/MyReserveComponent.js")); // 예약 페이지 컴포넌트
 const UserModifyComponent = lazy(() =>
   import("../component/mypage/UserModifyComponent.js")
 ); // 내 정보 관리 컴포넌트 가져오기

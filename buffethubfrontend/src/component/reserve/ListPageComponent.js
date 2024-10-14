@@ -9,7 +9,7 @@ const ListPageComponent = () => {
   const [selectedReserve, setSelectedReserve] = useState(null); // 선택된 예약 상태
 
   const handleClickMyReserve = useCallback(() => {
-    navigate({ pathname: "/user/myreserve" });
+    navigate({ pathname: "/mypage/myreservations" });
   });
 
   const handleClickModify = useCallback(() => {

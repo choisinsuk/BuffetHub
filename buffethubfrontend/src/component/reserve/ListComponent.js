@@ -44,7 +44,7 @@ const ListComponent = ({ setSelectedReserve }) => { // setSelectedReserve를 pro
   const determineMovePage = () => {
     if (location.pathname === "/reserve/list") {
       return moveToList;
-    } else if (location.pathname === "/user/myreserve") {
+    } else if (location.pathname === "/mypage/myreservations") {
       return moveToMyReserve;
     }
   }
