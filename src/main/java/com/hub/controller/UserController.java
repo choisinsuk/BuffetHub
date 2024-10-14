@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.hub.domain.User;
 import com.hub.dto.UserDTO;
 import com.hub.dto.UserJoinDTO;
+import com.hub.dto.UserModifyDTO;
 import com.hub.service.UserService;
 
 import lombok.RequiredArgsConstructor;
@@ -56,17 +57,18 @@ public class UserController {
 		}
 	}
 
-    // 사용자 프로필 조회
-    @GetMapping("/profile/{urId}")
-    public User getUserProfile(@PathVariable String urId) {
-        return userService.getUserById(urId);
+	// 사용자 프로필 조회
+	@GetMapping("/profile/{urId}")
+	public User getUserProfile(@PathVariable String urId) {
+		return userService.getUserById(urId);
+	}
+	
+    // 사용자 프로필 수정
+    @PutMapping("/profileupdate/{urId}")
+    public ResponseEntity<String> updateUserProfile(@PathVariable String urId, @RequestBody UserModifyDTO dto) {
+        userService.modify(dto, urId);
+        return ResponseEntity.ok("사용자 정보가 성공적으로 수정되었습니다.");
     }
 
-    // 사용자 프로필 수정
-    @PutMapping("/profile")
-    public ResponseEntity<String> updateUserProfile(@RequestBody UserDTO userDTO, Principal principal) {
-        userService.updateUserProfile(userDTO, principal.getName());
-        return ResponseEntity.ok("회원 정보가 성공적으로 수정되었습니다.");
-    }
 
 }

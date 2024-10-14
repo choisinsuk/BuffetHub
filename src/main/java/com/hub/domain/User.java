@@ -77,13 +77,9 @@ public class User {
                 .build();
     }
     
-    // 전화번호 변경
-    public void changePhoneNumber(String urPhn) {
+    // 사용자 정보 수정
+    public void modify(String urPhn, String urEml) {
         this.urPhn = urPhn;
-    }
-
-    // 이메일 변경
-    public void changeEmail(String urEml) {
         this.urEml = urEml;
     }
 	
