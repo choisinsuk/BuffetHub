@@ -76,6 +76,16 @@ public class User {
                 .urConditionCode("ACTIVE")
                 .build();
     }
+    
+    // 전화번호 변경
+    public void changePhoneNumber(String urPhn) {
+        this.urPhn = urPhn;
+    }
+
+    // 이메일 변경
+    public void changeEmail(String urEml) {
+        this.urEml = urEml;
+    }
 	
 
 

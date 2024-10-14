@@ -1,5 +1,6 @@
 package com.hub.controller;
 
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -7,13 +8,16 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hub.domain.User;
+import com.hub.dto.UserDTO;
 import com.hub.dto.UserJoinDTO;
 import com.hub.service.UserService;
 
@@ -30,10 +34,9 @@ public class UserController {
 	// 회원가입 요청 처리
 	@PostMapping("/register")
 	public ResponseEntity<Map<String, Object>> registerUser(@RequestBody UserJoinDTO userJoinDTO) {
-		
-	    Map<String, Object> response = new HashMap<>();
 
-		
+		Map<String, Object> response = new HashMap<>();
+
 		try {
 			// UserJoinDTO를 기반으로 User 객체 생성
 			User user = User.createUser(userJoinDTO, passwordEncoder);
@@ -41,16 +44,29 @@ public class UserController {
 			// UserService를 사용해 사용자 저장
 			userService.saveUser(user);
 
-	        // 회원가입 성공 시 성공 메시지와 성공 여부 반환
-	        response.put("success", true);
-	        response.put("message", "회원가입이 성공적으로 완료되었습니다.");
-	        return ResponseEntity.status(HttpStatus.CREATED).body(response);
-	    } catch (Exception e) {
-	        // 회원가입 중 예외 발생 시 실패 메시지와 실패 여부 반환
-	        response.put("success", false);
-	        response.put("message", "회원가입 중 오류가 발생했습니다.");
-	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
-	    }
+			// 회원가입 성공 시 성공 메시지와 성공 여부 반환
+			response.put("success", true);
+			response.put("message", "회원가입이 성공적으로 완료되었습니다.");
+			return ResponseEntity.status(HttpStatus.CREATED).body(response);
+		} catch (Exception e) {
+			// 회원가입 중 예외 발생 시 실패 메시지와 실패 여부 반환
+			response.put("success", false);
+			response.put("message", "회원가입 중 오류가 발생했습니다.");
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+		}
 	}
+
+    // 사용자 프로필 조회
+    @GetMapping("/profile/{urId}")
+    public User getUserProfile(@PathVariable String urId) {
+        return userService.getUserById(urId);
+    }
+
+    // 사용자 프로필 수정
+    @PutMapping("/profile")
+    public ResponseEntity<String> updateUserProfile(@RequestBody UserDTO userDTO, Principal principal) {
+        userService.updateUserProfile(userDTO, principal.getName());
+        return ResponseEntity.ok("회원 정보가 성공적으로 수정되었습니다.");
+    }
 
 }
