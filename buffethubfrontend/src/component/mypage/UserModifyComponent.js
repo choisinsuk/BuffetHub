@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { getUserProfile } from '../../api/userApi';
+import { getUserProfile, updateUserProfile } from '../../api/userApi';
 import { useCookies } from 'react-cookie';
 
 const UserModifyComponent = () => {
@@ -54,22 +54,32 @@ const UserModifyComponent = () => {
     });
   };
 
-  // 폼 제출 처리
-  const handleSubmit = (e) => {
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // 서버에 회원 정보 수정 요청
-    axios
-      .put('/api/user/profile', formData)
-      .then((response) => {
-        alert('회원 정보가 성공적으로 수정되었습니다.');
-        navigate('/main'); // 수정 완료 후 메인 페이지로 이동
-      })
-      .catch((error) => {
-        setErrorMessage('회원 정보 수정에 실패했습니다.');
-        console.error("Error updating profile", error);
-      });
-  };
+    const updatedUser = {
+        urPhn: formData.phoneNumber, // 전화번호
+        urEml: formData.email // 이메일
+    };
+
+    // 수정된 데이터 출력
+    console.log('Updated User Data:', updatedUser);
+
+    // JWT 토큰 가져오기
+    const token = cookies.user.token; // 쿠키에서 토큰 가져오기 (토큰이 저장된 위치에 따라 수정 필요)
+
+    try {
+        const user = cookies.user; // 쿠키에서 사용자 정보 가져오기
+        await updateUserProfile(user.urId, updatedUser, token); // 수정 요청 (토큰을 인자로 전달)
+
+        // 수정 성공 시 추가 작업 (예: 성공 메시지 표시)
+        alert('회원 정보가 수정되었습니다.');
+    } catch (error) {
+        console.error("Failed to update user profile", error);
+        setErrorMessage('회원 정보를 수정하는 데 실패했습니다.');
+    }
+};
 
   // 비밀번호 변경 페이지로 이동
   const handlePasswordChange = () => {
