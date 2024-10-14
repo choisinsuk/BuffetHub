@@ -6,10 +6,8 @@
     <fullyQualifiedTypeName name="lombok.experimental.SuperBuilder"/>
     <fullyQualifiedTypeName name="lombok.AllArgsConstructor"/>
     <fullyQualifiedTypeName name="java.util.stream.IntStream"/>
-    <fullyQualifiedTypeName name="org.springframework.data.domain.Pageable"/>
     <fullyQualifiedTypeName name="org.springframework.data.domain.PageRequest"/>
     <fullyQualifiedTypeName name="org.springframework.data.domain.Sort"/>
-    <fullyQualifiedTypeName name="org.springframework.data.domain.Page"/>
     <fullyQualifiedTypeName name="java.util.stream.Collectors"/>
     <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RestController"/>
     <fullyQualifiedTypeName name="lombok.RequiredArgsConstructor"/>
@@ -44,8 +42,6 @@
     <fullyQualifiedTypeName name="com.hub.dto.PageResponseDTO"/>
     <fullyQualifiedTypeName name="org.springframework.http.ResponseEntity"/>
     <fullyQualifiedTypeName name="org.springframework.http.HttpStatus"/>
-    <fullyQualifiedTypeName name="org.springframework.security.core.Authentication"/>
-    <fullyQualifiedTypeName name="org.springframework.security.core.context.SecurityContextHolder"/>
     <fullyQualifiedTypeName name="java.util.Date"/>
     <fullyQualifiedTypeName name="com.hub.domain.UserRole"/>
     <fullyQualifiedTypeName name="jakarta.persistence.Index"/>
@@ -58,6 +54,10 @@
     <fullyQualifiedTypeName name="com.hub.dto.UserDTO"/>
     <fullyQualifiedTypeName name="com.hub.service.UserService"/>
     <fullyQualifiedTypeName name="com.hub.service.ReserveService"/>
-    <fullyQualifiedTypeName name="com.hub.domain.User"/>
     <fullyQualifiedTypeName name="com.hub.repository.UserRepository"/>
+    <fullyQualifiedTypeName name="org.springframework.data.domain.Page"/>
+    <fullyQualifiedTypeName name="org.springframework.data.domain.Pageable"/>
+    <fullyQualifiedTypeName name="org.springframework.security.core.context.SecurityContextHolder"/>
+    <fullyQualifiedTypeName name="com.hub.domain.User"/>
+    <fullyQualifiedTypeName name="org.springframework.security.core.Authentication"/>
 </qualifiedTypeNameHistroy>

@@ -40,7 +40,7 @@ const useCustomMove = () => {
     }
 
     navigate({
-      pathname: `../myreserve`,
+      pathname: `/mypage/myreserve`,
       search: queryStr,
     });
     setRefresh(!refresh);

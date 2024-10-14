@@ -15,13 +15,14 @@ export const postRegist = async (reserveObj) => {
   return res.data;
 };
 
-export const getList = async (pageParam) => {
+export const getList = async (pageParam, userId) => {
   const { page, size } = pageParam;
   const res = await jwtAxios.get(`${prefix}/list`, {
-    params: { page: page, size: size },
+    params: { page, size, userId }, // userId를 파라미터로 추가
   });
   return res.data;
 };
+
 
 export const deleteOne = async (rsNb) => {
   const res = await jwtAxios.delete(`${prefix}/${rsNb}`);

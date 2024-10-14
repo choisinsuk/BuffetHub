@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import useCustomMove from "../../hook/useCustomMove";
 import { getList } from "../../api/reserveApi";
 import PageComponent from "../common/pagecomponent";
+import { useLocation } from "react-router-dom";
 
 const initState = {
   dtoList: [],
@@ -19,6 +20,7 @@ const initState = {
 const ListComponent = ({ setSelectedReserve }) => { // setSelectedReserve를 props로 받아옴
   const { page, size, moveToMyReserve, moveToModify, moveToList } = useCustomMove();
   const [serverData, setServerData] = useState(initState);
+  const location = useLocation();
 
   useEffect(() => {
     getList({ page, size }).then((data) => {
@@ -37,6 +39,15 @@ const ListComponent = ({ setSelectedReserve }) => { // setSelectedReserve를 pro
     });
     return { formattedDate, formattedTime };
   };
+
+  // 현재 경로에 따라 movePage 함수 결정
+  const determineMovePage = () => {
+    if (location.pathname === "/reserve/list") {
+      return moveToList;
+    } else if (location.pathname === "/user/myreserve") {
+      return moveToMyReserve;
+    }
+  }
 
   return (
     <>
@@ -77,7 +88,7 @@ const ListComponent = ({ setSelectedReserve }) => { // setSelectedReserve를 pro
         <tfoot>
           <tr>
             <td>
-              <PageComponent serverData={serverData} movePage={moveToList}></PageComponent>
+              <PageComponent serverData={serverData} movePage={determineMovePage()}></PageComponent>
             </td>
           </tr>
         </tfoot>

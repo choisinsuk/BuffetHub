@@ -77,4 +77,6 @@
 	<section name="WorkingSetModelAwareSelectionDialog">
 		<item key="ShowVisibleOnly" value="true"/>
 	</section>
+	<section name="BreadcrumbItemDropDown">
+	</section>
 </section>

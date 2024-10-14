@@ -5,7 +5,6 @@ import ResultModal from "../common/ResultModal";
 import useCustomMove from "../../hook/useCustomMove";
 
 const initState = {
-
   rsAdultPersonCnt: 0,
   rsChildPersonCnt: 0,
   rsPreagePersonCnt: 0,
@@ -16,16 +15,16 @@ const initState = {
   rsVisitPreageCnt: 0,
   rsVisitTotalCnt: 0,
 
-  rsNm: " ",
-  rsPhn: " ",
-  rsSignificant: " ",
+  rsNm: "",
+  rsPhn: "",
+  rsSignificant: "",
 
-  rsDt: " ",
+  rsDt: "",
   rsPaymentCompleteYn: false,
   rsVisitYn: false,
 
   bvNb: 0,
-  urId: " ",
+  urId: "",
 };
 
 const RegistComponent = () => {
@@ -33,9 +32,9 @@ const RegistComponent = () => {
   const [selectedDate, setSelectedDate] = useState(null);
 
   // 결과 데이터가 있는 경우 ResultModal을 보여준다
-  const [result, setResult] = useState(null) // 결과 상태
+  const [result, setResult] = useState(null); // 결과 상태
 
-  const {moveToList} = useCustomMove()
+  const { moveToMyReserve } = useCustomMove();
 
   const handleChangeReserve = (e) => {
     const { name, value } = e.target;
@@ -77,17 +76,40 @@ const RegistComponent = () => {
   };
 
   const handleClickRegist = () => {
+    // 예약자 성함과 전화번호가 공란인지 체크
+    if (!reserve.rsNm.trim()) {
+      alert("예약자 성함을 입력해 주세요."); // 알림 표시
+      return;
+    }
 
-      // 예약자 성함과 전화번호가 공란인지 체크
-  if (!reserve.rsNm.trim()) {
-    alert("예약자 성함을 입력해 주세요."); // 알림 표시
-    return;
-  }
-  
-  if (!reserve.rsPhn.trim()) {
-    alert("전화번호를 입력해 주세요."); // 알림 표시
-    return;
-  }
+    // 예약자 성함: 공백 없는 한글 및 길이 체크
+    const nameRegex = /^[가-힣]+$/; // 공백 없는 한글만 허용
+    if (!nameRegex.test(reserve.rsNm)) {
+      alert("예약자 성함은 한글로만 입력 가능하며 공백은 포함될 수 없습니다."); // 알림 표시
+      return;
+    }
+
+    if (reserve.rsNm.length > 10) {
+      alert("예약자 성함은 최대 10자까지 입력 가능합니다."); // 알림 표시
+      return;
+    }
+
+    if (!reserve.rsPhn.trim()) {
+      alert("전화번호를 입력해 주세요."); // 알림 표시
+      return;
+    }
+
+    // 전화번호: 공백 없는 숫자 및 길이 체크
+    const phoneRegex = /^[0-9]+$/; // 숫자만 허용
+    if (!phoneRegex.test(reserve.rsPhn)) {
+      alert("전화번호는 숫자만 입력 가능하며 공백은 포함될 수 없습니다."); // 알림 표시
+      return;
+    }
+
+    if (reserve.rsPhn.length > 11) {
+      alert("전화번호는 최대 11자까지 입력 가능합니다."); // 알림 표시
+      return;
+    }
 
     // 0~20 사이의 값 체크
     if (
@@ -116,21 +138,20 @@ const RegistComponent = () => {
     const user = {
       urId: reserve.urId,
     };
-    
+
     // reserve 객체에 user 필드 추가
     const reserveWithUser = { ...reserve, user };
-
 
     postRegist(reserveWithUser)
       .then((result) => {
         console.log(result);
-        setResult(result.RSNB) // 결과 데이터 변경
+        setResult(result.RSNB); // 결과 데이터 변경
         // 초기화
         setReserve({ ...initState });
 
-      // 예약 성공 후 moveToList 호출
-      alert("예약이 완료되었습니다.")
-      moveToList();
+        // 예약 성공 후 moveToList 호출
+        alert("예약이 완료되었습니다.");
+        moveToMyReserve();
       })
       .catch((e) => {
         console.error(e);
@@ -138,14 +159,22 @@ const RegistComponent = () => {
   };
 
   const closeModal = () => {
-    setResult(null)
-    moveToList()
-  }
+    setResult(null);
+    moveToMyReserve();
+  };
 
   return (
     <div className="border border-black">
       {/* 모달처리 */}
-      {result ? <ResultModal title={'Add result'} content={`New ${result} Added`} callbackFn={closeModal}/> :<></>}
+      {result ? (
+        <ResultModal
+          title={"Add result"}
+          content={`New ${result} Added`}
+          callbackFn={closeModal}
+        />
+      ) : (
+        <></>
+      )}
       <div className="p-2">
         <div className="flex flex-row text-sm m-2 ">
           <div className="p-3 pr-0">예약자 성함</div>
