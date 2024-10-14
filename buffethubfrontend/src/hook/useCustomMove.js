@@ -46,7 +46,7 @@ const useCustomMove = () => {
     setRefresh(!refresh);
   };
 
-  const moveToChangeReserve = (pageParam) => {
+  const moveToList = (pageParam) => {
     let queryStr = "";
 
     if (pageParam) {
@@ -62,24 +62,24 @@ const useCustomMove = () => {
     }
 
     navigate({
-      pathname: `../changereserve`,
+      pathname: `../list`,
       search: queryStr,
     });
     setRefresh(!refresh);
   };
 
-  const moveToModifyReserve = (num) => {
+  const moveToModify = (num) => {
     console.log(queryDefault);
 
     navigate({
-      pathname: `../modifyreserve/${num}`,
+      pathname: `../modify/${num}`,
       search: queryDefault,
     });
   };
   return {
     moveToMyReserve,
-    moveToModifyReserve,
-    moveToChangeReserve,
+    moveToModify,
+    moveToList,
     page,
     size,
     refresh

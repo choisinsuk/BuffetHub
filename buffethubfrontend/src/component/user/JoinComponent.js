@@ -4,52 +4,42 @@ import { useDispatch } from "react-redux";
 
 const JoinComponent = () => {
   const dispatch = useDispatch();
+  
+  const [userId, setUserId] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [passwordMatch, setPasswordMatch] = useState(true);
+  const [username, setUserName] = useState("");
+  const [userPhone, setUserPhone] = useState("");
+  const [userEmail, setUserEmail] = useState("");
+  const [selectedEmail, setSelectedEmail] = useState("");
+  const [agreeTerms, setAgreeTerms] = useState(false);
 
-  const [userId, setUserId] = useState(""); // 아이디 입력값 상태
-  const [password, setPassword] = useState(""); // 비밀번호 입력값 상태
-  const [confirmPassword, setConfirmPassword] = useState(""); // 비밀번호 확인 입력값 상태
-  const [passwordMatch, setPasswordMatch] = useState(true); // 비밀번호 일치 여부 상태
-  const [username, setUserName] = useState(""); // 사용자 성명 입력값 상태
-  const [userPhone, setUserPhone] = useState(""); // 사용자 전화번호 입력값 상태
-  const [userEmail, setUserEmail] = useState(""); // 사용자 이메일 입력값 상태
-  const [selectedEmail, setSelectedEmail] = useState(""); // 선택된 이메일 도메인 상태
-  const [agreeTerms, setAgreeTerms] = useState(false); // 약관 동의 상태
-
-  // 비밀번호 확인 함수
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
     setPasswordMatch(e.target.value === confirmPassword);
   };
 
-  // 비밀번호 확인 입력 시, 비밀번호와 일치 여부를 검사
   const handleConfirmPasswordChange = (e) => {
     setConfirmPassword(e.target.value);
     setPasswordMatch(password === e.target.value);
   };
 
   const handleTermsChange = () => {
-    setAgreeTerms(!agreeTerms); // 체크박스 상태 토글
+    setAgreeTerms(!agreeTerms);
   };
 
-  // 중복 확인 함수 (예시, 실제 구현 필요)
-  const handleCheckDuplicate = () => {
-    // 아이디 중복 확인 로직 구현
-    console.log("중복 확인 로직 실행");
-  };
-
-  // 회원가입 제출 함수
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // 사용자 데이터 객체 생성
     const userData = {
       urId: userId,
       urPw: password,
       urNm: username,
       urPhn: userPhone,
       urEml: `${userEmail}@${selectedEmail}`,
-      urPrplYn: "Y", // 개인정보 이용약관 동의 여부
-      urStmbplYn: "Y" // 가게 회원 약관 동의 여부
+      urPrplYn: "Y",
+      urStmbplYn: "Y",
     };
 
     // 비밀번호 일치 여부 및 약관 동의 체크
@@ -64,15 +54,14 @@ const JoinComponent = () => {
     }
 
     try {
-      const response = await dispatch(joinPostAsync(userData)); // 회원가입 요청 디스패치
+      const response = await dispatch(joinPostAsync(userData));
       if (response && response.success) {
-        window.location.href = "/user/login"; // 로그인 페이지로 이동
+        window.location.href = "/user/login";
       } else {
-        alert("회원가입에 실패했습니다."); // 오류 처리
+        alert("회원가입에 실패했습니다.");
       }
     } catch (error) {
-      console.error("회원가입 실패:", error); // 오류 처리
-      alert("회원가입 중 오류가 발생했습니다.");
+      console.error("회원가입 실패:", error);
     }
   };
 
@@ -116,7 +105,6 @@ const JoinComponent = () => {
             }}
           />
           <button
-            onClick={handleCheckDuplicate}
             style={{
               padding: "10px 20px",
               backgroundColor: "#ccc",

@@ -24,7 +24,7 @@ const MyReservePage = () => {
   const moveToModify = useCallback(
     (rsNb) => {
       navigate({
-        pathname: `/reserve/modifyreserve/${rsNb}`,
+        pathname: `/reserve/modify/${rsNb}`,
         search: queryStr,
       });
     },

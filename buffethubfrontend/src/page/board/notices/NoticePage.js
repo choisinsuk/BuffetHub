@@ -4,6 +4,10 @@ import NoticeComponent from "../../../component/board/notices/NoticeComponent";
 import { Link, useNavigate } from "react-router-dom"; 
 
 const NoticePage = () => {
+  
+  // 현재 페이지 상태를 관리하기 위한 useState 훅
+  const [currentPage, setCurrentPage] = useState(1);
+
   // 검색어 상태 관리
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -19,7 +23,7 @@ const NoticePage = () => {
     { id: 8, title: "제목 8", content: "내용 8", author: "신숙기", date: "2024-10-08" },
   ]);
   
-  // navigate 훅을 사용하여 페이지 이동을 관리
+  // 페이지 이동을 위한 navigate 훅
   const navigate = useNavigate();
 
   // 검색어에 따라 공지사항 필터링
@@ -34,7 +38,7 @@ const NoticePage = () => {
 
   // 공지사항 업데이트 핸들러
   const handleNoticeUpdate = (id, updatedTitle, updatedContent) => {
-    // 해당 ID의 공지사항을 찾아 제목과 내용을 업데이트
+    // 공지사항 목록에서 해당 ID의 공지사항을 찾아 제목과 내용을 업데이트
     setNotices(prevNotices => 
       prevNotices.map(notice =>
         notice.id === id ? { ...notice, title: updatedTitle, content: updatedContent } : notice
@@ -52,6 +56,17 @@ const NoticePage = () => {
     } });
   };
 
+  // 페이지 변경 핸들러
+  const handlePageChange = (page) => {
+    if (page >= 1 && page <= 9) { // 페이지 번호 유효성 검사
+      setCurrentPage(page); // 현재 페이지 상태 업데이트
+    }
+  };
+
+  // 현재 페이지에 맞는 공지사항을 슬라이스하여 가져오기
+  const startIndex = (currentPage - 1) * 8; // 시작 인덱스 계산
+  const currentNotices = filteredNotices.slice(startIndex, startIndex + 8); // 현재 페이지에 해당하는 공지사항 배열
+
   return (
     <BasicLayout>
       <div className="p-4">
@@ -65,7 +80,7 @@ const NoticePage = () => {
         />
         <div className="mb-4">
           {/* 필터링된 공지사항 목록을 NoticeComponent로 렌더링 */}
-          {filteredNotices.slice(0, 8).map(notice => (
+          {currentNotices.map(notice => (
             <NoticeComponent 
               key={notice.id} 
               id={notice.id} 
@@ -79,12 +94,37 @@ const NoticePage = () => {
         </div>
 
         {/* 페이지 네비게이션 버튼 */}
-        <div className="flex justify-center space-x-2 mb-4">
+        <div className="flex justify-center items-center space-x-2 mb-2">
+          {/* 첫 페이지로 이동하는 버튼 */}
+          <button className="border p-1" onClick={() => handlePageChange(1)} disabled={currentPage === 1}>
+            {'<<'}
+          </button>
+
+          {/* 이전 페이지로 이동하는 버튼 */}
+          <button className="border p-1" onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1}>
+            {'<'}
+          </button>
+
+          {/* 페이지 번호 버튼 */}
           {[1, 2, 3, 4, 5, 6, 7, 8, 9].map(page => (
-            <button key={page} className="border p-2">
+            <button 
+              key={page} 
+              className={`border p-1 ${currentPage === page ? 'bg-blue-500 text-white' : ''}`}
+              onClick={() => handlePageChange(page)} // 페이지 변경 핸들러 연결
+            >
               {page}
             </button>
           ))}
+
+          {/* 다음 페이지로 이동하는 버튼 */}
+          <button className="border p-1" onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === 9}>
+            {'>'}
+          </button>
+
+          {/* 마지막 페이지로 이동하는 버튼 */}
+          <button className="border p-1" onClick={() => handlePageChange(9)} disabled={currentPage === 9}>
+            {'>>'}
+          </button>
         </div>
 
         {/* 고객 문의 버튼 */}

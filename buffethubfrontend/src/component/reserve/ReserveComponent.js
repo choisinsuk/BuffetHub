@@ -5,8 +5,8 @@ const ReserveComponent = () => {
 
   const navigate = useNavigate()
 
-  const handleClickMakeReserve = useCallback(() => {
-    navigate({pathname:"/reserve/makereserve"})
+  const handleClickRegist = useCallback(() => {
+    navigate({pathname:"/reserve/regist"})
   })
 
   return (
@@ -30,7 +30,7 @@ const ReserveComponent = () => {
         <br/>
         <br/>▷ 진행중 이벤트는 이벤트 페이지에서 확인 부탁드립니다.
         </div>
-        <button type="button" className="bg-orange-300 w-32 h-10 border border-black rounded" onClick={handleClickMakeReserve}>예약하기</button>
+        <button type="button" className="bg-orange-300 w-32 h-10 border border-black rounded" onClick={handleClickRegist}>예약하기</button>
       </div>
       
     </>
