@@ -16,7 +16,7 @@ const AsideSubPageLayout = ({asideContent}) => {
         </aside>
 
         {/* Main - 가로 100%, 높이 가변% */}
-        <main className="flex-1 bg-sky-300 text-center">
+        <main className="flex-1 bg-white text-center">
           <Outlet /> {/* 이 부분이 중요합니다 */}
         </main>
         </div>

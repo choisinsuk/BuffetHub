@@ -16,6 +16,7 @@ export const loginPost = async (loginParam) => {
   return res.data
 }
 
+
 // 회원가입 함수
 export const joinPost = async (joinParam) => {
   const headers = { "Content-Type": "application/json" }; // JSON 형식으로 변경
@@ -24,4 +25,10 @@ export const joinPost = async (joinParam) => {
   const res = await axios.post(`${host}/register`, joinParam, { headers });
 
   return res.data; // 응답 데이터 반환
+};
+
+// 사용자 프로필 가져오기
+export const getUserProfile = async (urId) => {
+  const response = await axios.get(`${host}/profile/${urId}`);
+  return response.data;
 };
