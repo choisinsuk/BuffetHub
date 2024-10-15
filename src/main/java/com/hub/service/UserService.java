@@ -1,11 +1,14 @@
 package com.hub.service;
 
+import java.security.SecureRandom;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.hub.domain.User;
+import com.hub.dto.SearchIdDTO;
 import com.hub.dto.UserModifyDTO;
 import com.hub.dto.UserPwChangeDTO;
 import com.hub.repository.UserRepository;
@@ -94,6 +97,45 @@ public class UserService {
         user.changePassword(passwordEncoder.encode(dto.getNewPassword())); // 비밀번호를 암호화
         userRepository.save(user);
     }
+    
+    
+    public String searchUserId(SearchIdDTO searchIdDTO) {
+        String urId = userRepository.findUrIdByNameAndEmail(searchIdDTO.getName(), searchIdDTO.getEmail());
+        return urId; // 해당하는 urId가 없으면 null 반환
+    }
 	
+    
+    public String generateTempPassword(String urId, String urEml) {
+        User user = userRepository.findByUrIdAndUrEml(urId, urEml);
+        if (user != null) {
+            String tempPassword = createTempPassword();
+            
+            
+            // 비밀번호를 암호화합니다.
+            String encryptedPassword = passwordEncoder.encode(tempPassword);
+
+            // 사용자 객체에 임시 비밀번호를 설정하고 DB에 저장
+            user.changePassword(encryptedPassword);
+            userRepository.save(user);
+            
+            return tempPassword;
+        }
+        return null;
+    }
+
+    private String createTempPassword() {
+        String upperCaseChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        String digits = "0123456789";
+        String combinedChars = upperCaseChars + digits;
+        SecureRandom random = new SecureRandom();
+        StringBuilder tempPassword = new StringBuilder();
+        
+        for (int i = 0; i < 6; i++) {
+            int index = random.nextInt(combinedChars.length());
+            tempPassword.append(combinedChars.charAt(index));
+        }
+        
+        return tempPassword.toString();
+    }
 
 }

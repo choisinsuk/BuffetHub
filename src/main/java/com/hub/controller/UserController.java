@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hub.domain.User;
+import com.hub.dto.SearchIdDTO;
+import com.hub.dto.SearchPwDTO;
 import com.hub.dto.UserDTO;
 import com.hub.dto.UserJoinDTO;
 import com.hub.dto.UserModifyDTO;
@@ -79,6 +81,28 @@ public class UserController {
         // 비밀번호 변경 서비스 호출
         userService.changePassword(urId, dto);
         return ResponseEntity.ok("비밀번호가 성공적으로 변경되었습니다.");
+    }
+    
+    //아이디 찾기
+    @PostMapping("/search/id")
+    public ResponseEntity<String> searchId(@RequestBody SearchIdDTO searchIdDTO) {
+        String urId = userService.searchUserId(searchIdDTO);
+        if (urId != null) {
+            return ResponseEntity.ok(urId); // urId가 존재하는 경우
+        } else {
+            return ResponseEntity.status(404).body("User not found"); // 해당 사용자가 없을 경우
+        }
+    }
+    
+    // 비밀번호 찾기
+    @PostMapping("/search/password")
+    public ResponseEntity<String> findPassword(@RequestBody SearchPwDTO searchPwDTO) {
+        String tempPassword = userService.generateTempPassword(searchPwDTO.getUrId(), searchPwDTO.getUrEml());
+        if (tempPassword != null) {
+            return ResponseEntity.ok(tempPassword);
+        } else {
+            return ResponseEntity.badRequest().body("사용자를 찾을 수 없습니다.");
+        }
     }
 
 
