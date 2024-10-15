@@ -1,9 +1,13 @@
 package com.hub.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.hub.domain.User;
 import com.hub.dto.UserModifyDTO;
+import com.hub.dto.UserPwChangeDTO;
 import com.hub.repository.UserRepository;
 
 import jakarta.transaction.Transactional;
@@ -14,6 +18,9 @@ import lombok.RequiredArgsConstructor;
 public class UserService {
 	
 	private final UserRepository userRepository;
+	
+	 @Autowired
+	 private PasswordEncoder passwordEncoder;
 	
 	public User saveUser(User user) {
 		validateDuplicateUser(user);
@@ -58,7 +65,35 @@ public class UserService {
         // 변경된 사용자 정보 저장 (JPA는 dirty checking을 통해 자동으로 저장합니다)
         userRepository.save(user);
     }
+    
+    
+    public String getCurrentUserId() {
+        // 현재 로그인한 사용자의 ID를 반환하는 로직
+        // 예: Spring Security의 SecurityContextHolder에서 얻어올 수 있음
+        return SecurityContextHolder.getContext().getAuthentication().getName();
+    }
+    
+    //비밀번호 변경 서비스
+    @Transactional
+    public void changePassword(String urId, UserPwChangeDTO dto) {
+        // urId로 사용자 조회
+        User user = userRepository.findById(urId)
+                .orElseThrow(() -> new RuntimeException("사용자를 찾을 수 없습니다."));
 
+        // 현재 비밀번호 검증 (암호화된 비밀번호와 비교)
+        if (!passwordEncoder.matches(dto.getCurrentPassword(), user.getUrPw())) {
+            throw new RuntimeException("현재 비밀번호가 올바르지 않습니다.");
+        }
+
+        // 새 비밀번호와 새 비밀번호 확인이 일치하는지 검증
+        if (!dto.getNewPassword().equals(dto.getConfirmPassword())) {
+            throw new RuntimeException("새 비밀번호와 새 비밀번호 확인이 일치하지 않습니다.");
+        }
+
+        // 새로운 비밀번호로 변경 (암호화하여 저장)
+        user.changePassword(passwordEncoder.encode(dto.getNewPassword())); // 비밀번호를 암호화
+        userRepository.save(user);
+    }
 	
 
 }

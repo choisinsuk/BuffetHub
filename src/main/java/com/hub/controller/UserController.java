@@ -7,7 +7,9 @@ import java.util.Map;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -20,6 +22,7 @@ import com.hub.domain.User;
 import com.hub.dto.UserDTO;
 import com.hub.dto.UserJoinDTO;
 import com.hub.dto.UserModifyDTO;
+import com.hub.dto.UserPwChangeDTO;
 import com.hub.service.UserService;
 
 import lombok.RequiredArgsConstructor;
@@ -68,6 +71,14 @@ public class UserController {
     public ResponseEntity<String> updateUserProfile(@PathVariable String urId, @RequestBody UserModifyDTO dto) {
         userService.modify(dto, urId);
         return ResponseEntity.ok("사용자 정보가 성공적으로 수정되었습니다.");
+    }
+    
+ // 비밀번호 변경
+    @PutMapping("/change-password/{urId}")
+    public ResponseEntity<String> changePassword(@PathVariable String urId, @RequestBody UserPwChangeDTO dto) {
+        // 비밀번호 변경 서비스 호출
+        userService.changePassword(urId, dto);
+        return ResponseEntity.ok("비밀번호가 성공적으로 변경되었습니다.");
     }
 
 

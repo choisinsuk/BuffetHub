@@ -54,9 +54,9 @@ public class User {
 		this.urAuthCode = null;
 	}
 
-	public void changePw(String urPw) { // 비밀번호를 변경하는 메서드
-		this.urPw = urPw;
-	}
+    public void changePassword(String newPassword) {
+    	this.urPw = newPassword;
+    }
 	
     // 정적 팩토리 메서드로 사용자를 생성하는 메서드
     public static User createUser(UserJoinDTO userJoinDTO, PasswordEncoder passwordEncoder) {
