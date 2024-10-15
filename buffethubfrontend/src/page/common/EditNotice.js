@@ -5,7 +5,7 @@ const EditNotice = ({ handleNoticeUpdate }) => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const { title: initialTitle, content: initialContent, number, date: initialDate } = location.state || {};
+  const { title: initialTitle, content: initialContent, id: number, date: initialDate } = location.state || {};
 
   const [title, setTitle] = useState(initialTitle || '');
   const [content, setContent] = useState(initialContent || '');
@@ -13,10 +13,16 @@ const EditNotice = ({ handleNoticeUpdate }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    handleNoticeUpdate(number, title, content, date); // NoticePage의 업데이트 핸들러 호출
+    const { updateNotice } = location.state || {}; // 업데이트 핸들러 가져오기
+    if (typeof updateNotice === 'function') {
+      updateNotice(number, title, content); // 업데이트 핸들러 호출
+    } else {
+      console.error("updateNotice is not a function");
+    }
     alert('수정되었습니다.');
     navigate('/notices'); // 공지사항 리스트로 돌아가기
   };
+  
 
   return (
     <div className="p-4">

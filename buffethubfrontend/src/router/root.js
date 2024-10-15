@@ -12,7 +12,7 @@ const { createBrowserRouter } = require("react-router-dom"); // react-router-dom
 const Loading = <div>Loading...</div>; // 로딩 중 표시할 컴포넌트
 
 // Main 컴포넌트를 lazy 로딩으로 임포트
-const Main = lazy(() => import("../page/user/MainPage.js"));
+const Main = lazy(() => import("../page/MainPage.js"));
 
 // 브라우저 라우터를 생성
 const root = createBrowserRouter([

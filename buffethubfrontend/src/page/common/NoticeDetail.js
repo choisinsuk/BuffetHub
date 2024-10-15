@@ -20,18 +20,15 @@ const NoticeDetail = () => {
   const navigate = useNavigate(); // 페이지 이동을 위한 navigate 훅 사용
   
   // 전달된 상태에서 제목, 내용, 작성자, 날짜 정보 가져오기
-  const { title, content, author, date } = location.state || {};
-  
-  // 관리자 여부 설정 (예시로 true로 설정)
-  const isAdmin = true; 
-  
+  const { title, content, admin, date, isAdmin } = location.state || {};
+
   // 모달 메시지 및 열림 상태 관리
   const [modalMessage, setModalMessage] = useState(''); // 모달에 표시할 메시지 상태
   const [isModalOpen, setIsModalOpen] = useState(false); // 모달 열림 상태
 
   // 수정 버튼 클릭 시 호출되는 함수
   const handleEdit = () => {
-    navigate('/notices/edit', { state: { title, content, author, date } }); // 수정 페이지로 이동
+    navigate('/notices/edit', { state: { title, content, admin, date } }); // 수정 페이지로 이동
     setModalMessage('수정되었습니다'); // 모달에 표시할 메시지 설정
     setIsModalOpen(true); // 모달 열기
   };
@@ -58,7 +55,7 @@ const NoticeDetail = () => {
       
       {/* 작성자 박스 */}
       <div className="border p-4 mb-4 max-w-xl mx-auto rounded">
-        <h2 className="text-xl font-semibold">작성자: {author}</h2> {/* 작성자 표시 */}
+        <h2 className="text-xl font-semibold">작성자: {admin}</h2> {/* 작성자 표시 */}
       </div>
 
       {/* 내용 박스 */}
