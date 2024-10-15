@@ -1,5 +1,7 @@
 import axios from "axios";
 import { API_SERVER_HOST } from "./todoApi";
+import jwtAxios from "../util/jwtUtil";
+import { jwtDecode } from "jwt-decode";
 
 const host = `${API_SERVER_HOST}/api/user`;
 
@@ -60,6 +62,36 @@ export const updateUserProfile = async (urId, updatedData) => {
       "Error updating profile:",
       error.response ? error.response.data : error.message
     );
+    throw error; // 에러를 다시 던져서 호출자에게 알림
+  }
+};
+
+
+export const changePassword = async (urId, currentPassword, newPassword, confirmPassword) => {
+  const token = getToken();
+
+  const headers = {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${token}`, // JWT 토큰을 헤더에 추가
+  };
+
+  // 요청 본문 출력
+  const requestBody = {
+    currentPassword,
+    newPassword,
+    confirmPassword
+  };
+  console.log("Request body:", JSON.stringify(requestBody, null, 2)); // 요청 본문을 JSON 형식으로 출력
+
+  try {
+    const res = await axios.put(
+      `${host}/change-password/${urId}`,
+      requestBody, // JSON 형식으로 데이터 전송
+      { headers }
+    );
+    return res.data; // 성공 시 응답 데이터 반환
+  } catch (error) {
+    console.error("Error changing password:", error.response ? error.response.data : error.message);
     throw error; // 에러를 다시 던져서 호출자에게 알림
   }
 };

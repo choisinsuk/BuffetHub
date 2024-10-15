@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { getUserProfile, updateUserProfile } from '../../api/userApi';
 import { useCookies } from 'react-cookie';
@@ -83,7 +82,7 @@ const UserModifyComponent = () => {
 
   // 비밀번호 변경 페이지로 이동
   const handlePasswordChange = () => {
-    navigate('/change-password'); // 비밀번호 변경 페이지로 리디렉션
+    navigate('/mypage/change-password'); // 비밀번호 확인 페이지로 리디렉션
   };
 
   return (
