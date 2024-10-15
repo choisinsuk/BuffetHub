@@ -95,3 +95,37 @@ export const changePassword = async (urId, currentPassword, newPassword, confirm
     throw error; // 에러를 다시 던져서 호출자에게 알림
   }
 };
+
+// 아이디 찾기 함수
+export const findUserId = async (name, email) => {
+  try {
+    const response = await axios.post(`${host}/search/id`, {
+      name,
+      email,
+    }, {
+      headers: {
+        "Content-Type": "application/json", // JSON으로 요청을 보냅니다.
+      },
+    });
+    return response.data; // 응답 데이터를 반환합니다.
+  } catch (error) {
+    throw error; // 에러를 던집니다.
+  }
+};
+
+// 비밀번호 찾기 함수
+export const findPassword = async (urId, urEml) => {
+  try {
+    const response = await axios.post(`${host}/search/password`, {
+      urId,
+      urEml,
+    }, {
+      headers: {
+        "Content-Type": "application/json", // JSON으로 요청을 보냅니다.
+      },
+    });
+    return response.data; // 응답 데이터를 반환합니다.
+  } catch (error) {
+    throw error; // 에러를 던집니다.
+  }
+};

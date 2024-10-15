@@ -1,6 +1,7 @@
 import { lazy, Suspense } from "react";
 import LogoutPage from "../page/user/LogoutPage";
 import JoinPage from "../page/user/JoinPage";
+import SearchPage from "../page/user/SearchPage";
 
 const Loading = <div>Loading...</div>;
 const Login = lazy(() => import("../page/user/LoginPage"));
@@ -37,6 +38,14 @@ const userRouter = () => {
       element: (
         <Suspense fallback={Loading}>
           <JoinPage />
+        </Suspense>
+      ),
+    },
+    {
+      path: "search/*", // SearchPage의 경로 설정
+      element: (
+        <Suspense fallback={Loading}>
+          <SearchPage />
         </Suspense>
       ),
     },
