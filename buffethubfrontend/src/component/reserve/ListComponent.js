@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import useCustomMove from "../../hook/useCustomMove";
-import { getList } from "../../api/reserveApi";
+import { getFutureReservations, getList } from "../../api/reserveApi";
 import PageComponent from "../common/pagecomponent";
 import { useLocation } from "react-router-dom";
 
@@ -23,8 +23,8 @@ const ListComponent = ({ setSelectedReserve }) => { // setSelectedReserve를 pro
   const location = useLocation();
 
   useEffect(() => {
-    getList({ page, size }).then((data) => {
-      console.log(data);
+    getFutureReservations({ page, size }).then((data) => {
+      console.log("future Data:",data);
       setServerData(data);
     });
   }, [page, size]);

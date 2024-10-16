@@ -36,7 +36,7 @@ const AsideContent = () => {
       <ul className="flex flex-col p-4">
         <li className="mb-2">
           <div
-            className={`cursor-pointer font-bold`}
+            className={`font-bold`}
             onClick={handleClickReserve}
           >
             예약
