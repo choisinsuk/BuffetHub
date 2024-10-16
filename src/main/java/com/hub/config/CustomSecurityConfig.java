@@ -65,7 +65,7 @@ public class CustomSecurityConfig {
 //	            .requestMatchers("/api/user/register").permitAll() // 인증 없이 회원가입 엔드포인트 접근 허용
 //	            .anyRequest().authenticated(); // 그 외의 모든 요청은 인증 필요
 //	    });
-
+		
 		return http.build();
 	}
 

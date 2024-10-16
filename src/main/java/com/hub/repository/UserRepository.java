@@ -2,6 +2,8 @@ package com.hub.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -14,6 +16,8 @@ public interface UserRepository extends JpaRepository<User, String>{
 	
 	
 	User findByUrId(String urId);
+	
+    Optional<User> findByUrEml(String urEml);
 	
     User findByUrIdAndUrEml(String urId, String urEml);
 
