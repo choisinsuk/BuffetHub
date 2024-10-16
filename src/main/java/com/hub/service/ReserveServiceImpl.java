@@ -1,5 +1,6 @@
 package com.hub.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -156,5 +157,47 @@ public class ReserveServiceImpl implements ReserveService {
 
 		return responseDTO;
 	}
+	
+	// 예약일이 오늘까지인 예약 리스트 조회
+    @Override
+    public PageResponseDTO<ReserveDTO> activeReservationsList(PageRequestDTO pageRequestDTO) {
+        String loginUrId = SecurityContextHolder.getContext().getAuthentication().getName();
+
+        Pageable pageable = PageRequest.of(pageRequestDTO.getPage() - 1, pageRequestDTO.getSize(), Sort.by("rsNb").descending());
+        LocalDateTime today = LocalDateTime.now(); // 오늘 날짜
+
+        Page<Reserve> result = reserveRepository.findActiveReservationsByUrId(loginUrId, today, pageable);
+
+        List<ReserveDTO> dtoList = result.getContent().stream()
+            .map(reserve -> modelMapper.map(reserve, ReserveDTO.class))
+            .collect(Collectors.toList());
+
+        long totalCount = result.getTotalElements();
+        return PageResponseDTO.<ReserveDTO>withAll()
+            .dtoList(dtoList)
+            .pageRequestDTO(pageRequestDTO)
+            .totalCount(totalCount)
+            .build();
+    }
+
+ // 결제 완료된 예약 리스트 조회
+    @Override
+    public PageResponseDTO<ReserveDTO> paidReservationsList(PageRequestDTO pageRequestDTO) {
+        String loginUrId = SecurityContextHolder.getContext().getAuthentication().getName();
+
+        Pageable pageable = PageRequest.of(pageRequestDTO.getPage() - 1, pageRequestDTO.getSize(), Sort.by("rsNb").descending());
+        Page<Reserve> result = reserveRepository.findPaidReservationsByUrId(loginUrId, pageable);
+
+        List<ReserveDTO> dtoList = result.getContent().stream()
+            .map(reserve -> modelMapper.map(reserve, ReserveDTO.class))
+            .collect(Collectors.toList());
+
+        long totalCount = result.getTotalElements();
+        return PageResponseDTO.<ReserveDTO>withAll()
+            .dtoList(dtoList)
+            .pageRequestDTO(pageRequestDTO)
+            .totalCount(totalCount)
+            .build();
+    }
 
 }
