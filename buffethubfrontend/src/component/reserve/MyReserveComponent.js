@@ -2,6 +2,7 @@ import { useCallback, useState } from "react";
 import ListComponent from "./ListComponent";
 import { useNavigate } from "react-router-dom";
 import { deleteOne } from "../../api/reserveApi";
+import PaidListComponent from "./PaidListComponent";
 
 const MyReserveComponent = () => {
   const navigate = useNavigate();
@@ -58,10 +59,10 @@ const MyReserveComponent = () => {
         </div>
       </div>
 
-      {/* <div className="m-7">
+      <div className="m-7">
         <div className="font-bold text-lg">지난 예약</div>
         <div className="border border-black m-5 flex flex-col">
-        <ListComponent past={true}></ListComponent>
+        <PaidListComponent setSelectedReserve={setSelectedReserve}></PaidListComponent>
           <div className="p-5">
             <div className="flex flex-row justify-center">
               <button
@@ -73,7 +74,7 @@ const MyReserveComponent = () => {
             </div>
           </div>
         </div>
-      </div> */}
+      </div>
     </div>
   );
 };

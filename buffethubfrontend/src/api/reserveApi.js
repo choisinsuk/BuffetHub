@@ -15,6 +15,7 @@ export const postRegist = async (reserveObj) => {
   return res.data;
 };
 
+// 전체 리스트를 가져오는 메서드
 export const getList = async (pageParam, userId) => {
   const { page, size } = pageParam;
   const res = await jwtAxios.get(`${prefix}/list`, {
@@ -22,6 +23,29 @@ export const getList = async (pageParam, userId) => {
   });
   return res.data;
 };
+
+// 진행중 예약을 가져오는 메서드
+export const getFutureReservations = async (pageParam, userId) => {
+  const { page, size } = pageParam;
+  const res = await jwtAxios.get(`${prefix}/list`, {
+    params: { page, size, userId }, 
+  });
+  
+  return res.data;
+};
+
+// 결제 완료된 예약 리스트를 가져오는 메서드
+export const getPaidReservations = async (pageParam) => {
+  const { page, size } = pageParam;
+
+  const res = await jwtAxios.get(`${prefix}/list`, {
+      params: { page, size, paid: true }, // userId를 제외하고 paid 파라미터만 전달
+  });
+  
+  return res.data;
+};
+  
+
 
 
 export const deleteOne = async (rsNb) => {
