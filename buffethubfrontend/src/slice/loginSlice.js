@@ -29,10 +29,12 @@ const loginSlice = createSlice({
       console.log("로그인....");
 
       //(id, pw로 구성)
-      const data = action.payload;
+      const payload = action.payload;
 
-      // 새로운 상태
-      return { username: data.username };
+      setCookie("user", JSON.stringify(payload), 1) //1일
+
+      return payload
+
     },
     logout: (state, action) => {
       console.log("로그아웃...");

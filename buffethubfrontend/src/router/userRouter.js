@@ -6,6 +6,7 @@ import SearchPage from "../page/user/SearchPage";
 const Loading = <div>Loading...</div>;
 const Login = lazy(() => import("../page/user/LoginPage"));
 const Myreserve = lazy(() => import("../page/reserve/MyReservePage"));
+const KakaoRedirect = lazy(() => import("../page/user/KakaoRedirectPage"))
 
 const userRouter = () => {
   return [
@@ -46,6 +47,14 @@ const userRouter = () => {
       element: (
         <Suspense fallback={Loading}>
           <SearchPage />
+        </Suspense>
+      ),
+    },
+    {
+      path: "kakao",
+      element: (
+        <Suspense fallback={Loading}>
+          <KakaoRedirect />
         </Suspense>
       ),
     },

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import useCustomLogin from "../../hooks/useCustomLogin";
 import { getCookie } from "../../util/cookieUtil";
+import KakaoLoginComponent from "./KakaoLoginComponent";
 
 const initState = {
   username: "",
@@ -88,6 +89,13 @@ const LoginComponent = () => {
             <Link to={"/user/register"}>회원가입</Link>
           </li>
         </ul>
+      </div>
+      <div>
+      <ul className="flex p-4 text-white font-bold">
+          <li className="pr-6 text-2xl text-gray-500">
+            <KakaoLoginComponent />
+          </li>
+          </ul>
       </div>
     </div>
   );
