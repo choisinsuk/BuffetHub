@@ -180,3 +180,10 @@ export const withdrawUser = async (urId, dispatch) => {
     alert("회원 탈퇴 중 오류가 발생했습니다.");
   }
 };
+
+
+// 쿠키 제거 및 로그아웃 처리
+export const logoutUser = (dispatch) => {
+  dispatch(logout()); // Redux 스토어에서 로그아웃 처리
+  window.location.href = "/"; // 메인 페이지로 이동
+};

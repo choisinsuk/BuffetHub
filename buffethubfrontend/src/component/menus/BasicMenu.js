@@ -1,7 +1,9 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import logo from "../../images/logoimage/Logo.png";
+import { removeCookie } from "../../util/cookieUtil";
+import { logout } from "../../slice/loginSlice";
 
 const BasicMenu = () => {
   /* 메뉴의 열림 상태를 관리하기 위한 상태 변수 */
@@ -14,6 +16,18 @@ const BasicMenu = () => {
 
   /* Redux에서 로그인 상태를 가져오기 */
   const loginState = useSelector((state) => state.loginSlice);
+  const dispatch = useDispatch();
+
+  const handleLogout = (e) => {
+    e.preventDefault(); // 기본 링크 동작 방지
+    const confirmLogout = window.confirm("로그아웃 하시겠습니까?");
+    if (confirmLogout) {
+      removeCookie("user"); // 쿠키 제거
+      dispatch(logout()); // Redux 스토어에서 로그아웃 처리
+      window.location.href = "/"; // 메인 페이지로 이동
+    }
+  };
+
 
   return (
     <nav id="navbar" className="flex bg-blue-300">
@@ -62,7 +76,7 @@ const BasicMenu = () => {
               {!loginState.urId ? (
                 <Link to={"/user/login"}>로그인</Link>
               ) : (
-                <Link to={"/user/logout"}>로그아웃</Link>
+                <a href="/" onClick={handleLogout}>로그아웃</a>
               )}
             </li>
           </ul>
