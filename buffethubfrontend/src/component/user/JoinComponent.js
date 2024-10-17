@@ -166,12 +166,6 @@ const JoinComponent = () => {
       return;
     }
 
-<<<<<<< HEAD
-    // 개인정보 및 가게 회원 약관 동의 체크
-    if (!agreePrivacyPolicy || !agreeStoreTerms) {
-      alert("약관에 동의해야 합니다.");
-      return;
-=======
     try {
       const response = await dispatch(joinPostAsync(userData)).unwrap(); // joinPostAsync 호출
       if (response.success) {
@@ -183,7 +177,6 @@ const JoinComponent = () => {
     } catch (error) {
       console.error("회원가입 실패:", error);
       alert("회원가입 도중 오류가 발생했습니다.");
->>>>>>> 1f519bb8d919dabfff3c14c2c0093e66a50cf3b5
     }
   };
 
@@ -497,35 +490,6 @@ const JoinComponent = () => {
         </div>
       </div>
 
-<<<<<<< HEAD
-      {/* 개인정보 약관 동의 체크박스 */}
-      <div style={{ display: "flex", alignItems: "center", marginBottom: "10px" }}>
-        <input
-          type="checkbox"
-          checked={agreePrivacyPolicy}
-          onChange={handlePrivacyPolicyChange} // 개인정보 약관 핸들러 연결
-        />
-        <label style={{ marginLeft: "5px" }}>
-          개인정보 이용약관에 동의합니다.
-        </label>
-      </div>
-
-      {/* 가게 회원 약관 동의 체크박스 */}
-      <div style={{ display: "flex", alignItems: "center", marginBottom: "10px" }}>
-        <input
-          type="checkbox"
-          checked={agreeStoreTerms}
-          onChange={handleStoreTermsChange} // 가게 회원 약관 핸들러 연결
-        />
-        <label style={{ marginLeft: "5px" }}>
-          가게 회원 약관에 동의합니다.
-        </label>
-      </div>
-
-      {/* 제출 버튼 */}
-      <button onClick={handleSubmit}>
-        가입하기
-=======
       <TermsAgreeComponent
         agreePrivacyPolicy={agreePrivacyPolicy}
         setAgreePrivacyPolicy={setAgreePrivacyPolicy}
@@ -548,7 +512,6 @@ const JoinComponent = () => {
         }}
       >
         회원가입
->>>>>>> 1f519bb8d919dabfff3c14c2c0093e66a50cf3b5
       </button>
     </div>
   );
