@@ -6,7 +6,6 @@ import boardRouter from "./boardRouter.js"; // 게시판 관련 라우터 임포
 import mypageRouter from "./mypageRouter.js"; // 마이페이지 관련 라우터 임포트
 import noticeRouter from "./noticeRouter.js"; // 공지사항 관련 라우터 임포트
 
-
 const { createBrowserRouter } = require("react-router-dom"); // react-router-dom에서 createBrowserRouter를 임포트
 
 const Loading = <div>Loading...</div>; // 로딩 중 표시할 컴포넌트
@@ -45,7 +44,7 @@ const root = createBrowserRouter([
     children: userRouter(), // userRouter에서 자식 라우터를 가져옴
   },
   {
-    path: "notices", // 공지사항
+    path: "notices", // 공지사항 경로
     children: noticeRouter(), // noticeRouter에서 자식 라우터를 가져옴
   },
 ]);

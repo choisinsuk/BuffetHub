@@ -2,7 +2,7 @@ import jwtAxios from "../util/jwtUtil"; // JWT를 포함한 Axios 인스턴스 �
 
 // 서버 주소 설정
 export const API_SERVER_HOST = "http://localhost:8080";
-const prefix = `${API_SERVER_HOST}/api/notices`;
+const prefix = `${API_SERVER_HOST}/api/noticeboard`;
 
 // 공지사항 목록 조회
 export const fetchNotices = async (pageParam) => {

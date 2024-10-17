@@ -1,13 +1,21 @@
 import { useCallback } from "react";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 const ReserveComponent = () => {
 
   const navigate = useNavigate()
-
+  const loginState = useSelector(state => state.loginSlice)
+  
   const handleClickRegist = useCallback(() => {
-    navigate({pathname:"/reserve/regist"})
-  })
+    // 로그인 상태 체크: urId가 비어있지 않은 경우 로그인됨
+    if (loginState.urId) { 
+      navigate({ pathname: "/reserve/regist" }); // 로그인 되어 있으면 예약 페이지로 이동
+    } else {
+      alert("예약을 하기 위해서는 로그인이 필요합니다.")
+      navigate({ pathname: "/user/login" }); // 로그인 되어 있지 않으면 로그인 페이지로 이동
+    }
+  }, [loginState.urId, navigate]); // 의존성에 loginState.urId 추가
 
   return (
     <>

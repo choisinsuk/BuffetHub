@@ -37,7 +37,7 @@ const NoticePage = () => {
   };
 
   const handleEditClick = (notice) => {
-    navigate(`/notices/edit`, { 
+    navigate("/notices/edit", { 
       state: { 
         id: notice.id, 
         title: notice.title, 

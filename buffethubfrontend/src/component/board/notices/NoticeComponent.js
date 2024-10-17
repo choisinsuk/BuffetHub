@@ -11,7 +11,7 @@ const NoticeComponent = ({ id, title, admin, date, isSelected, onClick }) => {
       <div className="grid grid-cols-4 gap-4">
         <div>{id}</div>          {/* 공지사항 번호 */}
         <div>{title}</div>       {/* 공지사항 제목 */}
-        <div>{admin}</div>      {/* 관리자 이름 */}
+        <div>{admin}</div>       {/* 관리자 이름 */}
         <div>{date}</div>        {/* 작성일 */}
       </div>
     </div>

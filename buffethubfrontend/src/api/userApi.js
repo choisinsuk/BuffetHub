@@ -1,35 +1,65 @@
-import axios from "axios"
-import { API_SERVER_HOST } from "./todoApi"
+import axios from "axios";
+import { API_SERVER_HOST } from "./todoApi";
 
-const host = `${API_SERVER_HOST}/api/user`
+const host = `${API_SERVER_HOST}/api/user`;
+
+// JWT 토큰을 가져오는 함수
+const getToken = () => {
+  return document.cookie
+    .split("; ")
+    .find((row) => row.startsWith("user="))
+    ?.split("=")[1]; // 'user'라는 쿠키에서 토큰을 추출
+};
 
 export const loginPost = async (loginParam) => {
-  
-  const header = {headers: {"Content-Type" : "x-www-form-urlencoded"}}
+  const header = { headers: { "Content-Type": "x-www-form-urlencoded" } };
 
-  const form = new FormData()
-  form.append('username', loginParam.username)
-  form.append('password', loginParam.password)
+  const form = new FormData();
+  form.append("username", loginParam.username);
+  form.append("password", loginParam.password);
 
-  const res = await axios.post(`${host}/login`, form, header)
+  const res = await axios.post(`${host}/login`, form, header);
 
-  return res.data
-}
+  return res.data;
+};
 
 // 회원가입 함수
 export const joinPost = async (joinParam) => {
-  const headers = { "Content-Type": "application/x-www-form-urlencoded" }; // 'x-www-form-urlencoded'로 변경
-  const form = new URLSearchParams(); // URLSearchParams 객체 생성 (x-www-form-urlencoded 형식에 적합)
-
-  // FormData 대신 URLSearchParams를 사용하여 데이터 추가
-  form.append("urId", joinParam.urId); // 회원 ID
-  form.append("urPw", joinParam.urPw); // 비밀번호
-  form.append("urNm", joinParam.urNm); // 이름
-  form.append("urPhn", joinParam.urPhn); // 전화번호
-  form.append("urEml", joinParam.urEml); // 이메일
+  const headers = { "Content-Type": "application/json" }; // JSON 형식으로 변경
 
   // POST 요청 보내기
-  const res = await axios.post(`${host}/register`, form, { headers });
+  const res = await axios.post(`${host}/register`, joinParam, { headers });
 
   return res.data; // 응답 데이터 반환
+};
+
+// 사용자 프로필 가져오기
+export const getUserProfile = async (urId) => {
+  const response = await axios.get(`${host}/profile/${urId}`);
+  return response.data;
+};
+
+export const updateUserProfile = async (urId, updatedData) => {
+  // JWT 토큰을 가져오는 함수 호출
+  const token = getToken(); // 이 부분은 사용자에 맞게 수정 필요
+
+  const headers = {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${token}`, // JWT 토큰을 헤더에 추가
+  };
+
+  try {
+    const response = await axios.put(
+      `${host}/profileupdate/${urId}`,
+      updatedData,
+      { headers }
+    );
+    return response.data; // 응답 데이터 반환
+  } catch (error) {
+    console.error(
+      "Error updating profile:",
+      error.response ? error.response.data : error.message
+    );
+    throw error; // 에러를 다시 던져서 호출자에게 알림
+  }
 };

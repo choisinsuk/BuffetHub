@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getOne, deleteOne, postRegist, putOne } from "../../api/reserveApi"; // 예약 불러오기, 삭제, 수정 API
+import { getOne, deleteOne, putOne } from "../../api/reserveApi"; // 예약 불러오기, 삭제, 수정 API
 import DateTimePicker from "./calendar";
 import ResultModal from "../common/ResultModal";
 import useCustomMove from "../../hook/useCustomMove";
@@ -16,16 +16,15 @@ const initState = {
   rsVisitPreageCnt: 0,
   rsVisitTotalCnt: 0,
 
-  rsNm: " ",
-  rsPhn: " ",
-  rsSignificant: " ",
+  rsNm: "",
+  rsPhn: "",
+  rsSignificant: "",
 
-  rsDt: " ",
+  rsDt: "",
   rsPaymentCompleteYn: false,
   rsVisitYn: false,
 
-  bvNb: 0,
-  urId: " ",
+  urId: "",
 };
 
 const ModifyComponent = ({ rsNb }) => {
@@ -34,15 +33,22 @@ const ModifyComponent = ({ rsNb }) => {
 
   // 모달 창을 위한 상태
   const [result, setResult] = useState(null); // 결과 상태
-  const { moveToChangeReserve } = useCustomMove();
+
+  const { moveToMyReserve } = useCustomMove();
 
   // 예약 데이터 불러오기
   useEffect(() => {
+    console.log("rsNb:", rsNb);
     if (rsNb) {
       getOne(rsNb)
         .then((data) => {
-          setReserve(data);
-          setSelectedDate(new Date(data.rsDt));
+          console.log("Fetched Data:", data); // 데이터 확인
+          if (data) {
+            setReserve(data);
+            setSelectedDate(new Date(data.rsDt)); // 날짜를 Date 객체로 변환
+          } else {
+            console.error("예약 정보를 찾을 수 없습니다.");
+          }
         })
         .catch((e) => {
           console.error(e);
@@ -92,8 +98,8 @@ const ModifyComponent = ({ rsNb }) => {
   // 예약 수정 처리
   const handleClickModify = () => {
     putOne(reserve)
-      .then((result) => {
-        setResult('Modified'); // 결과 데이터 변경
+      .then(() => {
+        setResult("수정완료"); // 결과 데이터 변경
       })
       .catch((e) => {
         console.error(e);
@@ -103,8 +109,8 @@ const ModifyComponent = ({ rsNb }) => {
   // 예약 삭제 처리
   const handleClickDelete = () => {
     deleteOne(rsNb)
-      .then((result) => {
-        setResult('Deleted')
+      .then(() => {
+        setResult("삭제완료");
       })
       .catch((e) => {
         console.error(e);
@@ -112,21 +118,18 @@ const ModifyComponent = ({ rsNb }) => {
   };
 
   const closeModal = () => {
-    setResult(null);
-    moveToChangeReserve();
+    moveToMyReserve();
   };
 
   return (
     <div className="border border-black">
       {/* 모달 처리 */}
-      {result ? (
+      {result && (
         <ResultModal
           title={"Edit result"}
           content={`${result}`}
           callbackFn={closeModal}
         />
-      ) : (
-        <></>
       )}
       <div className="p-2">
         <div className="flex flex-row text-sm m-2">
@@ -136,7 +139,7 @@ const ModifyComponent = ({ rsNb }) => {
             size={10}
             className="m-3"
             name="rsNm"
-            value={reserve.rsNm}
+            value={reserve.rsNm} // rsNm 값을 연결
             onChange={handleChangeReserve}
           />
           <div>
@@ -151,7 +154,7 @@ const ModifyComponent = ({ rsNb }) => {
             size={11}
             className="m-3"
             name="rsPhn"
-            value={reserve.rsPhn}
+            value={reserve.rsPhn} // rsPhn 값을 연결
             onChange={handleChangeReserve}
           />
           <div className="m-2">- 제외 11자 입력</div>
@@ -167,7 +170,7 @@ const ModifyComponent = ({ rsNb }) => {
             className="m-4 text-center"
             min={0}
             max={20}
-            value={reserve.rsAdultPersonCnt}
+            value={reserve.rsAdultPersonCnt} // 성인 인원수 연결
             name="rsAdultPersonCnt"
             onChange={handleChangeReserve}
           />
@@ -180,7 +183,7 @@ const ModifyComponent = ({ rsNb }) => {
             className="m-4 text-center"
             min={0}
             max={20}
-            value={reserve.rsChildPersonCnt}
+            value={reserve.rsChildPersonCnt} // 아동 인원수 연결
             name="rsChildPersonCnt"
             onChange={handleChangeReserve}
           />
@@ -193,7 +196,7 @@ const ModifyComponent = ({ rsNb }) => {
             className="m-4 text-center"
             min={0}
             max={20}
-            value={reserve.rsPreagePersonCnt}
+            value={reserve.rsPreagePersonCnt} // 미취학 인원수 연결
             name="rsPreagePersonCnt"
             onChange={handleChangeReserve}
           />
@@ -218,7 +221,7 @@ const ModifyComponent = ({ rsNb }) => {
           rows={4}
           cols={50}
           name="rsSignificant"
-          value={reserve.rsSignificant}
+          value={reserve.rsSignificant} // 특이사항 연결
           onChange={handleChangeReserve}
         />
       </div>
