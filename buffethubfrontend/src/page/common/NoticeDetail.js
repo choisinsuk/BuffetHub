@@ -20,7 +20,7 @@ const NoticeDetail = () => {
   const navigate = useNavigate(); // 페이지 이동을 위한 navigate 훅 사용
   
   // 전달된 상태에서 제목, 내용, 작성자, 날짜 정보 가져오기
-  const { title, content, admin, date, isAdmin } = location.state || {};
+  const { title, content, admin, date, /* isAdmin */ } = location.state || {};
 
   // 모달 메시지 및 열림 상태 관리
   const [modalMessage, setModalMessage] = useState(''); // 모달에 표시할 메시지 상태
@@ -69,7 +69,7 @@ const NoticeDetail = () => {
       </div>
 
       {/* 관리자인 경우만 수정 및 삭제 버튼 보여주기 */}
-      {isAdmin && (
+     {/* {isAdmin && ( */}
         <div className="flex justify-center space-x-2">
           <button onClick={handleEdit} className="bg-yellow-500 text-white p-2 rounded">
             수정 {/* 수정 버튼 */}
@@ -78,7 +78,7 @@ const NoticeDetail = () => {
             삭제 {/* 삭제 버튼 */}
           </button>
         </div>
-      )}
+     {/* )}  */}
 
       {/* 모달 창 표시 */}
       {isModalOpen && (

@@ -57,7 +57,8 @@ const JoinComponent = () => {
       return;
     }
 
-    if (!agreeTerms) {
+    // 개인정보 및 가게 회원 약관 동의 체크
+    if (!agreePrivacyPolicy || !agreeStoreTerms) {
       alert("약관에 동의해야 합니다.");
       return;
     }
@@ -156,7 +157,7 @@ const JoinComponent = () => {
       >
         <label
           htmlFor="password-input"
-          style={{ marginBottom: "5px", fontWeight: "bold", fontSize: "20px" }}
+          style={{ marginBottom: "5px", fontWeight: "bold", fontSize: "18px" }}
         >
           비밀번호
         </label>
@@ -316,24 +317,24 @@ const JoinComponent = () => {
         </div>
       </div>
 
-      {/* 개인정보 약관 동의 */}
+      {/* 개인정보 약관 동의 체크박스 */}
       <div style={{ display: "flex", alignItems: "center", marginBottom: "10px" }}>
         <input
           type="checkbox"
           checked={agreePrivacyPolicy}
-          onChange={handlePrivacyPolicyChange}
+          onChange={handlePrivacyPolicyChange} // 개인정보 약관 핸들러 연결
         />
         <label style={{ marginLeft: "5px" }}>
           개인정보 이용약관에 동의합니다.
         </label>
       </div>
 
-      {/* 가게 회원 약관 동의 */}
+      {/* 가게 회원 약관 동의 체크박스 */}
       <div style={{ display: "flex", alignItems: "center", marginBottom: "10px" }}>
         <input
           type="checkbox"
           checked={agreeStoreTerms}
-          onChange={handleStoreTermsChange}
+          onChange={handleStoreTermsChange} // 가게 회원 약관 핸들러 연결
         />
         <label style={{ marginLeft: "5px" }}>
           가게 회원 약관에 동의합니다.
@@ -341,18 +342,7 @@ const JoinComponent = () => {
       </div>
 
       {/* 제출 버튼 */}
-      <button
-        onClick={handleSubmit}
-        style={{
-          padding: "10px 20px",
-          backgroundColor: "orange",
-          color: "#fff",
-          border: "none",
-          borderRadius: "4px",
-          cursor: "pointer",
-          fontWeight: "bold",
-        }}
-      >
+      <button onClick={handleSubmit}>
         가입하기
       </button>
     </div>
@@ -360,4 +350,3 @@ const JoinComponent = () => {
 };
 
 export default JoinComponent;
-

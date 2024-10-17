@@ -1,7 +1,8 @@
 import React, { useState } from "react"; 
-import BasicLayout from "../../../layouts/BasicLayout"; 
-import NoticeComponent from "../../../component/board/notices/NoticeComponent"; 
+import BasicLayout from "../../../layouts/MainLayout.js"; 
+import NoticeComponent from "../../../component/board/notices/NoticeBoardComponent.js"; 
 import { Link, useNavigate } from "react-router-dom"; 
+import EditNotice from "../../common/EditNotice.js"; // EditNotice를 임포트 해 온다
 
 const NoticePage = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -17,6 +18,10 @@ const NoticePage = () => {
     { id: 8, title: "제목 8", content: "내용 8", admin: "관리자", date: "2024-10-08" },
   ]);
   
+  const [isEditing, setIsEditing] = useState(false); // 수정 모드 상태
+  
+  const [currentNotice, setCurrentNotice] = useState(null); // 현재 수정 중인 공지사항
+
   const navigate = useNavigate();
 
   const filteredNotices = notices.filter(notice =>
@@ -34,17 +39,13 @@ const NoticePage = () => {
       )
     );
     console.log('공지사항 업데이트 완료:', { id, title, content });
+    setIsEditing(false); // 수정 완료 후 수정 모드 비활성화
+    setCurrentNotice(null); // 현재 수정 중인 공지사항 초기화
   };
-
+  
   const handleEditClick = (notice) => {
-    navigate("/notices/edit", { 
-      state: { 
-        id: notice.id, 
-        title: notice.title, 
-        content: notice.content, 
-        updateNotice: handleNoticeUpdate // 핸들러 전달
-      } 
-    });
+    setCurrentNotice(notice); // 현재 수정 중인 공지사항 설정
+    setIsEditing(true); // 수정 모드 활성화
   };
   
   const handlePageChange = (page) => {
@@ -81,7 +82,17 @@ const NoticePage = () => {
           ))}
         </div>
 
-        <div className="flex justify-center items-center space-x-2 mb-2">
+        {/* EditNotice 컴포넌트 조건부 렌더링 */}
+          {isEditing && currentNotice && (
+            <EditNotice 
+              handleNoticeUpdate={handleNoticeUpdate} 
+              initialTitle={currentNotice.title} 
+              initialContent={currentNotice.content} 
+              initialDate={currentNotice.date} 
+            />
+          )}
+          
+          <div className="flex justify-center items-center space-x-2 mb-2">
           <button className="border p-1" onClick={() => handlePageChange(1)} disabled={currentPage === 1}>
             {'<<'}
           </button>

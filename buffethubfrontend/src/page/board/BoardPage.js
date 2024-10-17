@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import BasicLayout from "../../layouts/BasicLayout";
+import BasicLayout from "../../layouts/MainLayout";
 import { Link, useNavigate } from "react-router-dom"; // useNavigate 추가
-import NoticeComponent from "../../component/board/notices/NoticeComponent";
+import NoticeComponent from "../../component/board/notices/NoticeBoardComponent";
 
 const BoardPage = () => {
   const [notices] = useState([
