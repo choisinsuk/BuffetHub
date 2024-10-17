@@ -1,5 +1,4 @@
 import { lazy, Suspense } from "react";
-import LogoutPage from "../page/user/LogoutPage";
 import JoinPage from "../page/user/JoinPage";
 import SearchPage from "../page/user/SearchPage";
 
@@ -15,14 +14,6 @@ const userRouter = () => {
       element: (
         <Suspense fallback={Loading}>
           <Login />
-        </Suspense>
-      ),
-    },
-    {
-      path: "logout",
-      element: (
-        <Suspense fallback={Loading}>
-          <LogoutPage></LogoutPage>
         </Suspense>
       ),
     },

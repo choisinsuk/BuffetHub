@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { changePassword } from "../../api/userApi";
+import { useNavigate } from "react-router-dom";
 
 const ChangePasswordComponent = () => {
   const [currentPassword, setCurrentPassword] = useState("");
@@ -7,6 +8,9 @@ const ChangePasswordComponent = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
+
+  const navigate = useNavigate();
+
 
   const handleCurrentPasswordChange = (e) => {
     setCurrentPassword(e.target.value);
@@ -64,8 +68,8 @@ const ChangePasswordComponent = () => {
   };
 
   const handleCancel = () => {
-    // 취소 버튼 클릭 시 처리할 로직 (예: 페이지 이동)
-    // 예시: history.goBack();
+    // 취소 버튼 클릭 시 사용자 정보를 보여주는 페이지로 이동
+    navigate("/mypage/userinfo");
   };
 
   return (

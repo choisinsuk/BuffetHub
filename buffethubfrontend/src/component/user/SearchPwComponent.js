@@ -74,7 +74,7 @@ const SearchPwComponent = () => {
                                 className="rounded p-4 w-36 bg-blue-500 text-xl text-white"
                                 type="submit"
                             >
-                                찾기
+                                비밀번호 찾기
                             </button>
                         </div>
                     </div>

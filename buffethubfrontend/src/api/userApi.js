@@ -2,6 +2,8 @@ import axios from "axios";
 import { API_SERVER_HOST } from "./todoApi";
 import jwtAxios from "../util/jwtUtil";
 import { jwtDecode } from "jwt-decode";
+import { useDispatch } from "react-redux";
+import { logout } from "../slice/loginSlice";
 
 const host = `${API_SERVER_HOST}/api/user`;
 
@@ -66,8 +68,12 @@ export const updateUserProfile = async (urId, updatedData) => {
   }
 };
 
-
-export const changePassword = async (urId, currentPassword, newPassword, confirmPassword) => {
+export const changePassword = async (
+  urId,
+  currentPassword,
+  newPassword,
+  confirmPassword
+) => {
   const token = getToken();
 
   const headers = {
@@ -79,7 +85,7 @@ export const changePassword = async (urId, currentPassword, newPassword, confirm
   const requestBody = {
     currentPassword,
     newPassword,
-    confirmPassword
+    confirmPassword,
   };
   console.log("Request body:", JSON.stringify(requestBody, null, 2)); // 요청 본문을 JSON 형식으로 출력
 
@@ -91,7 +97,10 @@ export const changePassword = async (urId, currentPassword, newPassword, confirm
     );
     return res.data; // 성공 시 응답 데이터 반환
   } catch (error) {
-    console.error("Error changing password:", error.response ? error.response.data : error.message);
+    console.error(
+      "Error changing password:",
+      error.response ? error.response.data : error.message
+    );
     throw error; // 에러를 다시 던져서 호출자에게 알림
   }
 };
@@ -99,14 +108,18 @@ export const changePassword = async (urId, currentPassword, newPassword, confirm
 // 아이디 찾기 함수
 export const findUserId = async (name, email) => {
   try {
-    const response = await axios.post(`${host}/search/id`, {
-      name,
-      email,
-    }, {
-      headers: {
-        "Content-Type": "application/json", // JSON으로 요청을 보냅니다.
+    const response = await axios.post(
+      `${host}/search/id`,
+      {
+        name,
+        email,
       },
-    });
+      {
+        headers: {
+          "Content-Type": "application/json", // JSON으로 요청을 보냅니다.
+        },
+      }
+    );
     return response.data; // 응답 데이터를 반환합니다.
   } catch (error) {
     throw error; // 에러를 던집니다.
@@ -116,16 +129,61 @@ export const findUserId = async (name, email) => {
 // 비밀번호 찾기 함수
 export const findPassword = async (urId, urEml) => {
   try {
-    const response = await axios.post(`${host}/search/password`, {
-      urId,
-      urEml,
-    }, {
-      headers: {
-        "Content-Type": "application/json", // JSON으로 요청을 보냅니다.
+    const response = await axios.post(
+      `${host}/search/password`,
+      {
+        urId,
+        urEml,
       },
-    });
+      {
+        headers: {
+          "Content-Type": "application/json", // JSON으로 요청을 보냅니다.
+        },
+      }
+    );
     return response.data; // 응답 데이터를 반환합니다.
   } catch (error) {
     throw error; // 에러를 던집니다.
   }
+};
+
+export const checkIdApi = async (urId) => {
+  try {
+    const response = await axios.get(`${host}/checkId/${urId}`);
+    return response;
+  } catch (error) {
+    console.error("아이디 중복 확인 실패:", error);
+    throw error;
+  }
+};
+
+export const withdrawUser = async (urId, dispatch) => {
+
+  try {
+    const response = await fetch(`${host}/withdraw/${urId}`, {
+      method: "DELETE",
+    });
+
+    if (response.ok) {
+      const message = await response.text();
+      alert(message); // 탈퇴 완료 메시지
+
+      // 쿠키 제거 및 메인 페이지로 이동
+      dispatch(logout()); // 쿠키 제거 및 로그아웃 처리
+      window.location.href = "/"; // 메인 페이지로 이동
+    } else {
+      const errorMessage = await response.text();
+      alert(errorMessage); // 오류 메시지
+    }
+  } catch (error) {
+    console.error("회원 탈퇴 실패:", error);
+    alert("회원 탈퇴 중 오류가 발생했습니다.");
+  }
+};
+
+
+// 쿠키 제거 및 로그아웃 처리
+export const logoutUser = (dispatch) => {
+  dispatch(logout()); // Redux 스토어에서 로그아웃 처리
+  window.location.href = "/"; // 메인 페이지로 이동
 };

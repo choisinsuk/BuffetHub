@@ -66,7 +66,7 @@ const SearchIdComponent = () => {
               className="rounded p-4 w-36 bg-blue-500 text-xl text-white"
               onClick={handleSearch}
             >
-              찾기
+              아이디 찾기
             </button>
           </div>
         </div>
