@@ -166,14 +166,6 @@ const JoinComponent = () => {
       return;
     }
 
-    if (!agreeTerms) {
-      alert("약관에 동의해야 합니다.");
-      return;
-    }
-
-    // 콘솔에 회원가입 데이터 출력
-    console.log("회원가입 데이터:", userData);
-
     try {
       const response = await dispatch(joinPostAsync(userData)).unwrap(); // joinPostAsync 호출
       if (response.success) {
