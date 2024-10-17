@@ -1,9 +1,25 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { getUserProfile, updateUserProfile } from "../../api/userApi";
+import {
+  getUserProfile,
+  updateUserProfile,
+  withdrawUser,
+} from "../../api/userApi";
 import { useCookies } from "react-cookie";
+import { useDispatch } from "react-redux";
 
 const UserModifyComponent = () => {
+  const dispatch = useDispatch();
+
+
+  const handleWithdraw = async (urId) => {
+    const confirmWithdraw = window.confirm("정말 탈퇴하시겠습니까?");
+    if (confirmWithdraw) {
+      await withdrawUser(urId, dispatch);
+    }
+  };
+
+  
   const [formData, setFormData] = useState({
     username: "",
     name: "",
@@ -153,7 +169,7 @@ const UserModifyComponent = () => {
             marginBottom: "10px",
           }}
         >
-        <label
+          <label
             style={{
               marginRight: "10px",
               fontWeight: "bold",
@@ -174,7 +190,7 @@ const UserModifyComponent = () => {
               borderRadius: "4px",
               cursor: "pointer",
               fontWeight: "bold",
-              width: "calc(100% - 120px)"
+              width: "calc(100% - 120px)",
             }}
           >
             비밀번호 변경
@@ -310,6 +326,22 @@ const UserModifyComponent = () => {
           }}
         >
           확인
+        </button>
+
+        <button
+          type="button"
+          onClick={() => handleWithdraw(formData.username)}
+          style={{
+            padding: "10px 20px",
+            backgroundColor: "gray", // 회색 배경
+            color: "white", // 흰색 글자
+            border: "2px solid black", // 검은색 테두리
+            borderRadius: "4px",
+            cursor: "pointer",
+            fontWeight: "bold",
+          }}
+        >
+          회원 탈퇴
         </button>
       </form>
     </div>

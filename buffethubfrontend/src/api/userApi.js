@@ -2,6 +2,8 @@ import axios from "axios";
 import { API_SERVER_HOST } from "./todoApi";
 import jwtAxios from "../util/jwtUtil";
 import { jwtDecode } from "jwt-decode";
+import { useDispatch } from "react-redux";
+import { logout } from "../slice/loginSlice";
 
 const host = `${API_SERVER_HOST}/api/user`;
 
@@ -152,5 +154,29 @@ export const checkIdApi = async (urId) => {
   } catch (error) {
     console.error("아이디 중복 확인 실패:", error);
     throw error;
+  }
+};
+
+export const withdrawUser = async (urId, dispatch) => {
+
+  try {
+    const response = await fetch(`${host}/withdraw/${urId}`, {
+      method: "DELETE",
+    });
+
+    if (response.ok) {
+      const message = await response.text();
+      alert(message); // 탈퇴 완료 메시지
+
+      // 쿠키 제거 및 메인 페이지로 이동
+      dispatch(logout()); // 쿠키 제거 및 로그아웃 처리
+      window.location.href = "/"; // 메인 페이지로 이동
+    } else {
+      const errorMessage = await response.text();
+      alert(errorMessage); // 오류 메시지
+    }
+  } catch (error) {
+    console.error("회원 탈퇴 실패:", error);
+    alert("회원 탈퇴 중 오류가 발생했습니다.");
   }
 };
