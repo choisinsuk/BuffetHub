@@ -160,6 +160,17 @@ const JoinComponent = () => {
       urStmbplYn: agreeStoreTerms ? "Y" : "N", // 가게 회원 약관 동의 여부
     };
 
+    // 비밀번호 일치 여부 및 약관 동의 체크
+    if (!passwordMatch) {
+      alert("비밀번호가 일치하지 않습니다.");
+      return;
+    }
+
+    if (!agreeTerms) {
+      alert("약관에 동의해야 합니다.");
+      return;
+    }
+
     // 콘솔에 회원가입 데이터 출력
     console.log("회원가입 데이터:", userData);
 
@@ -515,3 +526,4 @@ const JoinComponent = () => {
 };
 
 export default JoinComponent;
+

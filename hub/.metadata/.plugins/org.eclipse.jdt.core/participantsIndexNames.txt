@@ -1,3 +1,0 @@
-INDEX VERSION 1.134
-C:\BuffetHub\localrepository\hub\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\1432456054.index
-\BuffetHub\src\main\java

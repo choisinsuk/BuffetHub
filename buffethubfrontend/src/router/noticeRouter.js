@@ -12,7 +12,7 @@ const NoticeRouter = () => {
       element: <NoticePage />, // 공지사항 페이지를 렌더링
     },
     {
-      path: ":id", // 공지사항 ID에 따라 상세 페이지를 보여줌
+      path: ":number", // 공지사항 번호에 따라 상세 페이지를 보여줌
       element: <NoticeDetail />, // 공지사항 상세 페이지를 렌더링
     },
     {
