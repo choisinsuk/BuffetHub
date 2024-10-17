@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -102,6 +103,28 @@ public class UserController {
             return ResponseEntity.ok(tempPassword);
         } else {
             return ResponseEntity.badRequest().body("사용자를 찾을 수 없습니다.");
+        }
+    }
+    
+    // 아이디 중복 확인 엔드포인트
+    @GetMapping("/checkId/{urId}")
+    public ResponseEntity<Boolean> checkIdDuplicate(@PathVariable String urId) {
+        boolean isDuplicate = userService.isIdDuplicate(urId);
+        if (isDuplicate) {
+            return ResponseEntity.ok(true);  // 아이디 중복
+        } else {
+            return ResponseEntity.ok(false);  // 사용 가능한 아이디
+        }
+    }
+    
+    // 회원 탈퇴 엔드포인트
+    @DeleteMapping("/withdraw/{urId}")
+    public ResponseEntity<String> withdrawUser(@PathVariable String urId) {
+        boolean isWithdrawn = userService.withdrawUser(urId);
+        if (isWithdrawn) {
+            return ResponseEntity.ok("회원 탈퇴가 완료되었습니다.");
+        } else {
+            return ResponseEntity.badRequest().body("회원 탈퇴에 실패했습니다.");
         }
     }
 

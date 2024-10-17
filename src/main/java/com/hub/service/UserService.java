@@ -137,5 +137,21 @@ public class UserService {
         
         return tempPassword.toString();
     }
+    
+    // 아이디 중복 여부 확인
+    public boolean isIdDuplicate(String urId) {
+        return userRepository.existsByUrId(urId);
+    }
+    
+    // 회원탈퇴
+    @Transactional
+    public boolean withdrawUser(String urId) {
+        // 사용자 정보 삭제
+        if (userRepository.existsByUrId(urId)) {
+            userRepository.deleteByUrId(urId);
+            return true;
+        }
+        return false; // 사용자가 존재하지 않으면 false 반환
+    }
 
 }

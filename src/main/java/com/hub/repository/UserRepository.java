@@ -20,6 +20,12 @@ public interface UserRepository extends JpaRepository<User, String>{
     Optional<User> findByUrEml(String urEml);
 	
     User findByUrIdAndUrEml(String urId, String urEml);
+    
+    // 아이디가 이미 존재하는지 확인하는 메서드
+    boolean existsByUrId(String urId);
+    
+    // urId로 사용자 삭제
+    void deleteByUrId(String urId);
 
 
     // EntityGraph에서 userRoleList가 아닌 urAuthCode를 사용하여 권한을 가져옴
