@@ -1,5 +1,6 @@
 import { lazy, Suspense } from "react";
 import MyPage from "../page/mypage/MyPage"; // 마이 페이지 컴포넌트 가져오기
+import ChangePasswordComponent from "../component/mypage/ChangePasswordComponent.js";
 
 const Loading = <div>Loading...</div>;
 const MyReserve = lazy(() => import("../component/reserve/MyReserveComponent.js")); // 예약 페이지 컴포넌트
@@ -28,6 +29,14 @@ const mypageRouter = () => {
           element: (
             <Suspense fallback={Loading}>
               <UserModifyComponent />
+            </Suspense>
+          ),
+        },
+        {
+          path: "change-password", // 내 정보 관리 경로
+          element: (
+            <Suspense fallback={Loading}>
+              <ChangePasswordComponent />
             </Suspense>
           ),
         },

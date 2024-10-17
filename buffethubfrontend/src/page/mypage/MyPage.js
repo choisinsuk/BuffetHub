@@ -1,7 +1,10 @@
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useLocation } from "react-router-dom";
 import AsideSubPageLayout from "../../layouts/AsideSubPageLayout";
 
 const MyPage = () => {
+
+  const location = useLocation();
+
   const asideContent = (
     <div>
       <h2 style={{ fontWeight: "bold" }}>마이페이지</h2>{" "}
@@ -9,11 +12,11 @@ const MyPage = () => {
       <ul>
         <li style={{ margin: "10px 0" }}>
           <span>- </span>
-          <Link to="/mypage/myreservations">내 예약</Link> {/* 내 예약 링크 */}
+          <Link to="/mypage/myreservations" className={`cursor-pointer ${location.pathname === "/mypage/myreservations" ? "font-bold" : ""}`}>내 예약</Link> {/* 내 예약 링크 */}
         </li>
         <li style={{ margin: "10px 0" }}>
           <span>- </span>
-          <Link to="/mypage/userinfo">내 정보 관리</Link>{" "}
+          <Link to="/mypage/userinfo" className={`cursor-pointer ${location.pathname === "/mypage/userinfo" ? "font-bold" : ""}`}>내 정보 관리</Link>{" "}
           {/* 내 정보 수정 링크 */}
         </li>
       </ul>

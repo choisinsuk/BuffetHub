@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import useCustomLogin from "../../hooks/useCustomLogin";
 import { getCookie } from "../../util/cookieUtil";
+import KakaoLoginComponent from "./KakaoLoginComponent";
 
 const initState = {
   username: "",
@@ -27,7 +28,7 @@ const LoginComponent = () => {
         } else {
           // alert("로그인 성공");
           console.log("로그인 성공, 쿠키 확인: ", getCookie("user"));
-          moveToPath('/');
+          moveToPath("/");
         }
       });
   };
@@ -79,15 +80,22 @@ const LoginComponent = () => {
       <div className="w-4/5">
         <ul className="flex p-4 text-white font-bold">
           <li className="pr-6 text-2xl text-gray-500">
-            <Link to={"/searchId"}>아이디 찾기</Link>
+            <Link to={"/user/search/id"}>아이디 찾기</Link>
           </li>
           <li className="pr-6 text-2xl text-gray-500">
-            <Link to={"/searchPw"}>비밀번호</Link>
+            <Link to={"/user/search/password"}>비밀번호 찾기</Link>
           </li>
           <li className="pr-6 text-2xl text-gray-500">
-            <Link to={"/register"}>회원가입</Link>
+            <Link to={"/user/register"}>회원가입</Link>
           </li>
         </ul>
+      </div>
+      <div>
+      <ul className="flex p-4 text-white font-bold">
+          <li className="pr-6 text-2xl text-gray-500">
+            <KakaoLoginComponent />
+          </li>
+          </ul>
       </div>
     </div>
   );
