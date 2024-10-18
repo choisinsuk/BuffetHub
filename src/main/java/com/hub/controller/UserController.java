@@ -6,6 +6,8 @@ import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -22,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.hub.domain.User;
 import com.hub.dto.SearchIdDTO;
 import com.hub.dto.SearchPwDTO;
+import com.hub.dto.UserChkPwDTO;
 import com.hub.dto.UserDTO;
 import com.hub.dto.UserJoinDTO;
 import com.hub.dto.UserModifyDTO;
@@ -127,6 +130,17 @@ public class UserController {
             return ResponseEntity.badRequest().body("회원 탈퇴에 실패했습니다.");
         }
     }
+    
+    // 현재 비밀번호 확인 엔드포인트
+    @PostMapping("/chk-password")
+    public ResponseEntity<String> chkPassword(@RequestBody UserChkPwDTO userChkPwDTO) {
+        String urId = userChkPwDTO.getUrId(); // userDTO에 urId를 추가하여 받아옴
 
-
+        if (userService.chkPassword(urId, userChkPwDTO.getCurrentPassword())) {
+            return ResponseEntity.ok("비밀번호가 확인되었습니다.");
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("현재 비밀번호가 잘못되었습니다.");
+        }
+    }
+    
 }

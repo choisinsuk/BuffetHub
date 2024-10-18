@@ -153,5 +153,15 @@ public class UserService {
         }
         return false; // 사용자가 존재하지 않으면 false 반환
     }
+    
+    // 비밀번호 확인 메서드
+    public boolean chkPassword(String urId, String currentPassword) {
+        User user = userRepository.findByUrId(urId);
+        
+        if (user != null) {
+            return passwordEncoder.matches(currentPassword, user.getUrPw()); // urPw는 비밀번호 필드입니다.
+        }
+        return false;
+    }
 
 }
