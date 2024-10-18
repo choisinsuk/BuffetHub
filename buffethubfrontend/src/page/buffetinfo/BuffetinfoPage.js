@@ -1,4 +1,4 @@
-import BasicLayout from "../../layouts/BasicLayout"; // 기본 레이아웃 컴포넌트 가져오기
+import BasicLayout from "../../layouts/MainLayout"; // 기본 레이아웃 컴포넌트 가져오기
 
 // Buffetinfo: 뷔페 정보를 표시하는 컴포넌트
 const Buffetinfo = () => {

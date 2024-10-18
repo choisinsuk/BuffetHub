@@ -2,7 +2,7 @@ import BasicMenu from "../component/menus/BasicMenu";
 
 /* children: BasicLayout 컴포넌트를 사용하는 부모 컴포넌트에서 전달된 
 자식 요소를 나타냅니다. 이 부분은 렌더링할 내용을 동적으로 받아와서 표시 합니다. */
-const BasicLayout = ({children}) => {
+const MainLayout = ({children}) => {
   return ( 
   <>
     <div className="flex flex-col h-screen">
@@ -28,4 +28,4 @@ const BasicLayout = ({children}) => {
   );
 }
 
-export default BasicLayout;
+export default MainLayout;

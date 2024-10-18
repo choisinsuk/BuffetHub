@@ -273,7 +273,7 @@ const JoinComponent = () => {
       >
         <label
           htmlFor="password-input"
-          style={{ marginBottom: "5px", fontWeight: "bold", fontSize: "20px" }}
+          style={{ marginBottom: "5px", fontWeight: "bold", fontSize: "18px" }}
         >
           비밀번호
         </label>
@@ -518,4 +518,3 @@ const JoinComponent = () => {
 };
 
 export default JoinComponent;
-

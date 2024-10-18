@@ -1,7 +1,7 @@
 import React from 'react';
 
-// NoticeComponent: 공지사항 항목 하나를 표시하는 컴포넌트
-const NoticeComponent = ({ id, title, admin, date, isSelected, onClick }) => {
+// NoticeBoardComponent: 공지사항 항목 하나를 표시하는 컴포넌트
+const NoticeBoardComponent = ({ id, title, admin, date, isSelected, onClick }) => {
   return (
     <div 
       // 공지사항 항목을 감싸는 div
@@ -18,4 +18,4 @@ const NoticeComponent = ({ id, title, admin, date, isSelected, onClick }) => {
   );
 };
 
-export default NoticeComponent;
+export default NoticeBoardComponent;
