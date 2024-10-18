@@ -11,7 +11,6 @@ const ChangePasswordComponent = () => {
 
   const navigate = useNavigate();
 
-
   const handleCurrentPasswordChange = (e) => {
     setCurrentPassword(e.target.value);
   };
@@ -35,6 +34,11 @@ const ChangePasswordComponent = () => {
     }
   };
 
+  const validateNewPassword = (password) => {
+    const passwordRegex = /^(?=.*[a-zA-Z])(?=.*\d)[A-Za-z\d]{8,25}$/;
+    return passwordRegex.test(password);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -43,6 +47,20 @@ const ChangePasswordComponent = () => {
 
     if (!urId) {
       setErrorMessage("사용자 ID를 가져오는 데 실패했습니다.");
+      return;
+    }
+
+    // 새 비밀번호 유효성 검사
+    if (!validateNewPassword(newPassword)) {
+      setErrorMessage(
+        "새 비밀번호는 영문자와 숫자를 포함하여 8~25자여야 합니다."
+      );
+      return;
+    }
+
+    // 새 비밀번호와 확인 비밀번호 일치 여부 확인
+    if (newPassword !== confirmPassword) {
+      setErrorMessage("새 비밀번호와 새 비밀번호 확인이 일치하지 않습니다.");
       return;
     }
 
@@ -55,11 +73,18 @@ const ChangePasswordComponent = () => {
         confirmPassword
       ); // 개별 인자 전달
       console.log("Password change successful:", result);
-      // 비밀번호 변경 성공 시 추가 작업 (예: 사용자에게 성공 메시지 표시)
+
+      // 성공 메시지 알림
+      alert("비밀번호 변경에 성공하였습니다.");
+      navigate("/mypage/userinfo"); // 성공 후 마이페이지로 이동
     } catch (err) {
-      setErrorMessage(
-        "비밀번호 변경 중 오류가 발생했습니다. 다시 시도해 주세요."
-      );
+      if (err.response && err.response.status === 401) {
+        setErrorMessage("현재 비밀번호를 다시 입력해주세요.");
+      } else {
+        setErrorMessage(
+          "현재 비밀번호를 다시 입력해주세요."
+        );
+      }
       console.error(
         "Error changing password:",
         err.response ? err.response.data : err.message
@@ -98,7 +123,13 @@ const ChangePasswordComponent = () => {
       {successMessage && <p style={{ color: "green" }}>{successMessage}</p>}
       <form
         onSubmit={handleSubmit}
-        style={{ width: "100%", maxWidth: "600px" }}
+        style={{
+          width: "100%",
+          maxWidth: "600px",
+          position: "relative", // 버튼 배치 조정을 위한 상대적 위치 설정
+          padding: "0 20px", // 양쪽에 약간의 패딩 추가
+          fontSize: "24px",
+        }}
       >
         {/* 현재 비밀번호 입력 */}
         <div
@@ -113,8 +144,9 @@ const ChangePasswordComponent = () => {
               marginRight: "10px",
               fontWeight: "bold",
               fontSize: "20px",
-              width: "120px",
-            }} // 라벨 너비 조정
+              width: "150px", // 라벨 너비 조정
+              fontSize: "18px",
+            }}
           >
             현재 비밀번호
           </label>
@@ -123,10 +155,10 @@ const ChangePasswordComponent = () => {
             value={currentPassword}
             onChange={handleCurrentPasswordChange}
             required
-            autoComplete="current-password" // 현재 비밀번호
+            autoComplete="current-password"
             style={{
               padding: "10px",
-              width: "calc(100% - 130px)", // 라벨과 마진을 고려한 너비 조정
+              width: "calc(100% - 170px)", // 라벨 너비를 고려한 너비 조정
               border: "2px solid black",
               borderRadius: "4px",
             }}
@@ -146,8 +178,9 @@ const ChangePasswordComponent = () => {
               marginRight: "10px",
               fontWeight: "bold",
               fontSize: "20px",
-              width: "120px",
-            }} // 라벨 너비 조정
+              width: "150px", // 라벨 너비 조정
+              fontSize: "18px",
+            }}
           >
             새 비밀번호
           </label>
@@ -156,10 +189,10 @@ const ChangePasswordComponent = () => {
             value={newPassword}
             onChange={handleNewPasswordChange}
             required
-            autoComplete="new-password" // 새 비밀번호
+            autoComplete="new-password"
             style={{
               padding: "10px",
-              width: "calc(100% - 130px)", // 라벨과 마진을 고려한 너비 조정
+              width: "calc(100% - 170px)", // 라벨 너비를 고려한 너비 조정
               border: "2px solid black",
               borderRadius: "4px",
             }}
@@ -179,8 +212,9 @@ const ChangePasswordComponent = () => {
               marginRight: "10px",
               fontWeight: "bold",
               fontSize: "20px",
-              width: "120px",
-            }} // 라벨 너비 조정
+              width: "150px", // 라벨 너비 조정
+              fontSize: "18px",
+            }}
           >
             새 비밀번호 확인
           </label>
@@ -189,20 +223,22 @@ const ChangePasswordComponent = () => {
             value={confirmPassword}
             onChange={handleConfirmPasswordChange}
             required
-            autoComplete="new-password" // 새 비밀번호 확인
+            autoComplete="new-password"
             style={{
               padding: "10px",
-              width: "calc(100% - 130px)", // 라벨과 마진을 고려한 너비 조정
+              width: "calc(100% - 170px)", // 라벨 너비를 고려한 너비 조정
               border: "2px solid black",
               borderRadius: "4px",
             }}
           />
         </div>
 
+        {/* 취소, 확인 버튼 */}
         <div
           style={{
             display: "flex",
-            justifyContent: "space-between",
+            justifyContent: "center", // 버튼들을 중앙에 정렬
+            gap: "10px", // 버튼 사이의 간격
             marginTop: "20px",
           }}
         >
@@ -211,12 +247,14 @@ const ChangePasswordComponent = () => {
             onClick={handleCancel}
             style={{
               padding: "10px 20px",
-              backgroundColor: "lightgray",
-              color: "#000",
-              border: "none",
+              backgroundColor: "white", // 흰색 배경
+              color: "black", // 글자 색상
+              border: "2px solid black", // 검은색 테두리
               borderRadius: "4px",
               cursor: "pointer",
               fontWeight: "bold",
+              marginRight: "10px", // 버튼 간 간격
+              fontSize: "20px",
             }}
           >
             취소
@@ -226,11 +264,12 @@ const ChangePasswordComponent = () => {
             style={{
               padding: "10px 20px",
               backgroundColor: "orange",
+              border: "2px solid black", // 검은색 테두리
               color: "#fff",
-              border: "none",
               borderRadius: "4px",
               cursor: "pointer",
               fontWeight: "bold",
+              fontSize: "20px",
             }}
           >
             확인

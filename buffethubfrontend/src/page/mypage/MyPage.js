@@ -1,9 +1,17 @@
 import { Link, Outlet, useLocation } from "react-router-dom";
 import AsideSubPageLayout from "../../layouts/AsideSubPageLayout";
+import { useEffect } from "react";
 
 const MyPage = () => {
 
   const location = useLocation();
+
+  useEffect(() => {
+    if (location.pathname === "/mypage") {
+      // 주소창은 /mypage로 유지하고, 내용은 /mypage/myreservations으로 설정
+      window.history.replaceState(null, '', '/mypage/myreservations');
+    }
+  }, [location]);
 
   const asideContent = (
     <div>
@@ -16,7 +24,7 @@ const MyPage = () => {
         </li>
         <li style={{ margin: "10px 0" }}>
           <span>- </span>
-          <Link to="/mypage/userinfo" className={`cursor-pointer ${location.pathname === "/mypage/userinfo" ? "font-bold" : ""}`}>내 정보 관리</Link>{" "}
+          <Link to="/mypage/chk-password" className={`cursor-pointer ${location.pathname === "/mypage/userinfo" ? "font-bold" : ""}`}>내 정보 관리</Link>{" "}
           {/* 내 정보 수정 링크 */}
         </li>
       </ul>

@@ -11,7 +11,6 @@ import { useDispatch } from "react-redux";
 const UserModifyComponent = () => {
   const dispatch = useDispatch();
 
-
   const handleWithdraw = async (urId) => {
     const confirmWithdraw = window.confirm("정말 탈퇴하시겠습니까?");
     if (confirmWithdraw) {
@@ -19,7 +18,6 @@ const UserModifyComponent = () => {
     }
   };
 
-  
   const [formData, setFormData] = useState({
     username: "",
     name: "",
@@ -126,7 +124,12 @@ const UserModifyComponent = () => {
       {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
       <form
         onSubmit={handleSubmit}
-        style={{ width: "100%", maxWidth: "600px" }}
+        style={{
+          width: "100%",
+          maxWidth: "600px",
+          position: "relative", // 버튼 위치를 위한 상대적 위치 설정
+          paddingBottom: "80px", // 폼 하단 공간 확보 // 버튼 위치를 위한 상대적 위치 설정
+        }}
       >
         {/* 아이디 입력 */}
         <div
@@ -293,56 +296,76 @@ const UserModifyComponent = () => {
           />
         </div>
 
-        <button
-          type="button" // type을 "button"으로 설정하여 폼 제출을 방지
+        {/* 취소 및 확인 버튼 컨테이너 */}
+        <div
           style={{
-            padding: "10px 20px",
-            backgroundColor: "white", // 흰색 배경
-            color: "black", // 글자 색상
-            border: "2px solid black", // 검은색 테두리
-            borderRadius: "4px",
-            cursor: "pointer",
-            fontWeight: "bold",
-            marginLeft: "10px", // 버튼 간 간격을 위한 여백
-            marginRight: "10px", // 확인 버튼과 간격을 위한 여백
-          }}
-          onClick={() => {
-            navigate("/mypage"); // 마이페이지 기본 경로로 이동
+            display: "flex",
+            justifyContent: "center", // 중앙에 배치
+            position: "absolute",
+            bottom: "10px", // 폼 하단에서 10px 위로 배치
+            left: "0",
+            right: "0",
           }}
         >
-          취소
-        </button>
+          <button
+            type="button" // type을 "button"으로 설정하여 폼 제출을 방지
+            style={{
+              padding: "10px 20px",
+              backgroundColor: "white", // 흰색 배경
+              color: "black", // 글자 색상
+              border: "2px solid black", // 검은색 테두리
+              borderRadius: "4px",
+              cursor: "pointer",
+              fontWeight: "bold",
+              marginRight: "10px", // 버튼 간 간격
+            }}
+            onClick={() => {
+              navigate("/mypage"); // 마이페이지 기본 경로로 이동
+            }}
+          >
+            취소
+          </button>
 
-        <button
-          type="submit"
-          style={{
-            padding: "10px 20px",
-            backgroundColor: "orange",
-            border: "2px solid black", // 검은색 테두리
-            color: "#fff",
-            borderRadius: "4px",
-            cursor: "pointer",
-            fontWeight: "bold",
-          }}
-        >
-          확인
-        </button>
+          <button
+            type="submit"
+            style={{
+              padding: "10px 20px",
+              backgroundColor: "orange",
+              border: "2px solid black", // 검은색 테두리
+              color: "#fff",
+              borderRadius: "4px",
+              cursor: "pointer",
+              fontWeight: "bold",
+            }}
+          >
+            확인
+          </button>
+        </div>
 
-        <button
-          type="button"
-          onClick={() => handleWithdraw(formData.username)}
+        {/* 회원탈퇴 버튼 */}
+        <div
           style={{
-            padding: "10px 20px",
-            backgroundColor: "gray", // 회색 배경
-            color: "white", // 흰색 글자
-            border: "2px solid black", // 검은색 테두리
-            borderRadius: "4px",
-            cursor: "pointer",
-            fontWeight: "bold",
+            position: "absolute",
+            bottom: "10px", // 폼 하단에서 10px 위로 배치
+            right: "10px", // 오른쪽에 고정
           }}
         >
-          회원 탈퇴
-        </button>
+          <button
+            type="button"
+            onClick={() => handleWithdraw(formData.username)}
+            style={{
+              padding: "10px 20px",
+              backgroundColor: "gray", // 회색 배경
+              color: "white", // 흰색 글자
+              border: "2px solid black", // 검은색 테두리
+              borderRadius: "4px",
+              cursor: "pointer",
+              fontWeight: "bold",
+            }}
+          >
+            회원 탈퇴
+          </button>
+        </div>
       </form>
     </div>
   );

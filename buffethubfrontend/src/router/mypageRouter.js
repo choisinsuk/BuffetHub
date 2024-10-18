@@ -4,10 +4,15 @@ import ChangePasswordComponent from "../component/mypage/ChangePasswordComponent
 import { Navigate } from "react-router-dom";
 
 const Loading = <div>Loading...</div>;
-const MyReserve = lazy(() => import("../component/reserve/MyReserveComponent.js")); // 예약 페이지 컴포넌트
+const MyReserve = lazy(() =>
+  import("../component/reserve/MyReserveComponent.js")
+); // 예약 페이지 컴포넌트
 const UserModifyComponent = lazy(() =>
   import("../component/mypage/UserModifyComponent.js")
 ); // 내 정보 관리 컴포넌트 가져오기
+const CheckPasswordComponent = lazy(() =>
+  import("../component/mypage/CheckPasswordComponent.js")
+);
 
 // mypageRouter: 마이 페이지 관련 라우트를 정의하는 함수
 const mypageRouter = () => {
@@ -38,10 +43,18 @@ const mypageRouter = () => {
           ),
         },
         {
-          path: "change-password", // 내 정보 관리 경로
+          path: "change-password", // 비밀번호 변경 경로
           element: (
             <Suspense fallback={Loading}>
               <ChangePasswordComponent />
+            </Suspense>
+          ),
+        },
+        {
+          path: "chk-password", // 내 정보 관리 경로
+          element: (
+            <Suspense fallback={Loading}>
+              <CheckPasswordComponent />
             </Suspense>
           ),
         },

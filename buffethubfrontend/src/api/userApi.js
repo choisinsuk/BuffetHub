@@ -187,3 +187,26 @@ export const logoutUser = (dispatch) => {
   dispatch(logout()); // Redux 스토어에서 로그아웃 처리
   window.location.href = "/"; // 메인 페이지로 이동
 };
+
+
+// 현재 비밀번호 확인 함수
+export const checkPassword = async (urId, currentPassword) => {
+  try {
+    const response = await axios.post(
+      `${host}/chk-password`,
+      {
+        urId,              // 현재 로그인한 사용자 ID
+        currentPassword,   // 현재 비밀번호
+      },
+      {
+        headers: {
+          "Content-Type": "application/json", // JSON으로 요청을 보냅니다.
+        },
+      }
+    );
+    return response.data; // 응답 데이터를 반환합니다.
+  } catch (error) {
+    console.error("비밀번호 확인 실패:", error);
+    throw error; // 에러를 던집니다.
+  }
+};
