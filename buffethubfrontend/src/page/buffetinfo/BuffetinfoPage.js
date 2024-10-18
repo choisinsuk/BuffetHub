@@ -1,3 +1,4 @@
+import KakaoMapCompnent from "../../component/buffetinfo/KakaoMapComponent";
 import BasicLayout from "../../layouts/MainLayout"; // 기본 레이아웃 컴포넌트 가져오기
 
 // Buffetinfo: 뷔페 정보를 표시하는 컴포넌트
@@ -13,7 +14,7 @@ const Buffetinfo = () => {
           <div style={{ fontSize: '15px' }}> {/* 글씨 크기를 설정 */}
             {/* 뷔페 정보 항목들 */}
             <div>- 뷔페 식장 소개 -</div> 
-            <div>- 찾아오는 길 (API를 활용한 지도) -</div> 
+            <div> <KakaoMapCompnent /> </div> 
             <div>- 뷔페허브 소개하는 내용 -</div> 
             <div>- 뷔페허브 메뉴 안내 -</div> 
             <div>- 메인 디쉬 (대표 메인 디쉬 사진 2~3장, 모든 메인디쉬 종류 나열) -</div> 
