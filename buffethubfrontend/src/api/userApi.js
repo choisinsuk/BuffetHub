@@ -173,7 +173,7 @@ export const withdrawUser = async (urId, dispatch) => {
       window.location.href = "/"; // 메인 페이지로 이동
     } else {
       const errorMessage = await response.text();
-      alert(errorMessage); // 오류 메시지
+      alert("진행 중인 예약이 있으면 탈퇴가 불가능합니다."); // 오류 메시지
     }
   } catch (error) {
     console.error("회원 탈퇴 실패:", error);

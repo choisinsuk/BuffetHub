@@ -24,7 +24,7 @@ const LoginComponent = () => {
       .then((data) => {
         console.log(data);
         if (data.error) {
-          alert("이메일과 패스워드를 다시 확인하세요");
+          alert("아이디과 패스워드를 다시 확인하세요");
         } else {
           // alert("로그인 성공");
           console.log("로그인 성공, 쿠키 확인: ", getCookie("user"));

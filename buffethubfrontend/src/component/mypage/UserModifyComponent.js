@@ -24,6 +24,13 @@ const UserModifyComponent = () => {
     phoneNumber: "",
     email: "",
   });
+
+  const [validationErrors, setValidationErrors] = useState({
+    phoneNumber: "",
+    email: "",
+  });
+
+  const [errors, setErrors] = useState({}); // 유효성 검증을 위한 오류 상태
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
   const [cookies] = useCookies(); // 쿠키 가져오기
@@ -39,7 +46,6 @@ const UserModifyComponent = () => {
     // 사용자 프로필 가져오기
     getUserProfile(user.urId)
       .then((response) => {
-        console.log(response); // 응답 확인
         // 응답 데이터가 undefined가 아닐 때만 설정
         if (response && response.urId) {
           // 여기에서 urId를 확인
@@ -66,18 +72,37 @@ const UserModifyComponent = () => {
       ...formData,
       [name]: value,
     });
+    setValidationErrors({
+      ...validationErrors,
+      [name]: "", // 입력할 때마다 기존 오류 메시지 초기화
+    });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const errors = {};
+    const phonePattern = /^010\d{8}$/; // 010으로 시작하는 11자리 숫자
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // 간단한 이메일 정규식
+
+    if (!phonePattern.test(formData.phoneNumber)) {
+      errors.phoneNumber =
+        "전화번호는 010으로 시작하는 11자리 숫자여야 합니다.";
+    }
+
+    if (!emailPattern.test(formData.email)) {
+      errors.email = "유효한 이메일 주소를 입력하세요.";
+    }
+
+    if (Object.keys(errors).length > 0) {
+      setValidationErrors(errors);
+      return; // 오류가 있으면 서버 요청을 하지 않음
+    }
+
     const updatedUser = {
       urPhn: formData.phoneNumber, // 전화번호
       urEml: formData.email, // 이메일
     };
-
-    // 수정된 데이터 출력
-    console.log("Updated User Data:", updatedUser);
 
     // JWT 토큰 가져오기
     const token = cookies.user.token; // 쿠키에서 토큰 가져오기 (토큰이 저장된 위치에 따라 수정 필요)
@@ -236,64 +261,106 @@ const UserModifyComponent = () => {
         <div
           style={{
             display: "flex",
-            alignItems: "center",
+            flexDirection: "column",
             marginBottom: "10px",
           }}
         >
-          <label
+          <div
             style={{
-              marginRight: "10px",
-              fontWeight: "bold",
-              fontSize: "20px",
-              width: "100px",
+              display: "flex",
+              alignItems: "center",
+              marginBottom: "5px",
             }}
           >
-            전화번호
-          </label>
-          <input
-            type="text"
-            name="phoneNumber"
-            value={formData.phoneNumber}
-            onChange={handleChange}
-            style={{
-              padding: "10px",
-              width: "calc(100% - 120px)", // 라벨 너비를 고려한 너비 조정
-              border: "2px solid black",
-              borderRadius: "4px",
-            }}
-          />
+            <label
+              style={{
+                marginRight: "10px",
+                fontWeight: "bold",
+                fontSize: "20px",
+                width: "100px",
+              }}
+            >
+              전화번호
+            </label>
+            <input
+              type="text"
+              name="phoneNumber"
+              value={formData.phoneNumber}
+              onChange={handleChange}
+              style={{
+                padding: "10px",
+                width: "calc(100% - 120px)", // 라벨 너비를 고려한 너비 조정
+                border: "2px solid black",
+                borderRadius: "4px",
+              }}
+            />
+          </div>
+          {/* 오류 메시지 */}
+          {validationErrors.phoneNumber && (
+            <p
+              style={{
+                color: "red",
+                fontSize: "14px",
+                marginTop: "5px",
+                marginLeft: "110px",
+              }}
+            >
+              {validationErrors.phoneNumber}
+            </p>
+          )}
         </div>
 
         {/* 이메일 입력 */}
         <div
           style={{
             display: "flex",
-            alignItems: "center",
+            flexDirection: "column",
             marginBottom: "10px",
           }}
         >
-          <label
+          <div
             style={{
-              marginRight: "10px",
-              fontWeight: "bold",
-              fontSize: "20px",
-              width: "100px",
+              display: "flex",
+              alignItems: "center",
+              marginBottom: "5px",
             }}
           >
-            이메일
-          </label>
-          <input
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            style={{
-              padding: "10px",
-              width: "calc(100% - 120px)", // 라벨 너비를 고려한 너비 조정
-              border: "2px solid black",
-              borderRadius: "4px",
-            }}
-          />
+            <label
+              style={{
+                marginRight: "10px",
+                fontWeight: "bold",
+                fontSize: "20px",
+                width: "100px",
+              }}
+            >
+              이메일
+            </label>
+            <input
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              style={{
+                padding: "10px",
+                width: "calc(100% - 120px)", // 라벨 너비를 고려한 너비 조정
+                border: "2px solid black",
+                borderRadius: "4px",
+              }}
+            />
+          </div>
+          {/* 오류 메시지 */}
+          {validationErrors.email && (
+            <p
+              style={{
+                color: "red",
+                fontSize: "14px",
+                marginTop: "5px",
+                marginLeft: "110px",
+              }}
+            >
+              {validationErrors.email}
+            </p>
+          )}
         </div>
 
         {/* 취소 및 확인 버튼 컨테이너 */}

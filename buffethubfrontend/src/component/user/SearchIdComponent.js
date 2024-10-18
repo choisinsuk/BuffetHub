@@ -73,8 +73,8 @@ const SearchIdComponent = () => {
       </div>
       {userId && (
         <div className="text-center text-green-600">
-          찾은 아이디: {userId}
-        </div>
+          회원님의 아이디는 [ {userId} ] 입니다.
+         </div>
       )}
       {error && (
         <div className="text-center text-red-600">
