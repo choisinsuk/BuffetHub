@@ -95,6 +95,9 @@ const JoinComponent = () => {
     const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[0-9])[A-Za-z0-9]{8,25}$/; // 영문, 숫자 포함 8~25자
     const nameRegex = /^[가-힣]{2,10}$/; // 한글, 2~10자
     const phoneRegex = /^010\d{8}$/; // 010으로 시작하고 11자리 숫자
+
+
+
     const newErrorMessages = {
       idError: "",
       passwordError: "",
@@ -121,6 +124,7 @@ const JoinComponent = () => {
         "전화번호는 010으로 시작하는 11자리 숫자이어야 합니다.";
     }
 
+
     setErrorMessages(newErrorMessages);
 
     return (
@@ -146,6 +150,12 @@ const JoinComponent = () => {
       return; // 중복 체크가 이루어지지 않으면 제출하지 않음
     }
 
+    // 비밀번호 일치 여부 및 약관 동의 체크
+    if (!passwordMatch) {
+      alert("비밀번호가 일치하지 않습니다.");
+      return;
+    }
+
     if (!validateInput()) {
       return; // 유효성 검증 실패 시 제출하지 않음
     }
@@ -159,12 +169,6 @@ const JoinComponent = () => {
       urPrplYn: agreePrivacyPolicy ? "Y" : "N", // 개인정보 약관 동의 여부
       urStmbplYn: agreeStoreTerms ? "Y" : "N", // 가게 회원 약관 동의 여부
     };
-
-    // 비밀번호 일치 여부 및 약관 동의 체크
-    if (!passwordMatch) {
-      alert("비밀번호가 일치하지 않습니다.");
-      return;
-    }
 
     try {
       const response = await dispatch(joinPostAsync(userData)).unwrap(); // joinPostAsync 호출
