@@ -31,6 +31,7 @@ import com.hub.dto.UserModifyDTO;
 import com.hub.dto.UserPwChangeDTO;
 import com.hub.service.UserService;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -43,7 +44,7 @@ public class UserController {
 
 	// 회원가입 요청 처리
 	@PostMapping("/register")
-	public ResponseEntity<Map<String, Object>> registerUser(@RequestBody UserJoinDTO userJoinDTO) {
+	public ResponseEntity<Map<String, Object>> registerUser(@Valid @RequestBody UserJoinDTO userJoinDTO) {
 
 		Map<String, Object> response = new HashMap<>();
 
