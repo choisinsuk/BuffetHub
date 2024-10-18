@@ -6,7 +6,7 @@ function KakaoMapCompnent() {
   useEffect(() => {
     const container = document.getElementById("map"); //지도를 담을 영역의 DOM 레퍼런스
     const options = {
-      center: new kakao.maps.LatLng(33.450701, 126.570667), //지도의 중심좌표
+      center: new kakao.maps.LatLng(37.476761, 126.879946), //지도의 중심좌표
       level: 3,
     };
 
