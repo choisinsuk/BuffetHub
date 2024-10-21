@@ -14,7 +14,7 @@ const Reservation = () => {
   // API 호출하여 예약 데이터 가져오기
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/admin/reserves")
+      .get("http://localhost:8080/api/admin/reserve")
       .then((response) => {
         setReserves(Array.isArray(response.data) ? response.data : []); // 배열로 설정
       })
@@ -31,7 +31,7 @@ const Reservation = () => {
       return;
     }
     axios
-      .get("http://localhost:8080/api/admin/reserves/search/name", {
+      .get("http://localhost:8080/api/admin/reserve/search/name", {
         params: { name: searchName },
       })
       .then((response) => {
@@ -47,7 +47,7 @@ const Reservation = () => {
   // 예약 삭제 기능
   const handleDelete = (reservationId) => {
     axios
-      .delete(`http://localhost:8080/api/admin/reserves/${reservationId}`) // 템플릿 리터럴로 수정
+      .delete(`http://localhost:8080/api/admin/reserve/${reservationId}`) // 템플릿 리터럴로 수정
       .then((response) => {
         setReserves(reserves.filter((res) => res.rsNb !== reservationId)); // 상태 업데이트
       })
