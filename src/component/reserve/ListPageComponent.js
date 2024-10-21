@@ -46,7 +46,7 @@ const ListPageComponent = () => {
         <div className="p-5">
           <div className="flex flex-row justify-center">
             <button type="button" className="bg-green-400 w-32 h-10 border border-black rounded m-5" onClick={handleClickMyReserve}>
-              내 예약 <br />자세히 보기
+              내 예약
             </button>
             <button type="button" className="bg-orange-300 w-32 h-10 border border-black rounded m-5" onClick={handleClickModify}>
               예약수정
