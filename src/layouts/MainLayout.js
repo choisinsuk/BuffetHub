@@ -1,7 +1,6 @@
 import BasicMenu from "../component/menus/BasicMenu";
+import BuffetPicture from "../images/buffet.png"
 
-/* children: BasicLayout 컴포넌트를 사용하는 부모 컴포넌트에서 전달된 
-자식 요소를 나타냅니다. 이 부분은 렌더링할 내용을 동적으로 받아와서 표시 합니다. */
 const MainLayout = ({children}) => {
   return ( 
   <>
@@ -12,7 +11,7 @@ const MainLayout = ({children}) => {
         <div className="flex-1 flex flex-col">
         
         {/* Main - 가로 100%, 높이 80% */}
-        <main className="flex-1 bg-sky-300 w-full">
+        <main className="flex-1 w-full">
           {children}
         </main>
 
