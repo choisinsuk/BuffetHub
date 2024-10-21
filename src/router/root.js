@@ -8,6 +8,8 @@ import noticeRouter from "./noticeRouter.js"; // 공지사항 관련 라우터 �
 
 // 관리자 라우터 임포트
 import adminRouter from "../admin/router/root.js";
+// 결제완료 페이지 임포트
+import SuccessPage from "../page/SuccessPage.js";
 
 const { createBrowserRouter } = require("react-router-dom"); // react-router-dom에서 createBrowserRouter를 임포트
 
@@ -25,6 +27,12 @@ const root = createBrowserRouter([
         <Main /> {/* Main 컴포넌트를 렌더링 */}
       </Suspense>
     ),
+  },
+  { // 결제 성공 경로
+    path: "success",
+    element: <Suspense fallback={Loading}> {/* 로딩 중일 때 Loading 컴포넌트를 보여줌 */}
+    <SuccessPage/> {/* SuccessPage 컴포넌트를 렌더링 */}
+  </Suspense>
   },
   {
     path: "mypage", // 마이페이지 경로

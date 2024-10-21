@@ -28,7 +28,7 @@ export const getList = async (pageParam, userId) => {
 export const getFutureReservations = async (pageParam, userId) => {
   const { page, size } = pageParam;
   const res = await jwtAxios.get(`${prefix}/list`, {
-    params: { page, size, userId }, 
+    params: { page, size, userId, paid: false }, 
   });
   
   return res.data;
@@ -45,15 +45,22 @@ export const getPaidReservations = async (pageParam) => {
   return res.data;
 };
   
-
-
-
+// 삭제 메서드
 export const deleteOne = async (rsNb) => {
   const res = await jwtAxios.delete(`${prefix}/${rsNb}`);
   return res.data;
 };
 
+// 수정 메서드
 export const putOne = async (reserve) => {
   const res = await jwtAxios.put(`${prefix}/${reserve.rsNb}`, reserve);
+  return res.data;
+};
+
+// 결제 상태 업데이트 메서드
+export const putPaymentStatus = async (rsNb) => {
+  const res = await jwtAxios.put(`${prefix}/${rsNb}/payment-status`, {
+    rsPaymentCompleteYn: true, // 결제 완료 상태
+  });
   return res.data;
 };
