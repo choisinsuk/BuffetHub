@@ -5,19 +5,18 @@ import BasicMenu from "../components/menu/BasicMenu";
 const UserList = () => {
   const [loading, setLoading] = useState(true);
   const [users, setUsers] = useState([]); // 전체 회원 리스트 상태
-  const [filteredUser, setFilteredUser] = useState([]); // 필터링된 유저 데이터 (검색결과)
-  const [selectedCategory, setSelectedCategory] = useState("전체"); // 수정된 부분
+  const [filteredUser, setFilteredUser] = useState([]); // 필터링된 유저 데이터 (검색 결과)
   const [searchName, setSearchName] = useState(""); // 검색어
   const [isSearchActive, setIsSearchActive] = useState(false); // 검색 결과 유무 확인
   const [error, setError] = useState(null); // 에러 메시지 상태
   const [sortDirection, setSortDirection] = useState("asc"); // 이름 정렬 방향 상태
 
-  //정보
+  // 회원 정보를 가져오는 useEffect
   useEffect(() => {
     axios
       .post("http://localhost:8080/api/admin/UserView")
       .then((response) => {
-        setUsers(response.data);
+        setUsers(Array.isArray(response.data) ? response.data : []); // 배열로 설정
         setLoading(false);
       })
       .catch((error) => {
@@ -27,7 +26,7 @@ const UserList = () => {
       });
   }, []);
 
-  // 검색기능
+  // 검색 기능
   const handleSearch = () => {
     if (searchName.trim() === "") {
       alert("검색어를 입력해주세요");
@@ -38,9 +37,8 @@ const UserList = () => {
         params: { name: searchName },
       })
       .then((response) => {
-        setFilteredUser(response.data); // 필터링된 유저 데이터 설정
+        setFilteredUser(Array.isArray(response.data) ? response.data : []); // 배열로 설정
         setIsSearchActive(true);
-        setSelectedCategory("검색 결과");
       })
       .catch((error) => {
         console.error("검색 중 오류가 발생하였습니다:", error);
@@ -61,7 +59,7 @@ const UserList = () => {
     }
   };
 
-  // ㄱ~ㅎ 이름 정렬 
+  // 이름 정렬
   const handleSort = () => {
     const sortedUsers = [...(isSearchActive ? filteredUser : users)];
     sortedUsers.sort((a, b) => {
@@ -89,8 +87,7 @@ const UserList = () => {
         </main>
       </div>
 
-      {error && <div className="text-red-500 text-center">{error}</div>}{" "}
-      {/* 에러 메시지 표시 */}
+      {error && <div className="text-red-500 text-center">{error}</div>} {/* 에러 메시지 표시 */}
 
       <hr className="my-4" />
 
@@ -118,7 +115,8 @@ const UserList = () => {
               </td>
             </tr>
             <tr className="bg-gray-200">
-              <th className="py-2 px-4 border-b">회원 이름
+              <th className="py-2 px-4 border-b">
+                회원 이름
                 <span onClick={handleSort} className="cursor-pointer ml-1 text-gray-500">▼</span>
               </th>
               <th className="py-2 px-4 border-b">회원 ID</th>
@@ -127,12 +125,11 @@ const UserList = () => {
               <th className="py-2 px-2 border-b">회원 상태</th>
             </tr>
           </thead>
-          
           <tbody>
             {(isSearchActive ? filteredUser : users).length === 0 ? 
-            (<tr><td colSpan={5} className="py-2">회원이 없습니다.</td></tr>) 
-            :  
-            ((isSearchActive ? filteredUser : users).map((user, index) => (
+              (<tr><td colSpan={5} className="py-2">회원이 없습니다.</td></tr>) 
+              :  
+              ((isSearchActive ? filteredUser : users).map((user, index) => (
                 <tr key={user.urId} className={index % 2 === 0 ? "bg-gray-50" : "bg-white"}>
                   <td className="py-2 px-4 border-b">{user.urNm}</td>
                   <td className="py-2 px-4 border-b">{user.urId}</td>
@@ -140,8 +137,8 @@ const UserList = () => {
                   <td className="py-2 px-4 border-b">{user.urPhn}</td>
                   <td className="py-2 px-2 border-b">{user.urConditionCode}</td>
                 </tr>
-              ))
-            )}
+              )))
+            }
           </tbody>
         </table>
       </div>
