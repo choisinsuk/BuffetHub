@@ -11,10 +11,22 @@ const Reservation = () => {
   const [isSearchActive, setIsSearchActive] = useState(false); // 검색 결과 유무 확인
   const [selectedCategory, setSelectedCategory] = useState("전체");
 
+  // JWT 토큰을 로컬 스토리지에서 가져옴
+  const token = localStorage.getItem("jwtToken"); // JWT 토큰 가져오기
+
+  // API 기본 설정
+  const axiosInstance = axios.create({
+    baseURL: "http://localhost:8080/api/admin/",
+    headers: {
+      Authorization: `Bearer ${token}`, // JWT 토큰 추가
+      "Content-Type": "application/json"
+    },
+  });
+
   // API 호출하여 예약 데이터 가져오기
   useEffect(() => {
-    axios
-      .get("http://localhost:8080/api/admin/reserve")
+    axiosInstance
+      .get("reserve")
       .then((response) => {
         setReserves(Array.isArray(response.data) ? response.data : []); // 배열로 설정
       })
@@ -30,10 +42,8 @@ const Reservation = () => {
       alert("검색어를 입력해주세요.");
       return;
     }
-    axios
-      .get("http://localhost:8080/api/admin/reserve/search/name", {
-        params: { name: searchName },
-      })
+    axiosInstance
+      .get("reserve/search/name", { params: { name: searchName } })
       .then((response) => {
         setFilteredReserve(Array.isArray(response.data) ? response.data : []); // 배열로 설정
         setIsSearchActive(true);
@@ -46,8 +56,8 @@ const Reservation = () => {
 
   // 예약 삭제 기능
   const handleDelete = (reservationId) => {
-    axios
-      .delete(`http://localhost:8080/api/admin/reserve/${reservationId}`) // 템플릿 리터럴로 수정
+    axiosInstance
+      .delete(`reserve/${reservationId}`)
       .then((response) => {
         setReserves(reserves.filter((res) => res.rsNb !== reservationId)); // 상태 업데이트
       })
@@ -208,30 +218,32 @@ const Reservation = () => {
                 (isSearchActive ? filteredReserve : reserves).map(
                   (reserve, index) => (
                     <tr
-                      key={reserve.rsNb}
-                      className={index % 2 === 0 ? "bg-gray-50" : "bg-white"}
+                      key={index}
+                      className="hover:bg-gray-100 transition-all duration-200 ease-in-out"
                     >
-                      <td className="py-2 px-4 border-b">{reserve.rsNb}</td>
-                      <td className="py-2 px-4 border-b">{reserve.userId}</td>
-                      <td className="py-2 px-4 border-b">{reserve.rsNm}</td>
-                      <td className="py-2 px-4 border-b">{reserve.rsDt}</td>
-                      <td className="py-2 px-4 border-b">{reserve.rsTotalPersonCnt}</td>
-                      <td className="py-2 px-4 border-b">{reserve.rsAdultCnt}</td>
-                      <td className="py-2 px-4 border-b">{reserve.rsChildCnt}</td>
-                      <td className="py-2 px-4 border-b">{reserve.rsInfantCnt}</td>
-                      <td className="py-2 px-4 border-b">{reserve.userPhone}</td>
-                      <td className="py-2 px-4 border-b">
+                      <td className="py-2 px-2 border-b">{reserve.rsNb}</td>
+                      <td className="py-2 px-2 border-b">{reserve.userId}</td>
+                      <td className="py-2 px-2 border-b">{reserve.rsNm}</td>
+                      <td className="py-2 px-2 border-b">{reserve.rsDt}</td>
+                      <td className="py-2 px-2 border-b">{reserve.rsTotalPersonCnt}</td>
+                      <td className="py-2 px-2 border-b">{reserve.rsAdult}</td>
+                      <td className="py-2 px-2 border-b">{reserve.rsChild}</td>
+                      <td className="py-2 px-2 border-b">{reserve.rsInfant}</td>
+                      <td className="py-2 px-2 border-b">{reserve.rsTel}</td>
+                      <td className="py-2 px-2 border-b">
                         <button
-                          onClick={() => handleDelete(reserve.rsNb)}
-                          className="bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded"
-                        >
-                          삭제
-                        </button>
-                        <button
+                          className="bg-customColor2 text-black py-1 px-2 rounded 
+                          hover:bg-customColor3 font-bold transition transform hover:scale-110 duration-200 ease-in-out"
                           onClick={() => moveToDining(reserve.rsNb)}
-                          className="bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 ml-2 rounded"
                         >
                           식사 중
+                        </button>
+                        <button
+                          className="bg-red-600 text-white py-1 px-2 ml-2 rounded 
+                          hover:bg-red-700 font-bold transition transform hover:scale-110 duration-200 ease-in-out"
+                          onClick={() => handleDelete(reserve.rsNb)}
+                        >
+                          삭제
                         </button>
                       </td>
                     </tr>
@@ -243,37 +255,74 @@ const Reservation = () => {
         </main>
       </div>
 
-      {/* 추가된 부분: 식사 중인 예약 리스트 */}
       <div className="w-5/6 mx-auto mb-5 pb-5 px-2 rounded-lg flex justify-center text-center shadow-md border-4">
         <main className="text-center rounded justify-center w-full ">
           <p className="text-3xl text-fontColor font-bold mb-4 pt-2">식사 중인 예약 리스트</p>
           <hr className="w-full mx-auto border-2" />
+          
           <table className="w-full border-collapse rounded-lg border-black">
             <thead>
+              <tr>
+                <td colSpan={10} className="text-right pt-4">
+                  <div className="mb-6 pr-2 text-right">
+                    <input
+                      type="text"
+                      className="border border-gray-300 p-2 rounded w-1/5 text-left"
+                      placeholder="회원 이름을 검색하세요"
+                      value={searchName}
+                      onChange={handleSearchInputChange}
+                      onKeyPress={handleKeyPress}
+                    />
+                    <button
+                      className="ml-2 px-3 bg-customColor2 text-black py-2 rounded 
+                      hover:bg-customColor3 font-bold transition transform hover:scale-110 duration-200 ease-in-out"
+                      onClick={handleSearchName}
+                    >
+                      검색
+                    </button>
+                  </div>
+                </td>
+              </tr>
               <tr className="bg-gray-200">
-                <th className="py-2 px-4 border-b">예약번호</th>
+                <th className="py-2 px-2 border-b">예약번호</th>
+                <th className="py-2 px-4 border-b">예약자 ID</th>
                 <th className="py-2 px-4 border-b">예약자 이름</th>
-                <th className="py-2 px-4 border-b">예약일자</th>
-                <th className="py-2 px-4 border-b">상태 변경</th>
+                <th className="py-2 px-2 border-b">예약일자</th>
+                <th className="py-2 px-2 border-b">총인원</th>
+                <th className="py-2 px-2 border-b">성인</th>
+                <th className="py-2 px-2 border-b">아동</th>
+                <th className="py-2 px-2 border-b">미취학</th>
+                <th className="py-2 px-2 border-b">전화번호</th>
+                <th className="py-2 px-2 border-b">대기 테이블로</th>
               </tr>
             </thead>
             <tbody>
               {dining.length === 0 ? (
                 <tr>
-                  <td colSpan={4} className="py-2">
+                  <td colSpan={10} className="py-2">
                     식사 중인 예약이 없습니다.
                   </td>
                 </tr>
               ) : (
                 dining.map((reserve, index) => (
-                  <tr key={reserve.rsNb} className={index % 2 === 0 ? "bg-gray-50" : "bg-white"}>
-                    <td className="py-2 px-4 border-b">{reserve.rsNb}</td>
-                    <td className="py-2 px-4 border-b">{reserve.rsNm}</td>
-                    <td className="py-2 px-4 border-b">{reserve.rsDt}</td>
-                    <td className="py-2 px-4 border-b">
+                  <tr
+                    key={index}
+                    className="hover:bg-gray-100 transition-all duration-200 ease-in-out"
+                  >
+                    <td className="py-2 px-2 border-b">{reserve.rsNb}</td>
+                    <td className="py-2 px-2 border-b">{reserve.userId}</td>
+                    <td className="py-2 px-2 border-b">{reserve.rsNm}</td>
+                    <td className="py-2 px-2 border-b">{reserve.rsDt}</td>
+                    <td className="py-2 px-2 border-b">{reserve.rsTotalPersonCnt}</td>
+                    <td className="py-2 px-2 border-b">{reserve.rsAdult}</td>
+                    <td className="py-2 px-2 border-b">{reserve.rsChild}</td>
+                    <td className="py-2 px-2 border-b">{reserve.rsInfant}</td>
+                    <td className="py-2 px-2 border-b">{reserve.rsTel}</td>
+                    <td className="py-2 px-2 border-b">
                       <button
+                        className="bg-customColor2 text-black py-1 px-2 rounded 
+                        hover:bg-customColor3 font-bold transition transform hover:scale-110 duration-200 ease-in-out"
                         onClick={() => moveToReserves(reserve.rsNb)}
-                        className="bg-yellow-500 hover:bg-yellow-700 text-white py-1 px-2 rounded"
                       >
                         대기 테이블로
                       </button>
