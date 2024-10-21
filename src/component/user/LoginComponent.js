@@ -26,9 +26,17 @@ const LoginComponent = () => {
         if (data.error) {
           alert("아이디과 패스워드를 다시 확인하세요");
         } else {
-          // alert("로그인 성공");
+          // 사용자 역할 확인
+          const userRole = data.urAuthCode; // 여기서 'role'은 서버에서 반환된 사용자 역할입니다.
+
           console.log("로그인 성공, 쿠키 확인: ", getCookie("user"));
-          moveToPath("/");
+
+          // 사용자 역할에 따라 리다이렉션 경로 설정
+          if (userRole === "ADMIN") {
+            moveToPath("/admin"); // 관리자 페이지로 이동
+          } else {
+            moveToPath("/"); // 일반 사용자 메인 페이지로 이동
+          }
         }
       });
   };
@@ -91,11 +99,11 @@ const LoginComponent = () => {
         </ul>
       </div>
       <div>
-      <ul className="flex p-4 text-white font-bold">
+        <ul className="flex p-4 text-white font-bold">
           <li className="pr-6 text-2xl text-gray-500">
             <KakaoLoginComponent />
           </li>
-          </ul>
+        </ul>
       </div>
     </div>
   );
