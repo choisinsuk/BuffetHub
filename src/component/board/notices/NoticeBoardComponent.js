@@ -1,21 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
+import NoticeBoardComponent from './NoticeBoardComponent';
 
-// NoticeBoardComponent: 공지사항 항목 하나를 표시하는 컴포넌트
-const NoticeBoardComponent = ({ id, title, admin, date, isSelected, onClick }) => {
+// NoticeBoardList: 공지사항 리스트를 표시하는 컴포넌트
+const NoticeBoardList = ({ notices }) => {
+  const [selectedNoticeId, setSelectedNoticeId] = useState(null); // 선택된 공지사항 ID 상태
+
+  const handleNoticeClick = (id) => {
+    setSelectedNoticeId(id); // 클릭한 공지사항 ID로 상태 업데이트
+  };
+
   return (
-    <div 
-      // 공지사항 항목을 감싸는 div
-      className={`p-4 border-b last:border-b-0 cursor-pointer ${isSelected ? 'bg-gray-200' : 'bg-white'}`}
-      onClick={onClick} // 클릭 시 onClick 핸들러 호출
-    >
-      <div className="grid grid-cols-4 gap-4">
-        <div>{id}</div>          {/* 공지사항 번호 */}
-        <div>{title}</div>       {/* 공지사항 제목 */}
-        <div>{admin}</div>       {/* 관리자 이름 */}
-        <div>{date}</div>        {/* 작성일 */}
-      </div>
+    <div className="mt-5">
+      <h2 className="text-2xl mb-4">공지사항</h2>
+      {notices.map((notice) => (
+        <NoticeBoardComponent
+          key={notice.id}
+          id={notice.id}
+          title={notice.title}
+          admin={notice.admin}
+          date={notice.date}
+          isSelected={selectedNoticeId === notice.id}
+          onClick={() => handleNoticeClick(notice.id)} // 클릭 핸들러 전달
+        />
+      ))}
     </div>
   );
 };
 
-export default NoticeBoardComponent;
+export default NoticeBoardList;

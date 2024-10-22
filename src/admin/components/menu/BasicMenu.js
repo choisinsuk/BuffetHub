@@ -19,31 +19,30 @@ const BasicMenu = () => {
   };
 
   return (
-    <nav id="navbar" className="flex shadow-lg">
-      <div className="bg-orange-200 p-1 font-medium">
-        <img src={logo} alt="Logo" />
+    <nav id="navbar" className="flex shadow-lg border border-orange-200">
+      <div>
+        <Link to={"/admin"}> <img src={logo} alt="Logo" /> </Link>
       </div>
-
-      <div className="w-full bg-customColor2">
-        <ul className="flex justify-center p-5 text-fontColor font-bold text-center">
-          <li className="pr-10 text-4xl">
+      <div className="w-full bg-customColor3 text-border ">
+        <ul className="flex p-5 text-fontColor font-bold justify-end text-centerr">
+          <li className="pr-10 text-2xl">
             <Link to={"/admin"}>메인 페이지</Link>
           </li>
-          <li className="pr-10 text-4xl">
+          <li className="pr-10 text-2xl">
             <Link to={"/admin/reserve"}>예약 관리</Link>
           </li>
-          <li className="pr-10 text-4xl">
+          <li className="pr-10 text-2xl">
             <Link to={"/admin/infoManager"}>뷔페 정보 관리</Link>
           </li>
-          <li className="pr-10 text-4xl">
+          <li className="pr-10 text-2xl">
             <Link to={"/admin/userManager"}>회원관리</Link>
           </li>
-          <li className="text-4xl">
+          <li className="pr-10 text-2xl">
             <Link to={"/admin/noticeBoard"}>게시판 관리</Link>
           </li>
-          <li className="text-1xl p-2">
+          <li className="text-2xl">
                 <a href="/" onClick={handleLogout}>로그아웃</a>
-            </li>
+          </li>
         </ul>
       </div>
     </nav>

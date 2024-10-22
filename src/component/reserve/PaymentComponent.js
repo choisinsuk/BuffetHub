@@ -62,8 +62,8 @@ export function PaymentCheckoutPage({ selectedReserve }) {
       },
     });
 
-    console.log({selectedReserve});
   }
+  
   return (
     // 결제하기 버튼
     <button
