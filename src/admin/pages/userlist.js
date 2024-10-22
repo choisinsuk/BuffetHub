@@ -14,7 +14,7 @@ const UserList = () => {
   // 회원 정보를 가져오는 useEffect
   useEffect(() => {
     axios
-      .post("http://localhost:8080/api/admin/UserView")
+      .get("http://localhost:8080/api/admin/UserView")
       .then((response) => {
         setUsers(Array.isArray(response.data) ? response.data : []); // 배열로 설정
         setLoading(false);
