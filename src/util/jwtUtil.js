@@ -27,17 +27,19 @@ const beforeReq = (config) => {
       },
     });
   }
-  
+    
   const { accessToken } = userInfo;
   // Authorization 헤더 처리
   config.headers.Authorization = `Bearer ${accessToken}`;
   return config;
 };
+
 //fail request
 const requestFail = (err) => {
   console.log("request error");
   return Promise.reject(err);
 };
+
 //before return response
 const beforeRes = async (res) => {
   console.log("before return response");
@@ -60,11 +62,15 @@ const beforeRes = async (res) => {
   }
   return res;
 };
+
+
 //fail response
 const responseFail = (err) => {
-  console.log("response fail error");
+  console.log("response fail error", err);
   return Promise.reject(err);
 };
+
+
 jwtAxios.interceptors.request.use(beforeReq, requestFail);
 jwtAxios.interceptors.response.use(beforeRes, responseFail);
 export default jwtAxios;
