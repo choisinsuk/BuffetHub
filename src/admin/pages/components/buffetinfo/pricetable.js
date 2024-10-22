@@ -12,10 +12,22 @@ const PriceTable = () => {
     weekKidsPrice: 0,
   });
 
+  const token = localStorage.getItem("accessToken"); // JWT 토큰 가져오기
+
+  console.log("토큰:", token)
+  // API 기본 설정
+  const axiosInstance = axios.create({
+    baseURL: "http://localhost:8080/api/admin/",
+    headers: {
+      "Authorization": `Bearer ${token}`, // JWT 토큰 추가
+      "Content-Type": "application/json"
+    },
+  });
+
   useEffect(() => {
     const fetchPrices = async () => {
       try {
-        const response = await axios.get("http://localhost:8080/api/admin/prices");
+        const response = await axiosInstance.get("http://localhost:8080/api/admin/prices");
         setPriceTable(response.data);
       } catch (error) {
         console.error("가격 정보를 불러오는 중 오류가 발생했습니다:", error);
@@ -41,7 +53,7 @@ const PriceTable = () => {
 
     try {
       const id = 1; // 이 부분은 동적으로 수정할 수 있습니다.
-      const response = await axios.put(`http://localhost:8080/api/admin/prices/${id}`, updatedPriceTable);
+      const response = await axiosInstance.put(`http://localhost:8080/api/admin/prices/${id}`, updatedPriceTable);
       setPriceTable(response.data); // 응답에서 새로운 가격 정보를 사용하여 상태 업데이트
       alert("가격이 성공적으로 업데이트되었습니다.");
     } catch (error) {

@@ -26,6 +26,9 @@ const BasicMenu = () => {
       <div className="w-full bg-customColor3 text-border ">
         <ul className="flex p-5 text-fontColor font-bold justify-end text-centerr">
           <li className="pr-10 text-2xl">
+            <Link to={"/"}>사용자 페이지</Link>
+          </li>
+          <li className="pr-10 text-2xl">
             <Link to={"/admin"}>메인 페이지</Link>
           </li>
           <li className="pr-10 text-2xl">

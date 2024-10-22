@@ -11,10 +11,23 @@ const UserList = () => {
   const [error, setError] = useState(null); // 에러 메시지 상태
   const [sortDirection, setSortDirection] = useState("asc"); // 이름 정렬 방향 상태
 
+  // JWT 토큰을 로컬 스토리지에서 가져옴
+  const token = localStorage.getItem("accessToken"); // JWT 토큰 가져오기
+
+  console.log("토큰:", token)
+  // API 기본 설정
+  const axiosInstance = axios.create({
+    baseURL: "http://localhost:8080/api/admin/",
+    headers: {
+      "Authorization": `Bearer ${token}`, // JWT 토큰 추가
+      "Content-Type": "application/json"
+    },
+  });
+
   // 회원 정보를 가져오는 useEffect
   useEffect(() => {
-    axios
-      .get("http://localhost:8080/api/admin/UserView")
+    axiosInstance
+      .post("http://localhost:8080/api/admin/UserView")
       .then((response) => {
         setUsers(Array.isArray(response.data) ? response.data : []); // 배열로 설정
         setLoading(false);
@@ -32,7 +45,7 @@ const UserList = () => {
       alert("검색어를 입력해주세요");
       return;
     }
-    axios
+    axiosInstance
       .get("http://localhost:8080/api/admin/UserView/search", {
         params: { name: searchName },
       })
