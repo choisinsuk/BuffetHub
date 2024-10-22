@@ -12,13 +12,14 @@ const Reservation = () => {
   const [selectedCategory, setSelectedCategory] = useState("전체");
 
   // JWT 토큰을 로컬 스토리지에서 가져옴
-  const token = localStorage.getItem("jwtToken"); // JWT 토큰 가져오기
+  const token = localStorage.getItem("accessToken"); // JWT 토큰 가져오기
 
+  console.log("토큰:", token)
   // API 기본 설정
   const axiosInstance = axios.create({
     baseURL: "http://localhost:8080/api/admin/",
     headers: {
-      Authorization: `Bearer ${token}`, // JWT 토큰 추가
+      "Authorization": `Bearer ${token}`, // JWT 토큰 추가
       "Content-Type": "application/json"
     },
   });
@@ -26,7 +27,7 @@ const Reservation = () => {
   // API 호출하여 예약 데이터 가져오기
   useEffect(() => {
     axiosInstance
-      .get("reserve")
+      .get("reserves")
       .then((response) => {
         setReserves(Array.isArray(response.data) ? response.data : []); // 배열로 설정
       })

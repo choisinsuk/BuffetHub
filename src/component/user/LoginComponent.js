@@ -29,6 +29,11 @@ const LoginComponent = () => {
           // 사용자 역할 확인
           const userRole = data.urAuthCode; // 여기서 'role'은 서버에서 반환된 사용자 역할입니다.
 
+          // accessToken과 refreshToken 저장
+          localStorage.setItem("accessToken", data.accessToken);
+          localStorage.setItem("refreshToken", data.refreshToken);
+
+          console.log("AccessToken", data.accessToken)
           console.log("로그인 성공, 쿠키 확인: ", getCookie("user"));
 
           // 사용자 역할에 따라 리다이렉션 경로 설정

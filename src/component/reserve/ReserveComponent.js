@@ -21,14 +21,15 @@ const ReserveComponent = () => {
     <>
       <div className="text-xl font-normal text-center p-4">
         이용시간: 예약시간으로부터 2시간
-        <div>위치: 가산동</div>
-         <div>전화번호: 02-1234-5678</div>
+        <div>위치: 서울특별시 금천구 가산디지털2로 101 한라원앤원타워3층</div>
+         <div>전화번호: 0000-0000</div>
       </div>
       <div className="text-xl font-normal border border-black p-4 ">
         예약 안내사항(세부)
         <div className="font-normal border border-black p-4 m-5 mt-10 text-sm">
         ▷ 예약 안내사항
         <br/> -온라인 예약, 변경 및 취소는 이용 날짜 기준 하루 전까지 가능하며 이용 당일 예약 변경은 불가합니다.
+        <br/> -예약 시 홈페이지 결제, 현장 결제가 가능합니다.
         <br/> -예약 후 노쇼 누적 시, 온라인 예약이 불가할 수 있습니다.
         <br/>
         <br/>▷ 미취학 아동은 만 4세(49개월) 미만입니다.

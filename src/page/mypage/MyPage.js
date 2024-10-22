@@ -24,7 +24,7 @@ const MyPage = () => {
         </li>
         <li style={{ margin: "10px 0" }}>
           <span>- </span>
-          <Link to="/mypage/chk-password" className={`cursor-pointer ${location.pathname === "/mypage/userinfo" ? "font-bold" : ""}`}>내 정보 관리</Link>{" "}
+          <Link to="/mypage/chk-password" className={`cursor-pointer ${location.pathname === "/mypage/chk-password" ? "font-bold" : ""}`}>내 정보 관리</Link>{" "}
           {/* 내 정보 수정 링크 */}
         </li>
       </ul>

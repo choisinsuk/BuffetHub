@@ -15,7 +15,7 @@ const ReserveLayout = ({asideContent,mainContent}) => {
         </aside>
 
         {/* Main - 가로 100%, 높이 가변% */}
-        <main className="flex-1 bg-sky-300 text-center">
+        <main className="flex-1 bg-gray-200 text-center">
           {mainContent}
         </main>
         </div>

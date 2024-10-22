@@ -34,6 +34,7 @@ const mypageRouter = () => {
             </Suspense>
           ),
         },
+        
         {
           path: "userinfo", // 내 정보 관리 경로
           element: (
