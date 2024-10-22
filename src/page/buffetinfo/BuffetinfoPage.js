@@ -6,11 +6,11 @@ const Buffetinfo = () => {
   return (
     <BasicLayout> {/* 기본 레이아웃으로 감싸기 */}
       <div className="flex flex-col items-center"> {/* 세로로 정렬된 컨테이너 */}
-        <div className="text-4xl text-center mb-6"> {/* 제목, 중앙 정렬 및 아래 여백 */}
-          Buffet Info
+        <div className="text-4xl text-center mb-6 pt-5"> {/* 제목, 중앙 정렬 및 아래 여백 */}
+          뷔페 오시는 길
         </div>
         
-        <div className="mt-10 text-center"> {/* 추가 정보 표시하는 컨테이너 */}
+        <div className="mt-10 text-center justify-center"> {/* 추가 정보 표시하는 컨테이너 */}
           <div style={{ fontSize: '15px' }}> {/* 글씨 크기를 설정 */}
             {/* 뷔페 정보 항목들 */}
             <div>- 뷔페 식장 소개 -</div> 

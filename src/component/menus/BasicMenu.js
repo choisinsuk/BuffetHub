@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import logo from "../../images/logoimage/Logo.png";
+import logo from "../../images/logoimage/BuffetHubLogoVery.png";
 import { removeCookie } from "../../util/cookieUtil";
 import { logout } from "../../slice/loginSlice";
 
@@ -30,14 +30,10 @@ const BasicMenu = () => {
 
 
   return (
-    <nav id="navbar" className="flex bg-blue-300">
-      <div className="w-full bg-white flex justify-between items-center p-4">
-        {/* 왼쪽에 로고 배치 */}
-        <div className="text-2xl text-yellow-500 font-bold">
-          <Link to={"/"}>
-            <img src={logo} alt="BuffetHub Logo" className="h-14 w-auto" />
-          </Link>
-        </div>
+    <nav id="navbar" className="flex shadow-lg border">
+      <div>
+        <Link to={"/"}> <img src={logo} alt="Logo" /> </Link>
+      </div>
 
         {/* 오른쪽 메뉴 배치 및 햄버거 아이콘 */}
         <div className="flex items-center md:space-x-4">
@@ -89,7 +85,6 @@ const BasicMenu = () => {
             <div className="bg-black w-6 h-0.5"></div>
           </div>
         </div>
-      </div>
     </nav>
   );
 };
