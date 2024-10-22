@@ -1,5 +1,7 @@
 import BasicMenu from "../component/menus/BasicMenu";
-import BuffetPicture from "../images/buffet.png"
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
 
 const MainLayout = ({children}) => {
   return ( 

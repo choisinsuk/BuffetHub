@@ -29,8 +29,8 @@ function KakaoMapCompnent() {
     <div
       id="map"
       style={{
-        width: "500px",
-        height: "500px",
+        width: "700px",
+        height: "550px",
       }}
     ></div>
   );
