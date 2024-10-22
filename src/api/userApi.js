@@ -1,8 +1,6 @@
 import axios from "axios";
 import { API_SERVER_HOST } from "./todoApi";
 import jwtAxios from "../util/jwtUtil";
-import { jwtDecode } from "jwt-decode";
-import { useDispatch } from "react-redux";
 import { logout } from "../slice/loginSlice";
 
 const host = `${API_SERVER_HOST}/api/user`;
@@ -39,24 +37,15 @@ export const joinPost = async (joinParam) => {
 
 // 사용자 프로필 가져오기
 export const getUserProfile = async (urId) => {
-  const response = await axios.get(`${host}/profile/${urId}`);
+  const response = await jwtAxios.get(`${host}/profile/${urId}`);
   return response.data;
 };
 
 export const updateUserProfile = async (urId, updatedData) => {
-  // JWT 토큰을 가져오는 함수 호출
-  const token = getToken(); // 이 부분은 사용자에 맞게 수정 필요
-
-  const headers = {
-    "Content-Type": "application/json",
-    Authorization: `Bearer ${token}`, // JWT 토큰을 헤더에 추가
-  };
-
   try {
-    const response = await axios.put(
+    const response = await jwtAxios.put(
       `${host}/profileupdate/${urId}`,
-      updatedData,
-      { headers }
+      updatedData
     );
     return response.data; // 응답 데이터 반환
   } catch (error) {
@@ -108,17 +97,12 @@ export const changePassword = async (
 // 아이디 찾기 함수
 export const findUserId = async (name, email) => {
   try {
-    const response = await axios.post(
+    const response = await jwtAxios.post(
       `${host}/search/id`,
       {
         name,
         email,
       },
-      {
-        headers: {
-          "Content-Type": "application/json", // JSON으로 요청을 보냅니다.
-        },
-      }
     );
     return response.data; // 응답 데이터를 반환합니다.
   } catch (error) {
@@ -129,17 +113,12 @@ export const findUserId = async (name, email) => {
 // 비밀번호 찾기 함수
 export const findPassword = async (urId, urEml) => {
   try {
-    const response = await axios.post(
+    const response = await jwtAxios.post(
       `${host}/search/password`,
       {
         urId,
         urEml,
       },
-      {
-        headers: {
-          "Content-Type": "application/json", // JSON으로 요청을 보냅니다.
-        },
-      }
     );
     return response.data; // 응답 데이터를 반환합니다.
   } catch (error) {
@@ -192,17 +171,12 @@ export const logoutUser = (dispatch) => {
 // 현재 비밀번호 확인 함수
 export const checkPassword = async (urId, currentPassword) => {
   try {
-    const response = await axios.post(
+    const response = await jwtAxios.post(
       `${host}/chk-password`,
       {
         urId,              // 현재 로그인한 사용자 ID
         currentPassword,   // 현재 비밀번호
       },
-      {
-        headers: {
-          "Content-Type": "application/json", // JSON으로 요청을 보냅니다.
-        },
-      }
     );
     return response.data; // 응답 데이터를 반환합니다.
   } catch (error) {
