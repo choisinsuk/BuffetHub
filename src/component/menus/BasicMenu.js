@@ -28,63 +28,58 @@ const BasicMenu = () => {
     }
   };
 
-
   return (
-    <nav id="navbar" className="flex shadow-lg border">
+    <nav id="navbar" className="flex justify-between items-center shadow-lg border p-4">
       <div>
-        <Link to={"/"}> <img src={logo} alt="Logo" /> </Link>
+        <Link to={"/"}> <img src={logo} alt="Logo" /></Link>
       </div>
 
-        {/* 오른쪽 메뉴 배치 및 햄버거 아이콘 */}
-        <div className="flex items-center md:space-x-4">
-          {/* 오른쪽 메뉴 배치 - 햄버거 아이콘 옆으로 정렬 */}
-          <ul
-            className={`flex flex-col md:flex-row md:space-x-6 text-black font-bold ${
-              isOpen ? "block" : "hidden"
-            } md:flex`}
-          >
-            {/* 각 메뉴 항목 */}
-            <li className="text-1xl p-2">
-              <Link to={"/"}>메인페이지</Link>
-            </li>
-            <li className="text-1xl p-2">
-              <Link to={"/buffetinfo"}>뷔페정보</Link>
-            </li>
-            <li className="text-1xl p-2">
-              <Link to={"/reserve"}>예약하기</Link>
-            </li>
-            <li className="text-1xl p-2">
-              <Link to={"/board"}>게시판</Link>
-            </li>
-            <li className="text-1xl p-2">
-              {loginState.urId ? ( // 로그인 상태일 때만 마이페이지 링크 보이기
-                <Link to={"/mypage"}>마이페이지</Link>
-              ) : null}
-            </li>
-            <li className="text-1xl p-2">
-              {!loginState.urId ? (
-                <Link to={"/user/register"}>회원가입</Link>
-              ) : (
-                <></>
-              )}
-            </li>
-            <li className="text-1xl p-2">
-              {!loginState.urId ? (
-                <Link to={"/user/login"}>로그인</Link>
-              ) : (
-                <a href="/" onClick={handleLogout}>로그아웃</a>
-              )}
-            </li>
-          </ul>
+      {/* 오른쪽 메뉴 배치 및 햄버거 아이콘 */}
+      <div className="flex items-center md:space-x-4 ml-auto"> {/* 오른쪽 정렬을 위해 ml-auto 추가 */}
+        {/* 오른쪽 메뉴 배치 - 햄버거 아이콘 옆으로 정렬 */}
+        <ul className={`flex flex-col md:flex-row md:space-x-6 text-fontColor font-bold ${isOpen ? "block" : "hidden"} md:flex`}>
+          {/* 각 메뉴 항목 */}
+          <li className="text-2xl p-2">
+            <Link to={"/"}>메인페이지</Link>
+          </li>
+          <li className="text-2xl p-2">
+            <Link to={"/buffetinfo"}>뷔페정보</Link>
+          </li>
+          <li className="text-2xl p-2">
+            <Link to={"/reserve"}>예약하기</Link>
+          </li>
+          <li className="text-2xl p-2">
+            <Link to={"/board"}>게시판</Link>
+          </li>
+          <li className="text-2xl p-2">
+            {loginState.urId ? (
+              <Link to={"/mypage"}>마이페이지</Link>
+            ) : null}
+          </li>
+          <li className="text-2xl p-2">
+            {!loginState.urId ? (
+              <Link to={"/user/register"}>회원가입</Link>
+            ) : (
+              <></>
+            )}
+          </li>
+          <li className="text-2xl p-2">
+            {!loginState.urId ? (
+              <Link to={"/user/login"}>로그인</Link>
+            ) : (
+              <a href="/" onClick={handleLogout}>로그아웃</a>
+            )}
+          </li>
+        </ul>
 
-          {/* 반응형 햄버거 아이콘 */}
-          <div className="md:hidden cursor-pointer" onClick={toggleMenu}>
-            {/* 햄버거 아이콘을 구성하는 3개의 선 */}
-            <div className="bg-black w-6 h-0.5 mb-0.5"></div>
-            <div className="bg-black w-6 h-0.5 mb-0.5"></div>
-            <div className="bg-black w-6 h-0.5"></div>
-          </div>
+        {/* 반응형 햄버거 아이콘 */}
+        <div className="md:hidden cursor-pointer" onClick={toggleMenu}>
+          {/* 햄버거 아이콘을 구성하는 3개의 선 */}
+          <div className="bg-black w-6 h-0.5 mb-0.5"></div>
+          <div className="bg-black w-6 h-0.5 mb-0.5"></div>
+          <div className="bg-black w-6 h-0.5"></div>
         </div>
+      </div>
     </nav>
   );
 };

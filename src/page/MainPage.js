@@ -29,11 +29,7 @@ const MenuSlider = ({ menus }) => {
         {menus.map((menu, index) => (
           <div key={index} className="flex justify-center px-3 py-3">
             <div className="flex flex-col items-center bg-orange-100 border border-gray-300 rounded-lg p-6 text-center shadow-md transition transform hover:scale-105 duration-200 ease-in-out">
-              <img
-                src={menu.imageUrl}
-                alt={menu.name}
-                className="w-50 h-50 object-cover" // 이미지 크기 조정
-              />
+              <img src={menu.imageUrl} alt={menu.name}  className="w-50 h-50 object-cover" />
               <h3 className="mt-2 text-3xl font-bold">{menu.name}</h3>
               <p>{menu.description}</p>
             </div>
@@ -104,9 +100,17 @@ const MainPage = () => {
 
   return (
     <BasicLayout>
-      <div className="text-4xl text-center">
+      <div className="text-4xl text-center" style={{ overflowY: 'scroll', scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+        {/* scrollbarWidth: 'none'은 Firefox에만 적용됩니다. */}
+        <style jsx>{`
+          /* Chrome, Safari, and Opera */Q
+          .text-4xl::-webkit-scrollbar {
+            display: none; /* Chrome, Safari, and Opera */
+          }
+        `}</style>
+        
         <div className="mt-10">
-          <img src={BuffetPicture} alt="topimage" className="w-full" />
+          <img src={BuffetPicture} alt="topimage" className="w-full mx-auto opacity-80" />
           <div className="mt-2" style={{ fontSize: "20px" }}>
             {menus.length > 0 && <MenuSlider menus={menus} />}
           </div>
