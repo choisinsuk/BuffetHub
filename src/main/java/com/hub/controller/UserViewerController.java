@@ -18,13 +18,12 @@ import com.hub.service.UserService;
 @RestController
 @RequestMapping("/api/admin/UserView")
 @CrossOrigin(origins = "http://localhost:3000") // CORS 설정
-
 public class UserViewerController {
     
     @Autowired
     private UserService userService; // UserService 주입
     
-    @PostMapping // POST 요청을 처리
+    @PostMapping// POST 요청을 처리
     public ResponseEntity<List<User>> getAllUsers() {
         try {
             List<User> users = userService.getAllUsers(); // 모든 사용자 조회

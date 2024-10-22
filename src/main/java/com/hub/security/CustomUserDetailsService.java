@@ -31,6 +31,9 @@ public class CustomUserDetailsService implements UserDetailsService {
 		if (user == null) {
 			throw new UsernameNotFoundException("Not Found");
 		}
+		
+        // 로그: 사용자의 권한 정보 확인
+        log.info("User: {}, Role: {}", user.getUrId(), user.getUrAuthCode());
 
 		// UserDTO 객체 생성
 		UserDTO userDTO = new UserDTO(user.getUrId(), user.getUrPw(), user.getUrNm(), user.getUrPhn(),
@@ -38,9 +41,6 @@ public class CustomUserDetailsService implements UserDetailsService {
 				user.getUrJoinDt(), user.getUrConditionCode());
 		log.info(userDTO);
 
-		 //사용자 권한 설정
-		Collection<SimpleGrantedAuthority> authorities = Collections
-				.singletonList(new SimpleGrantedAuthority("ROLE_" + userDTO.getUrAuthCode()));
 
 		return userDTO;
 	}

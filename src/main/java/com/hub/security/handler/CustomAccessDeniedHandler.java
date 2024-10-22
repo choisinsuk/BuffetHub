@@ -18,6 +18,7 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler {
 	@Override
 	public void handle(HttpServletRequest request, HttpServletResponse response,
 			AccessDeniedException accessDeniedException) throws IOException, ServletException {
+
 		Gson gson = new Gson();
 
 		String jsonStr = gson.toJson(Map.of("error", "ERROR_ACCESSDENIED"));

@@ -16,11 +16,13 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import com.hub.domain.UserRole;
 import com.hub.security.filter.JWTCheckFilter;
 import com.hub.security.handler.APILoginFailHandler;
 import com.hub.security.handler.APILoginSuccessHandler;
 import com.hub.security.handler.CustomAccessDeniedHandler;
 
+import jakarta.servlet.DispatcherType;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
@@ -46,26 +48,31 @@ public class CustomSecurityConfig {
 
 		http.sessionManagement(sessionConfig -> sessionConfig.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 		http.csrf(config -> config.disable());
+
 		
 		http.formLogin(config -> {
 			config.loginPage("/api/user/login");
-			config.successHandler(new APILoginSuccessHandler());  // 로그인 후 처리는 APILoginSuccessHandler
+			config.successHandler(new APILoginSuccessHandler()); // 로그인 후 처리는 APILoginSuccessHandler
 			config.failureHandler(new APILoginFailHandler()); // 로그인 실패 후 처리 APILoginFailHandler
 		});
-		
+
 		http.addFilterBefore(new JWTCheckFilter(), UsernamePasswordAuthenticationFilter.class); // JWT 체크
-		
+
 		http.exceptionHandling(config -> {
 			config.accessDeniedHandler(new CustomAccessDeniedHandler());
 		});
-		
-//	    // 회원가입 엔드포인트 및 기타 요청 권한 설정
-//	    http.authorizeHttpRequests(authorizeRequests -> {
-//	        authorizeRequests
-//	            .requestMatchers("/api/user/register").permitAll() // 인증 없이 회원가입 엔드포인트 접근 허용
-//	            .anyRequest().authenticated(); // 그 외의 모든 요청은 인증 필요
-//	    });
-		
+
+		// 회원가입 엔드포인트 및 관리자 페이지 접근 권한 설정
+		http.authorizeHttpRequests(authorizeRequests -> {
+			authorizeRequests
+					.requestMatchers("/api/user/register", "api/user/login").permitAll() // 인증 없이 회원가입 엔드포인트 접근 허용
+					.requestMatchers("/api/user/**").hasRole("USER")// 사용자 페이지 접근 권한 설정
+					.requestMatchers("/api/reserve/**").hasRole("USER")// 사용자 페이지 접근 권한 설정
+					.requestMatchers("/api/admin/**").hasRole("ADMIN")// 관리자 페이지 접근 권한 설정
+					.anyRequest().authenticated(); // 그 외의 모든 요청은 인증 필요
+		});
+
+
 		return http.build();
 	}
 
