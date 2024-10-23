@@ -1,10 +1,11 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { removeCookie } from "../../../util/cookieUtil";
 import logo from "../image/BuffetHubLogoVery.png";
 import { Link } from "react-router-dom";
 import { logout } from "../../../slice/loginSlice";
 
 const BasicMenu = () => {
+  const loginState = useSelector((state) => state.loginSlice);
   const dispatch = useDispatch();
 
 
@@ -43,8 +44,12 @@ const BasicMenu = () => {
           <li className="pr-10 text-2xl">
             <Link to={"/admin/noticeBoard"}>게시판 관리</Link>
           </li>
-          <li className="text-2xl">
-                <a href="/" onClick={handleLogout}>로그아웃</a>
+          <li className="text-2xl p-2">
+            {!loginState.urId ? (
+              <Link to={"/user/login"}>로그인</Link>
+            ) : (
+              <a href="/" onClick={handleLogout}>로그아웃</a>
+            )}
           </li>
         </ul>
       </div>
