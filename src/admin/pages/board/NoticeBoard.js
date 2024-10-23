@@ -9,10 +9,22 @@ const NoticeBoard = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  const token = localStorage.getItem("accessToken"); // JWT 토큰 가져오기
+
+  console.log("토큰:", token)
+  // API 기본 설정
+  const axiosInstance = axios.create({
+    baseURL: "http://localhost:8080/api/admin/",
+    headers: {
+      "Authorization": `Bearer ${token}`, // JWT 토큰 추가
+      "Content-Type": "application/json"
+    },
+  });
+
   useEffect(() => {
     const fetchNotices = async () => {
       try {
-        const response = await axios.get("http://localhost:8080/api/admin/noticeBoard/list");
+        const response = await axiosInstance.get("http://localhost:8080/api/admin/noticeBoard/list");
         setNotices(Array.isArray(response.data) ? response.data : []);
       } catch (error) {
         console.error("데이터를 불러오는 중 오류가 발생했습니다:", error);
