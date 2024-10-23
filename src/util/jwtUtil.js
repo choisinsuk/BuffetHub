@@ -54,7 +54,7 @@ const beforeRes = async (res) => {
     console.log("refreshJWT RESULT", result);
     userCookieValue.accessToken = result.accessToken;
     userCookieValue.refreshToken = result.refreshToken;
-    setCookie("user", JSON.stringify(userCookieValue), 1);
+    setCookie("user", JSON.stringify(userCookieValue));
     //원래 호출
     const originalRequest = res.config;
     originalRequest.headers.Authorization = `Bearer ${result.accessToken}`;

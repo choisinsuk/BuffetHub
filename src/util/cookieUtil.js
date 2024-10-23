@@ -1,6 +1,9 @@
+import { jwtDecode } from "jwt-decode";
 import { Cookies } from "react-cookie";
 
 const cookies = new Cookies();
+
+
 
 // 쿠키 설정 함수
 //export const setCookie = (name, value, days) => {
@@ -23,4 +26,14 @@ export const getCookie = (name) => {
 // 쿠키 삭제하기
 export const removeCookie = (name, path = "/") => {
   cookies.remove(name, { path });
+};
+
+// 토큰에서 urAuthCode 추출
+export const getUserAuthCodeFromToken = () => {
+  const userCookie = getCookie("user"); // 쿠키에서 "user" 값을 가져옴
+
+  console.log("권한값", userCookie.urAuthCode)
+
+  // 쿠키 값이 JSON 객체라면 직접 사용
+  return userCookie.urAuthCode; // urAuthCode 반환
 };
