@@ -42,7 +42,7 @@ const Reservation = () => {
       alert("검색어를 입력해주세요.");
       return;
     }
-    axios
+    axiosInstance
       .get("http://localhost:8080/api/admin/reserves/search/name", {
         params: { name: searchName },
       })
