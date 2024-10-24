@@ -1,0 +1,9 @@
+package com.hub.service;
+
+import com.hub.domain.Reserve;
+
+public interface PersonStatService {
+
+    // 인원 수 업데이트 메서드
+    void updatePersonStat(Reserve reserve);
+}
