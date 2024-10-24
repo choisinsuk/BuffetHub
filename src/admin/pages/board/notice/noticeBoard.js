@@ -69,7 +69,15 @@ const NoticeBoard = () => {
   return (
     <div>
       <BasicMenu />
-      <div className="bg-gray-200 my-5 w-full text-center px-10 py-10 justify-center">
+
+      <div className="bg-white my-5 w-full flex-col space-y-4">
+        <main className="bg-orange-100 w-5/6 mx-auto px-3 py-20 rounded-lg flex items-center justify-center text-center shadow-lg border-2-black ">
+          <div className="text-5xl text-fontColor font-bold ">공지사항 관리</div>
+        </main>
+      </div>
+
+
+      <div className="bg-gray-200 my-5 w-5/6 text-center px-10 py-10 justify-center ">
         <h2 className="text-xl font-bold">공지사항 리스트</h2>
         <div className="mb-4 flex items-center justify-center">
           <input

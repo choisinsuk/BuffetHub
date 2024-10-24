@@ -181,23 +181,27 @@ const RegistComponent = () => {
       ) : (
         <></>
       )}
-        <table className="w-5/6">
+      <table className="w-5/6">
         <thead>
           <tr>
-            <td colSpan={2} className="text-center text-4xl py-5 font-bold text-fontColor">
+            <td
+              colSpan={2}
+              className="text-center text-4xl py-1 font-bold text-fontColor"
+            >
               예약 하기
             </td>
           </tr>
         </thead>
-
-        <td colSpan={2}>
-          <hr className="border-customColor3 border-t-4 w-full mx-auto my-4" />
-        </td>
-
+        <tr>
+          <td colSpan={2}>
+            <hr className="border-customColor3 border-t-4 w-full mx-auto my-10" />
+          </td>
+        </tr>
         <tbody className="text-left">
+          {/* 예약자 이름 ------------------------------------------------------------------------------*/}
           <tr>
-            <td className="px-1 font-bold text-xl pl-4 pb-4">예약자 이름</td>
-            <td className="py-2">
+            <td className="px-1 font-bold text-xl pl-4 pb-5 ">예약자 이름</td>
+            <td className="py-2 pb-4">
               <input
                 type="text"
                 size={10}
@@ -211,9 +215,9 @@ const RegistComponent = () => {
               </p>
             </td>
           </tr>
-
+          {/* 예약자 번호 ------------------------------------------------------------------------------*/}
           <tr>
-          <td className="px-1 font-bold text-xl pl-4 pb-4">휴대전화 번호</td>
+            <td className="px-1 font-bold text-xl pl-4 pb-4">휴대전화 번호</td>
             <td>
               <input
                 type="text"
@@ -224,10 +228,12 @@ const RegistComponent = () => {
                 value={reserve.rsPhn}
                 onChange={handleChangeReserve}
               />
-              <p className="text-xs pt-1 text-right">※ 핸드폰 번호 '-'제외 11자 입력</p>
+              <p className="text-xs pt-1 text-right">
+                ※ 핸드폰 번호 '-'제외 11자 입력
+              </p>
             </td>
           </tr>
-
+          {/* 성인 인원 ------------------------------------------------------------------------------*/}
           <tr>
             <td className="py-5 px-1 font-bold text-xl pl-4">성인</td>
             <td>
@@ -244,6 +250,7 @@ const RegistComponent = () => {
               />
             </td>
           </tr>
+          {/* 아동 인원 ------------------------------------------------------------------------------*/}
           <tr>
             <td className="py-5 px-1 font-bold text-xl pl-4">아동</td>
             <td>
@@ -260,7 +267,7 @@ const RegistComponent = () => {
               />
             </td>
           </tr>
-
+          {/* 미취학 아동 인원 ------------------------------------------------------------------------------*/}
           <tr>
             <td className="py-5 px-1 font-bold text-xl pl-4">미취학</td>
             <td>
@@ -282,10 +289,12 @@ const RegistComponent = () => {
               ※ 1-20인까지 정수만 입력 가능
             </td>
           </tr>
-
-          <td colSpan={2}>
-            <hr className="border-customColor3 border-t-4 w-full mx-auto my-4" />
-        </td>
+          <tr>
+            <td colSpan={2}>
+              <hr className="border-customColor3 border-t-4 w-full mx-auto my-10" />
+            </td>
+          </tr>
+          {/* 날짜 선택 ------------------------------------------------------------------------------*/}
           <tr>
             <td colSpan={2} className="text-center justify-center">
               <p className="pt-3 text-lg">날짜를 선택해주세요</p>
@@ -298,18 +307,18 @@ const RegistComponent = () => {
               </div>
             </td>
           </tr>
-
-          <td colSpan={2}>
-            <hr className="border-customColor3 border-t-4 w-full mx-auto my-10" />
-          </td>
-
+          <tr>
+            <td colSpan={2}>
+              <hr className="border-customColor3 border-t-4 w-full mx-auto my-10" />
+            </td>
+          </tr>
+        {/* 특이사항 ------------------------------------------------------------------------------*/}
           <tr>
             <td>
               <div className="text-sm">
                 <div className="py-5 px-1 font-bold text-xl pl-4">특이사항</div>
               </div>
             </td>
-
             <td colSpan={2}>
               <textarea
                 rows={4}
@@ -317,36 +326,21 @@ const RegistComponent = () => {
                 name="rsSignificant"
                 value={reserve.rsSignificant}
                 onChange={handleChangeReserve}
-                className="bg-customColor5 border border-gray-400 mx-1 mt-1 p-2 hover:border-gray-700"
-              />
+                className="bg-customColor5 border border-gray-400 mx-1 mt-1 p-2 hover:border-gray-700"/>
             </td>
           </tr>
         </tbody>
-
-        <td colSpan={2}>
-          <hr className="border-customColor3 border-t-4 w-full mx-auto my-10" />
-        </td>
-
         <tr>
           <td colSpan={2}>
-            <button
-              type="button"
-              className="bg-customColor5 py-5 my-2 text-fontColor rounded px-16 mx-10 border-gray-400 border font-bold
-                  hover:bg-orange-300 hover:text-white transition duration-200 ease-in-out hover:shadow-xl hover:font-bold
-                  hover:border-gray-700"
-              onClick={handleClickRegist}
-            >
-              예약접수
-            </button>
+            <hr className="border-customColor3 border-t-4 w-full mx-auto my-10" />
+          </td>
+        </tr>
+        {/* 예약접수 및 취소 ------------------------------------------------------------------------------*/}
+        <tr>
+          <td colSpan={2}>
+            <button type="button" className="bg-customColor5 py-5 my-2 text-fontColor rounded px-16 mx-10 border-gray-400 border font-bold hover:bg-orange-300 hover:text-white transition duration-200 ease-in-out hover:shadow-xl hover:font-bold hover:border-gray-700" onClick={handleClickRegist}>예약접수</button>
 
-            <button
-              type="button"
-              className="bg-customColor5 py-5 my-2 text-fontColor rounded px-16 mx-10 border-gray-400 border font-bold
-                hover:bg-orange-300 hover:border-gray-700 hover:text-white transition duration-200 ease-in-out hover:shadow-xl hover:font-bold"
-              onClick={handleBackClick}
-            >
-              뒤로가기
-            </button>
+            <button type="button" className="bg-customColor5 py-5 my-2 text-fontColor rounded px-16 mx-10 border-gray-400 border font-bold hover:bg-orange-300 hover:border-gray-700 hover:text-white transition duration-200 ease-in-out hover:shadow-xl hover:font-bold" onClick={handleBackClick}>뒤로가기</button>
           </td>
         </tr>
       </table>
