@@ -1,11 +1,9 @@
 package com.hub.domain;
 
-
-
 import java.time.LocalDateTime;
-
 import jakarta.persistence.*;
 import lombok.*;
+
 @Entity
 @SequenceGenerator(name = "REVIEWBOARD_SEQ_GEN", // 시퀀스 제너레이터 이름
 sequenceName = "REVIEWBOARD_SEQ", // 시퀀스 이름

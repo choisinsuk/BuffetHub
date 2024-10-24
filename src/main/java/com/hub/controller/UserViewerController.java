@@ -6,7 +6,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -40,5 +42,17 @@ public class UserViewerController {
     public ResponseEntity<List<UserDTO>> searchUser(@RequestParam("name") String urNm) {
         List<UserDTO> users = userService.searchUserByName(urNm);
         return ResponseEntity.ok(users);
+    }
+    
+    @DeleteMapping("/{urId}")
+    public ResponseEntity<String> deleteUser(@PathVariable String urId) {
+        try {
+            userService.deleteUser(urId);
+            return ResponseEntity.ok("사용자가 삭제되었습니다."); // 성공 메시지 반환
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage()); // 사용자 없음 오류 메시지 반환
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("서버 오류 발생"); // 일반적인 서버 오류 메시지 반환
+        }
     }
 }

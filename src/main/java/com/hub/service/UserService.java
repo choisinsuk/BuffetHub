@@ -201,5 +201,17 @@ public class UserService {
             .map(this::convertToDTO)
             .collect(Collectors.toList());
     }
+    
+    @Transactional
+    public void deleteUser(String urId) {
+        // 사용자 존재 여부 확인
+        User user = userRepository.findByUrId(urId);
+        if (user == null) {
+            throw new IllegalArgumentException("사용자를 찾을 수 없습니다. ID: " + urId);
+        }
+        
+        // 사용자 삭제
+        userRepository.delete(user);
+    }
 
 }

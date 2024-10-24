@@ -9,5 +9,4 @@ import com.hub.domain.Menu;
 public interface MenuAdminRepository extends JpaRepository<Menu, Long>{
 
 	List<Menu> findByMenuName(String menuName);
-
 }
