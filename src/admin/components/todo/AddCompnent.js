@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { postAdd } from "../../../api/NoticeApi";
+import { postAdd } from "../../../api/noticeApi";
 import ResultModal from "../common/ResultModal";
 import useCustomMove from "../../hooks/useCustomMove";
 

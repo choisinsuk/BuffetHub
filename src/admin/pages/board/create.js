@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { postAdd, putOne, getOne, setAuthToken } from "../../../../api/noticeApi";
+import { postAdd, putOne, getOne, setAuthToken } from "../../../api/noticeApi";
 
 const Create = () => {
   const [newNotice, setNewNotice] = useState({ ntTitle: "", ntCtt: "" });

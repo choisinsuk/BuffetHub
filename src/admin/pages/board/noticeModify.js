@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { getOne, putOne, deleteOne, setAuthToken } from "../../../../api/noticeApi"; // noticeApi에서 필요한 함수 임포트
+import { getOne, putOne, deleteOne, setAuthToken } from "../../../api/noticeApi"; // noticeApi에서 필요한 함수 임포트
 
 const initState = {
     ntNb: 0,
