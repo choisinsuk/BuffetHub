@@ -14,7 +14,7 @@ const UserList = () => {
   // JWT 토큰을 로컬 스토리지에서 가져옴
   const token = localStorage.getItem("accessToken"); // JWT 토큰 가져오기
 
-  console.log("토큰:", token)
+  console.log("토큰:", token);
   // API 기본 설정
   const axiosInstance = axios.create({
     baseURL: "http://localhost:8080/api/admin/",
@@ -27,7 +27,7 @@ const UserList = () => {
   // 회원 정보를 가져오는 useEffect
   useEffect(() => {
     axiosInstance
-      .post("http://localhost:8080/api/admin/UserView")
+      .post("UserView") // 수정: URL에서 중복 제거
       .then((response) => {
         setUsers(Array.isArray(response.data) ? response.data : []); // 배열로 설정
         setLoading(false);
@@ -46,7 +46,7 @@ const UserList = () => {
       return;
     }
     axiosInstance
-      .get("http://localhost:8080/api/admin/UserView/search", {
+      .get("UserView/search", {
         params: { name: searchName },
       })
       .then((response) => {
@@ -95,7 +95,7 @@ const UserList = () => {
       <BasicMenu />
       {/* 메인 콘텐츠 영역 */}
       <div className="bg-white my-5 w-full flex-col space-y-4">
-        <main className="bg-customColor2 w-5/6 mx-auto px-3 py-20 rounded-lg flex items-center justify-center text-center shadow-lg border-2-black ">
+        <main className="bg-orange-100 w-5/6 mx-auto px-3 py-20 rounded-lg flex items-center justify-center text-center shadow-lg border-2-black ">
           <div className="text-5xl text-fontColor font-bold ">회원 리스트</div>
         </main>
       </div>
