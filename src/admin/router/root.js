@@ -8,7 +8,10 @@ const Main = lazy(() => import("../pages/main"));
 const Reserve = lazy(() => import("../pages/reservation"));
 const BuffetInfo = lazy(() => import("../pages/buffetinfo"));
 const UserList = lazy(() => import("../pages/userlist"));
-const NoticeBoard = lazy(() => import("../pages/board/NoticeBoard"));
+const NoticeBoard = lazy(() => import("../pages/board/notice/noticeBoard"));
+const Create = lazy(() => import("../pages/board/notice/create"));
+const NoticeModify = lazy(() => import("../pages/board/notice/noticeModify"))
+
 
 const adminRouter = () => [
   {
@@ -28,9 +31,19 @@ const adminRouter = () => [
     element: <Suspense fallback={Loading}><UserList /></Suspense>
   },
   {
-    path: "noticeBoard", // 상대 경로
+    path: "noticeboard", // 상대 경로
     element: <Suspense fallback={Loading}><NoticeBoard /></Suspense>
-  }
+  },
+  {
+    path: "create",
+    element: <Suspense fallback={Loading}><Create/></Suspense>
+},
+
+{
+  path: "noticemodify/:ntNb",
+  element: <Suspense fallback={Loading}><NoticeModify/></Suspense>
+}
+
 ];
 
 export default adminRouter;
