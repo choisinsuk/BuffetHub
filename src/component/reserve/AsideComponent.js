@@ -33,13 +33,13 @@ const AsideContent = () => {
 
   return (
     <nav id="rvaside" className="flex">
-      <ul className="flex flex-col p-4">
+      <ul className="flex flex-col p-2">
         <li className="mb-2">
           <div
             className={`font-bold`}
             onClick={handleClickReserve}
           >
-            예약
+            예약 서비스
           </div>
         </li>
         <li className="mb-2">
@@ -47,7 +47,7 @@ const AsideContent = () => {
             className={`cursor-pointer ${location.pathname === "/reserve/regist" ? "font-bold" : ""}`}
             onClick={handleClickRegist}
           >
-            -예약하기
+            - 실시간 예약
           </div>
         </li>
         <li>
@@ -55,7 +55,7 @@ const AsideContent = () => {
             className={`cursor-pointer ${location.pathname === "/reserve/list" ? "font-bold" : ""}`}
             onClick={handleClickList}
           >
-            -예약변경
+            - 예약 변경
           </div>
         </li>
       </ul>
