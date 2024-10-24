@@ -3,7 +3,7 @@ import React from "react";
 
 const NoticeTable = ({ notices, error }) => {
   return (
-    <div className="bg-red-200 w-full text-center p-4 rounded">
+    <div className="bg-orange-100 w-full text-center p-4 rounded">
       <h2 className="text-xl font-bold mb-4">공지사항 리스트</h2>
       {error && <div className="text-red-500">{error}</div>}
       <table className="w-full bg-white border-collapse text-center">

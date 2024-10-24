@@ -65,24 +65,15 @@ const Buffetinfo = () => {
       </div>
 
       <div className="space-x-4 text-center pb-10">
-        <button
-          className="bg-orange-100 text-fontColor py-5 px-10 rounded shadow-lg transition transform hover:scale-110 duration-200 ease-in-out text-2xl hover:bg-customColor2 font-bold"
-          onClick={() => setActiveTab("LocationInfo")}
-        >
+        <button className="bg-orange-100 text-fontColor py-5 px-10 rounded shadow-lg transition transform hover:scale-110 duration-200 ease-in-out text-2xl hover:bg-customColor2 font-bold" onClick={() => setActiveTab("LocationInfo")} >
           매장 위치
         </button>
 
-        <button
-          className="bg-orange-100 text-fontColor py-5 px-10 rounded shadow-lg transition transform hover:scale-110 duration-200 ease-in-out text-2xl hover:bg-customColor2 font-bold"
-          onClick={() => setActiveTab("PriceTable")}
-        >
+        <button className="bg-orange-100 text-fontColor py-5 px-10 rounded shadow-lg transition transform hover:scale-110 duration-200 ease-in-out text-2xl hover:bg-customColor2 font-bold" onClick={() => setActiveTab("PriceTable")}>
           이용 가격
         </button>
 
-        <button
-          className="bg-orange-100 text-fontColor py-5 px-10 rounded shadow-lg transition transform hover:scale-110 duration-200 ease-in-out text-2xl hover:bg-customColor2 font-bold"
-          onClick={() => setActiveTab("Menus")}
-        >
+        <button className="bg-orange-100 text-fontColor py-5 px-10 rounded shadow-lg transition transform hover:scale-110 duration-200 ease-in-out text-2xl hover:bg-customColor2 font-bold" onClick={() => setActiveTab("Menus")}>
           메뉴 정보
         </button>
       </div>

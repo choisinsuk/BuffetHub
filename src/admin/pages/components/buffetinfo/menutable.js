@@ -139,10 +139,10 @@ const Menu = () => {
             key={category}
             onClick={() => filterByCategory(category)}
             className={`px-3 py-1 m-2 border rounded-lg text-center shadow-md
-              transition transform hover:scale-110 duration-200 ease-in-out hover:bg-customColor3
+              transition transform hover:scale-110 duration-200 ease-in-out hover:bg-customColor2 text-fontColor font-bold
               ${
                 selectedCategory === category
-                  ? "bg-customColor2 text-black font-bold"
+                  ? "bg-customColor2 text-fontColor font-bold"
                   : "bg-customColor3 text-white font-bold"
               }`}
           >
@@ -169,15 +169,13 @@ const Menu = () => {
         </button>
       </div>
 
-      {error && <p className="text-red-500 text-center mb-4">{error}</p>}
-
       {/* 메뉴 추가 섹션 */}
       <div className="bg-gray-100 p-4 mb-6 rounded">
         <h3 className="text-lg font-semibold mb-4">메뉴 추가</h3>
         <input
           type="text"
           className="mb-2 p-2 border rounded w-full"
-          placeholder="메뉴 이름"
+          placeholder="추가할 메뉴 이름"
           value={newMenuName}
           onChange={(e) => setNewMenuName(e.target.value)}
         />
@@ -186,7 +184,7 @@ const Menu = () => {
           value={newMenuCategory}
           onChange={(e) => setNewMenuCategory(e.target.value)}
         >
-          <option value="">카테고리 선택</option>
+          <option value="">메뉴 카테고리 선택</option>
           <option value="초밥">초밥</option>
           <option value="군함">군함</option>
           <option value="롤">롤</option>
@@ -200,10 +198,10 @@ const Menu = () => {
           <option value="드링크">드링크</option>
         </select>
         <button
-          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-200 ease-in-out"
+          className="bg-customColor2 text-white px-4 py-2 rounded hover:bg-orange-400 transition duration-200 ease-in-out"
           onClick={handleAddMenu}
         >
-          추가
+          추가 {error && <p className="text-red-500 text-center mb-4">{error}</p>}
         </button>
       </div>
 

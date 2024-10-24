@@ -1,0 +1,42 @@
+[33mcommit 533b59f073aa731d76ca0ff943915924dd942d3c[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mbackend[m[33m)[m
+Merge: 8a836b7 6cdde7a
+Author: leejaejun <roy2619@naver.com>
+Date:   Mon Sep 23 14:43:53 2024 +0900
+
+    Merge branch 'backend' of https://github.com/choisinsuk/BuffetHub into backend
+
+[33mcommit 8a836b755eac16f34a0de9875dc148f43860e549[m
+Author: leejaejun <roy2619@naver.com>
+Date:   Mon Sep 23 14:43:18 2024 +0900
+
+    엔티티 추가- 이재준
+
+[33mcommit 6cdde7a41e5fe78a96cd2615a1578b3911045194[m
+Author: choisinsuk <990109aa@gmail.com>
+Date:   Thu Sep 19 17:50:25 2024 +0900
+
+    Todo 추가 및 보안 설정
+
+[33mcommit aa848ca4236bbc39fc2356223f9a75d75a5c4cab[m
+Author: leejaejun <roy2619@naver.com>
+Date:   Thu Sep 19 17:04:49 2024 +0900
+
+    의존성 주입 -이재준
+
+[33mcommit 9e920bb015340f54246d54dcb14d566dd6c311d2[m[33m ([m[1;31morigin/master[m[33m)[m
+Author: choisinsuk <990109aa@gmail.com>
+Date:   Thu Sep 19 14:52:12 2024 +0900
+
+    back-end file upload
+
+[33mcommit 2a04c9236afe5a289353608d35491807c3187ceb[m
+Author: choisinsuk <990109aa@gmail.com>
+Date:   Fri Sep 13 16:15:23 2024 +0900
+
+    보드관련 java파일 생성
+
+[33mcommit 43316765f1c7f63abb66e05f67e658c30d1b293a[m
+Author: choisinsuk <990109aa@gmail.com>
+Date:   Fri Sep 13 16:02:09 2024 +0900
+
+    back

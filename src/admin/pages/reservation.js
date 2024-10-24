@@ -140,12 +140,12 @@ const Reservation = () => {
       <BasicMenu />
 
       <div className="bg-white my-5 w-full flex-col space-y-4">
-        <main className="bg-customColor2 w-5/6 mx-auto px-3 py-20 rounded-lg flex items-center justify-center text-center shadow-lg border-2-black ">
+        <main className="bg-orange-100 w-5/6 mx-auto px-3 py-20 rounded-lg flex items-center justify-center text-center shadow-lg border-2-black ">
           <div className="text-5xl text-fontColor font-bold ">예약 정보 관리</div>
         </main>
       </div>
 
-      <div className="w-5/6 mx-auto mb-5 pb-5 px-2 rounded-lg flex justify-center text-center shadow-md border-4">
+      <div className="w-5/6 mx-auto mb-5 pb-5 px-2 py-2 rounded-lg flex justify-center text-center shadow-md border-4">
         <main className="text-center rounded justify-center w-full ">
           <p className="text-3xl text-fontColor font-bold mb-4 pt-2">예약 리스트</p>
           <hr className="w-full mx-auto border-2"/>
