@@ -33,12 +33,18 @@ const DateTimePicker = ({ selectedDate, onDateChange }) => {
       </div>
 
       {/* 선택한 날짜와 시간 출력 */}
-      <div className="pt-3">
-        <div className="text-sm flex justify-center border border-black w-80 m-auto pt-3 h-12">
-          {selectedDate && <p>예약일: {selectedDate.toLocaleString()}</p>}
+      
+      <div className="pt-5 flex justify-center text-center items-center">
+        <div className="bg-customColor5 text-sm flex border-1 border-gray-400 h-16 w-2/5 
+        rounded-md justify-center text-center items-center">
+          {selectedDate && (
+            <p>
+              예약일 : {" "}<span className="font-bold text-lg">{selectedDate.toLocaleString()}</span>
+            </p>
+          )}
         </div>
-        <p className="text-xs pt-1">※ 예약날짜를 확인하세요 ※</p>
       </div>
+      <p className="text-xs pt-1 text-right">※ 예약날짜를 확인하세요 ※</p>
     </div>
   );
 };
