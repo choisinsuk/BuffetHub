@@ -134,7 +134,7 @@ const MainPage = () => {
           }
         `}</style>
 
-        <div className="mt-10">
+        <div className="mt-10 ">
           <img
             src={BuffetPicture}
             alt="topimage"

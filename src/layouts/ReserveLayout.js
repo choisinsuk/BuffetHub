@@ -15,14 +15,13 @@ const ReserveLayout = ({asideContent,mainContent}) => {
         </aside>
 
         {/* Main - 가로 100%, 높이 가변% */}
-        <main className="flex-1 text-center py-5 px-5">
+        <main className="flex-1 text-center py-10 px-5">
           {mainContent}
         </main>
       </div>
 
         {/* Footer - 가로 100%, 높이 10% */}
-        
-      </div>
+    </div>
       
     
   </>

@@ -19,10 +19,13 @@ const ReserveComponent = () => {
   const handleGoInfoClick = () => {
     navigate("/buffetinfo"); // 이동할 경로
   };
+  const handleBackClick = () => {
+    navigate(-1); // 이전 페이지로 이동
+  };
 
   return (
     <>
-      <table className="flex justify-center py-8 pt-5">
+      <table className="flex justify-center py-8">
         <tr>
           <td className="text-center">
             <p>
@@ -36,7 +39,7 @@ const ReserveComponent = () => {
             <button
               onClick={handleGoInfoClick}
               className="bg-orange-200 border rounded-lg py-5 px-10 text-fontColor 
-             hover:bg-orange-400 hover:text-white transition duration-200 ease-in-out"
+             hover:bg-orange-400 hover:text-white hover:shadow-xl transition duration-200 ease-in-out"
             >
               <p className="text-2xl">뷔페 위치 및 상세 정보 보러가기</p>
               <p className="text-xs">
@@ -48,14 +51,15 @@ const ReserveComponent = () => {
       </table>
 
       <div className="text-xl p-4 justify-start ">
-      <hr className="py-5" />
+      
       <p className="font-bold text-2xl">예약 안내사항</p>
-        
-        <p className="text-lg">
+        <p className="text-lg pb-5">
           인터넷 예약 가이드를 안내드리니 참조하여 주시기 바랍니다.
         </p>
 
-        <ul className="p-4 mt-5 text-xl text-left pl-5 pb-5 pt-5">
+        <hr className="py-1 w-full border-orange-200 border-t-2" />
+
+        <ul className="p-4 mt-5 text-xl text-left pl-5 pb-5 pt-2">
           <li className="font-bold pb-2">매장 이용 안내</li>
           <ul className="list-disc pl-8 pb-10">
             <li>
@@ -84,16 +88,26 @@ const ReserveComponent = () => {
             </li>
             <li>진행 중인 이벤트는 이벤트 페이지에서 확인 부탁드립니다.</li>
           </ul>
+          <li className="pt-10">
+            <hr className="py-5 w-full border-orange-200 border-t-2" />
+          </li>
+          <li className="text-center pt-5 ">
+            <table className="flex text-center justify-center">
+              <tr>
+                <td className="pr-5">
+                <button type="button" className="bg-orange-200 border rounded-lg py-5 px-10 text-fontColor 
+                hover:bg-orange-400 hover:text-white transition duration-200 ease-in-out hover:shadow-xl hover:font-bold"
+                  onClick={handleClickRegist}>예약하기</button>
+                </td>
 
-          <li className="text-center pt-5">
-            <button
-              type="button"
-              className="bg-orange-200 border rounded-lg py-5 px-10 text-fontColor 
-             hover:bg-orange-400 hover:text-white transition duration-200 ease-in-out"
-              onClick={handleClickRegist}
-            >
-              예약하기
-            </button>
+                <td className="pl-5">
+                <button type="button" className="bg-orange-200 border rounded-lg py-5 px-10 text-fontColor 
+                hover:bg-orange-400 hover:text-white transition duration-200 ease-in-out hover:shadow-xl hover:font-bold"
+                  onClick={handleBackClick}>뒤로가기
+                </button>
+                </td>
+              </tr>
+            </table>
           </li>
         </ul>
       </div>

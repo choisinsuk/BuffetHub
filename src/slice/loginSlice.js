@@ -4,6 +4,7 @@ import { getCookie, removeCookie, setCookie } from "../util/cookieUtil";
 
 const initState = {
   urId: "",
+  urAuthCode: "", // 권한 코드 추가 1
 };
 
 const loadUserCookie = () => {
