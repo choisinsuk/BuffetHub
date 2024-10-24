@@ -1,10 +1,14 @@
 package com.hub.service;
 
 import com.hub.domain.NoticeBoard;
+
 import com.hub.dto.NoticeDTO;
 import com.hub.dto.PageRequestDTO;
 import com.hub.dto.PageResponseDTO;
 import com.hub.repository.NoticeRepository;
+
+import jakarta.xml.ws.Response;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -82,7 +86,9 @@ public class NoticeServiceImpl implements NoticeService {
 
 		long totalCount = result.getTotalElements();
 
-		return PageResponseDTO.<NoticeDTO>withAll().dtoList(dtoList).pageRequestDTO(pageRequestDTO)
-				.totalCount(totalCount).build();
+		PageResponseDTO<NoticeDTO> responseDTO =PageResponseDTO.<NoticeDTO>withAll()
+				.dtoList(dtoList).pageRequestDTO(pageRequestDTO).totalCount(totalCount).build();
+	return responseDTO;
 	}
+	
 }

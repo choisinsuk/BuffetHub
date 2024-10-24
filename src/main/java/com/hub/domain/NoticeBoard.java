@@ -49,7 +49,7 @@ public class NoticeBoard {
     	this.ntTitle = ntTitle;
     }
     
-    public void changeNtCtt(String NtCtt) {
+    public void changeNtCtt(String ntCtt) {
     	this.ntCtt = ntCtt;
     }
     
