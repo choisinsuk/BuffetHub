@@ -196,12 +196,12 @@ const RegistComponent = () => {
 
         <tbody className="text-left">
           <tr>
-            <td className="py-5 px-1 font-bold text-xl pl-4">예약자 이름</td>
+            <td className="px-1 font-bold text-xl pl-4 pb-4">예약자 이름</td>
             <td className="py-2">
               <input
                 type="text"
                 size={10}
-                className="w-2/3 bg-customColor5 py-2 text-center items-center font-bold rounded-md"
+                className="w-2/3 border-2 border-gray-300 py-2 text-center items-center font-bold rounded-md hover:border-gray-700"
                 name="rsNm"
                 value={reserve.rsNm}
                 onChange={handleChangeReserve}
@@ -213,12 +213,13 @@ const RegistComponent = () => {
           </tr>
 
           <tr>
-            <td className="py-5 px-1 font-bold text-xl pl-4">핸드폰 번호</td>
+          <td className="px-1 font-bold text-xl pl-4 pb-4">휴대전화 번호</td>
             <td>
               <input
                 type="text"
                 size={11}
-                className="w-2/3 bg-customColor5 py-2 text-center items-center font-bold rounded-md"
+                className="w-2/3 border-2 border-gray-300 py-2 text-center items-center font-bold rounded-md
+                hover:border-gray-700"
                 name="rsPhn"
                 value={reserve.rsPhn}
                 onChange={handleChangeReserve}
@@ -233,7 +234,8 @@ const RegistComponent = () => {
               <input
                 type="number"
                 size={3}
-                className="w-1/6 border-2 border-black py-2 text-center items-center font-bold rounded-lg"
+                className="w-1/6 border-2 border-gray-300 py-2 text-center items-center font-bold rounded-lg text-gray-500
+                hover:text-gray-800 hover:border-gray-700"
                 min={0} // 최소값 설정
                 max={20} // 최대값 설정
                 value={reserve.rsAdultPersonCnt}
@@ -248,7 +250,8 @@ const RegistComponent = () => {
               <input
                 type="number"
                 size={3}
-                className="w-1/6 border-2 border-black py-2 text-center items-center font-bold rounded-lg"
+                className="w-1/6 border-2 border-gray-300 py-2 text-center items-center font-bold rounded-lg text-gray-500
+                hover:text-gray-800 hover:border-gray-700"
                 min={0} // 최소값 설정
                 max={20} // 최대값 설정
                 value={reserve.rsChildPersonCnt}
@@ -264,7 +267,8 @@ const RegistComponent = () => {
               <input
                 type="number"
                 size={3}
-                className="w-1/6 border-2 border-black py-2 text-center items-center font-bold rounded-lg"
+                className="w-1/6 border-2 border-gray-300 py-2 text-center items-center font-bold rounded-lg text-gray-500
+                hover:text-gray-800 hover:border-gray-700"
                 min={0} // 최소값 설정
                 max={20} // 최대값 설정
                 value={reserve.rsPreagePersonCnt}
@@ -313,7 +317,7 @@ const RegistComponent = () => {
                 name="rsSignificant"
                 value={reserve.rsSignificant}
                 onChange={handleChangeReserve}
-                className="bg-customColor5 border border-gray-400 mx-1 mt-1 p-2"
+                className="bg-customColor5 border border-gray-400 mx-1 mt-1 p-2 hover:border-gray-700"
               />
             </td>
           </tr>
@@ -327,8 +331,9 @@ const RegistComponent = () => {
           <td colSpan={2}>
             <button
               type="button"
-              className="bg-customColor5 py-5 my-2 text-fontColor rounded px-16 mx-10 border-gray-400 border
-                  hover:bg-orange-300 hover:text-white transition duration-200 ease-in-out hover:shadow-xl hover:font-bold"
+              className="bg-customColor5 py-5 my-2 text-fontColor rounded px-16 mx-10 border-gray-400 border font-bold
+                  hover:bg-orange-300 hover:text-white transition duration-200 ease-in-out hover:shadow-xl hover:font-bold
+                  hover:border-gray-700"
               onClick={handleClickRegist}
             >
               예약접수
@@ -336,8 +341,8 @@ const RegistComponent = () => {
 
             <button
               type="button"
-              className="bg-customColor5 py-5 my-2 text-fontColor rounded px-16 mx-10 border-gray-400 border
-                hover:bg-orange-300 hover:text-white transition duration-200 ease-in-out hover:shadow-xl hover:font-bold"
+              className="bg-customColor5 py-5 my-2 text-fontColor rounded px-16 mx-10 border-gray-400 border font-bold
+                hover:bg-orange-300 hover:border-gray-700 hover:text-white transition duration-200 ease-in-out hover:shadow-xl hover:font-bold"
               onClick={handleBackClick}
             >
               뒤로가기
