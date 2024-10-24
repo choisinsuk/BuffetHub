@@ -19,9 +19,7 @@ const ReserveComponent = () => {
   const handleGoInfoClick = () => {
     navigate("/buffetinfo"); // 이동할 경로
   };
-  const handleBackClick = () => {
-    navigate(-1); // 이전 페이지로 이동
-  };
+  
 
   return (
     <>
@@ -94,17 +92,10 @@ const ReserveComponent = () => {
           <li className="text-center pt-5 ">
             <table className="flex text-center justify-center">
               <tr>
-                <td className="pr-5">
+                <td>
                 <button type="button" className="bg-orange-200 border rounded-lg py-5 px-10 text-fontColor 
                 hover:bg-orange-400 hover:text-white transition duration-200 ease-in-out hover:shadow-xl hover:font-bold"
                   onClick={handleClickRegist}>예약하기</button>
-                </td>
-
-                <td className="pl-5">
-                <button type="button" className="bg-orange-200 border rounded-lg py-5 px-10 text-fontColor 
-                hover:bg-orange-400 hover:text-white transition duration-200 ease-in-out hover:shadow-xl hover:font-bold"
-                  onClick={handleBackClick}>뒤로가기
-                </button>
                 </td>
               </tr>
             </table>
