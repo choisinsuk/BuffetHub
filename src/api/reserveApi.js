@@ -64,3 +64,12 @@ export const putPaymentStatus = async (rsNb) => {
   });
   return res.data;
 };
+
+// 예약 방문 여부 변경 메서드
+// 방문 시 통계 데이터 산출
+export const putVisitStatus = async (rsNb, visitStatus) => {
+  const res = await jwtAxios.put(`${prefix}/${rsNb}/visit-status`, null, {
+    params: { visitStatus }, // 방문 여부를 파라미터로 전달
+  });
+  return res.data;
+};

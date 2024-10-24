@@ -11,11 +11,6 @@ const initState = {
   rsPreagePersonCnt: 0,
   rsTotalPersonCnt: 0,
 
-  rsVisitAdultCnt: 0,
-  rsVisitChildCnt: 0,
-  rsVisitPreageCnt: 0,
-  rsVisitTotalCnt: 0,
-
   rsNm: "",
   rsPhn: "",
   rsSignificant: "",
@@ -24,7 +19,6 @@ const initState = {
   rsPaymentCompleteYn: false,
   rsVisitYn: false,
 
-  bvNb: 0,
   urId: "",
 };
 
