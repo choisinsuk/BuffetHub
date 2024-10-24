@@ -8,9 +8,9 @@ const Main = lazy(() => import("../pages/main"));
 const Reserve = lazy(() => import("../pages/reservation"));
 const BuffetInfo = lazy(() => import("../pages/buffetinfo"));
 const UserList = lazy(() => import("../pages/userlist"));
-const NoticeBoard = lazy(() => import("../pages/board/notice/noticeBoard"));
-const Create = lazy(() => import("../pages/board/notice/create"));
-const NoticeModify = lazy(() => import("../pages/board/notice/noticeModify"))
+const NoticeBoard = lazy(() => import("../pages/board/noticeBoard"));
+const Create = lazy(() => import("../pages/board/create"));
+const NoticeModify = lazy(() => import("../pages/board/noticeModify"))
 
 
 const adminRouter = () => [

@@ -1,23 +1,30 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom"; 
-import BasicMenu from "../../../components/menu/BasicMenu";
-import { setAuthToken, getList, getOne } from "../../../../api/noticeApi";
+import BasicMenu from "../../components/menu/BasicMenu";
+import { setAuthToken, getList, getOne } from "../../../api/noticeApi";
 
 const NoticeBoard = () => {
   const [notices, setNotices] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredNotices, setFilteredNotices] = useState([]);
-  const [selectedNotice, setSelectedNotice] = useState(null); // 선택한 공지사항 상태
+  const [selectedNotice, setSelectedNotice] = useState(null);
+  
+  const [currentPage, setCurrentPage] = useState(1);
+  const [noticesPerPage] = useState(10); // 페이지당 표시할 게시글 수
+
   const navigate = useNavigate();
 
   useEffect(() => {
     setAuthToken();
-    fetchNotices(); // 컴포넌트가 마운트될 때 공지사항을 불러옴
+    fetchNotices(); // 공지사항을 불러옴
   }, []);
 
   const fetchNotices = async () => {
     try {
       const response = await getList({ page: 0, size: 100 });
+     //공지사항 등록 날짜를 기준으로 내림차순 정렬
+     const sortedNotices = response.sort((a, b) => new Date(b.ntRegdt) - new Date(a.ntRegdt));
+
       setNotices(response);
       setFilteredNotices(response);
     } catch (error) {
@@ -37,6 +44,16 @@ const NoticeBoard = () => {
     }
   }, [searchTerm, notices]);
 
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
+  const indexOfLastNotice = currentPage * noticesPerPage;
+  const indexOfFirstNotice = indexOfLastNotice - noticesPerPage;
+  const currentNotices = filteredNotices.slice(indexOfFirstNotice, indexOfLastNotice);
+
+  const totalPages = Math.ceil(filteredNotices.length / noticesPerPage);
+
   const handleInputChange = (e) => {
     setSearchTerm(e.target.value);
   };
@@ -54,8 +71,8 @@ const NoticeBoard = () => {
 
   const handleTitleClick = async (ntNb) => {
     try {
-      const data = await getOne(ntNb); // 선택한 공지사항 정보 가져오기
-      setSelectedNotice(data); // 선택한 공지사항 상태 업데이트
+      const data = await getOne(ntNb);
+      setSelectedNotice(data);
     } catch (error) {
       console.error("공지사항을 불러오는 중 오류 발생:", error);
       alert("공지사항을 불러오는 중 오류가 발생했습니다.");
@@ -63,8 +80,24 @@ const NoticeBoard = () => {
   };
 
   const handleCloseDetail = () => {
-    setSelectedNotice(null); // 공지사항 상세 보기 닫기
+    setSelectedNotice(null);
   };
+
+  // 페이지네이션 숫자 배열 생성
+  const createPaginationArray = () => {
+    const totalPages = Math.ceil(filteredNotices.length / noticesPerPage);
+    const maxPagesToShow = 5;
+    const pages = [];
+    const startPage = Math.max(1, currentPage - Math.floor(maxPagesToShow / 2));
+    const endPage = Math.min(totalPages, startPage + maxPagesToShow - 1);
+
+    for (let i = startPage; i <= endPage; i++) {
+      pages.push(i);
+    }
+    return pages;
+  };
+
+  const paginationArray = createPaginationArray();
 
   return (
     <div>
@@ -98,34 +131,50 @@ const NoticeBoard = () => {
             </tr>
           </thead>
           <tbody>
-            {filteredNotices.length > 0 ? (
-              filteredNotices.map((notice, index) => (
-                <tr key={notice.ntNb} className={index % 2 === 0 ? "bg-gray-50" : "bg-white"}>
-                  <td className="py-2 px-4 border-b">{notice.ntNb}</td>
-                  <td className="py-2 px-4 border-b">
-                    <button onClick={() => handleTitleClick(notice.ntNb)} className="text-blue-500 underline">
-                      {notice.ntTitle}
-                    </button>
-                  </td>
-                  <td className="py-2 px-4 border-b">{notice.ntRegdt}</td>
-                  <td className="py-2 px-4 border-b">
-                    <button onClick={() => navigate(`/admin/noticeModify/${notice.ntNb}`)} className="bg-yellow-500 text-white p-2">
-                      수정
-                    </button>
-                  </td>
-                </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan={4} className="py-2">검색 결과가 없습니다.</td>
-              </tr>
-            )}
-          </tbody>
+  {currentNotices.length > 0 ? (
+    currentNotices.map((notice, index) => (
+      <tr key={notice.ntNb} className={index % 2 === 0 ? "bg-gray-50" : "bg-white"}>
+        <td className="py-2 px-4 border-b">{indexOfFirstNotice + index + 1}</td> {/* 번호를 1부터 시작하도록 계산 */}
+        <td className="py-2 px-4 border-b">
+          <button onClick={() => handleTitleClick(notice.ntNb)} className="text-blue-500 underline">
+            {notice.ntTitle}
+          </button>
+        </td>
+        <td className="py-2 px-4 border-b">{notice.ntRegdt}</td>
+        <td className="py-2 px-4 border-b">
+          <button onClick={() => navigate(`/admin/noticeModify/${notice.ntNb}`)} className="bg-yellow-500 text-white p-2">
+            수정
+          </button>
+        </td>
+      </tr>
+    ))
+  ) : (
+    <tr>
+      <td colSpan={4} className="py-2">검색 결과가 없습니다.</td>
+    </tr>
+  )}
+</tbody>
+
         </table>
 
-        {selectedNotice && ( // 선택한 공지사항이 있을 때만 보여줌
+        {/* 페이지네이션 추가 */}
+        {totalPages > 1 && (
+          <div className="flex justify-center m-4">
+            {paginationArray.map((page) => (
+              <button
+                key={page}
+                onClick={() => handlePageChange(page)}
+                className={`mx-1 px-3 py-1 rounded ${currentPage === page ? 'bg-blue-500 text-white' : 'bg-gray-300'}`}
+              >
+                {page}
+              </button>
+            ))}
+          </div>
+        )}
+
+        {selectedNotice && (
           <div className="fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center">
-            <div className="bg-white p-5 rounded shadow-lg  w-3/5 h-auto">
+            <div className="bg-white p-5 rounded shadow-lg w-3/5 h-auto">
               <h2 className="py-5 text-xl font-bold">제목 : {selectedNotice.ntTitle}</h2>
               <hr/>
               <p className="py-5 text-left"><span className="text-2xl font-bold">내용<hr className="pt-5"/></span><br/>{selectedNotice.ntCtt}</p>
