@@ -51,8 +51,12 @@
 		<item key="SmartImportRootWizardPage.STORE_NESTED_PROJECTS" value="true"/>
 		<item key="SmartImportRootWizardPage.STORE_CONFIGURE_NATURES" value="true"/>
 		<list key="org.eclipse.ui.internal.wizards.datatransfer.SmartImportRootWizardPage.knownSources">
+<<<<<<< HEAD
 			<item value="C:\Users\kosmo\git\BuffetHub"/>
 			<item value="C:\BuffetHub\final\backend"/>
+=======
+			<item value="C:\BuffetHubProject\BackHub"/>
+>>>>>>> abb3453e09b0be442c74d538a3c55116147cd531
 			<item value="C:\Users\kosmo\Desktop\HUB\backenduser"/>
 		</list>
 		<section name="SmartImportWizard.dialogBounds">

@@ -2,7 +2,12 @@
 <section name="Workbench">
 	<section name="MavenProjectImportWizardPage">
 		<list key="rootDirectory">
+<<<<<<< HEAD
 			<item value="C:\BuffetHub\final\backend"/>
+=======
+			<item value="C:\BuffetHubProject\Back"/>
+			<item value="C:\BuffetHubProject\BackHub"/>
+>>>>>>> abb3453e09b0be442c74d538a3c55116147cd531
 			<item value="C:\BuffetHubProject\back\BuffetHub"/>
 		</list>
 		<list key="projectNameTemplate">
