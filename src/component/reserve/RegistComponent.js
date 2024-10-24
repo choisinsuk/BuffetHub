@@ -3,6 +3,7 @@ import DateTimePicker from "./calendar";
 import { postRegist } from "../../api/reserveApi";
 import ResultModal from "../common/ResultModal";
 import useCustomMove from "../../hook/useCustomMove";
+import { useNavigate } from "react-router-dom";
 
 const initState = {
   rsAdultPersonCnt: 0,
@@ -30,6 +31,7 @@ const initState = {
 const RegistComponent = () => {
   const [reserve, setReserve] = useState({ ...initState });
   const [selectedDate, setSelectedDate] = useState(null);
+  const navigate = useNavigate();
 
   // 결과 데이터가 있는 경우 ResultModal을 보여준다
   const [result, setResult] = useState(null); // 결과 상태
@@ -54,6 +56,10 @@ const RegistComponent = () => {
     } else {
       setReserve((prev) => ({ ...prev, [name]: value }));
     }
+  };
+
+  const handleBackClick = () => {
+    navigate(-1); // 이전 페이지로 이동
   };
 
   const handleDateChange = (date) => {
@@ -164,7 +170,7 @@ const RegistComponent = () => {
   };
 
   return (
-    <div className="border border-black">
+    <div className="border border-black w-5/6">
       {/* 모달처리 */}
       {result ? (
         <ResultModal
@@ -175,108 +181,169 @@ const RegistComponent = () => {
       ) : (
         <></>
       )}
-      <div className="p-2">
-        <div className="flex flex-row text-sm m-2 ">
-          <div className="p-3 pr-0">예약자 성함</div>
-          <input
-            type="text"
-            size={10}
-            className="m-3"
-            name="rsNm"
-            value={reserve.rsNm}
-            onChange={handleChangeReserve}
-          />
-          <div>
-            현장 예약확인 시, 성함과 <br />
-            핸드폰 번호 뒤 4자리가 필요합니다.
-          </div>
-        </div>
-        <div className="flex flex-row text-sm">
-          <div className="p-3 pr-0 ml-2">핸드폰 번호</div>
-          <input
-            type="text"
-            size={11}
-            className="m-3"
-            name="rsPhn"
-            value={reserve.rsPhn}
-            onChange={handleChangeReserve}
-          />
-          <div className="m-2">- 제외 11자 입력</div>
-        </div>
-      </div>
 
-      <div className="flex flex-row text-sm m-3 ">
-        <div className="flex flex-col m-4">
-          <div>성인</div>
-          <input
-            type="number"
-            size={3}
-            className="m-4 text-center"
-            min={0} // 최소값 설정
-            max={20} // 최대값 설정
-            value={reserve.rsAdultPersonCnt}
-            name="rsAdultPersonCnt"
-            onChange={handleChangeReserve}
-          />
-        </div>
-        <div className="flex flex-col m-4">
-          <div>아동</div>
-          <input
-            type="number"
-            size={3}
-            className="m-4 text-center"
-            min={0} // 최소값 설정
-            max={20} // 최대값 설정
-            value={reserve.rsChildPersonCnt}
-            name="rsChildPersonCnt"
-            onChange={handleChangeReserve}
-          />
-        </div>
-        <div className="flex flex-col m-4">
-          <div>미취학</div>
-          <input
-            type="number"
-            size={3}
-            className="m-4 text-center"
-            min={0} // 최소값 설정
-            max={20} // 최대값 설정
-            value={reserve.rsPreagePersonCnt}
-            name="rsPreagePersonCnt"
-            onChange={handleChangeReserve}
-          />
-        </div>
-        <div className="m-6">
-          1-20인까지
-          <br />
-          정수만 입력 가능
-        </div>
-      </div>
+      <div className="flex justify-center py-3">
+        <table className="border-2 border-black w-4/4">
+          <thead className="border-2 border-black">
+            <tr>
+              <td
+                colSpan={2}
+                className="text-center text-3xl py-8 font-bold text-fontColor"
+              >
+                예약 하기
+              </td>
+            </tr>
+          </thead>
 
-      <div className="m-5 min-w-[300px] md:min-w-[400px] min-h-[300px]">
-        <DateTimePicker
-          selectedDate={selectedDate} // 선택된 날짜 전달
-          onDateChange={handleDateChange} // 날짜 변경시 호출
-        />
-      </div>
+          <tbody>
+            <tr className="border-2 border-black">
+              <td className="w-1/3">예약자 이름</td>
+              <td className="w-1/3">
+                <input
+                  type="text"
+                  size={10}
+                  className="w-full bg-customColor2"
+                  name="rsNm"
+                  value={reserve.rsNm}
+                  onChange={handleChangeReserve}
+                />
+              </td>
+            </tr>
 
-      <div className="text-sm flex flex-row mt-5">
-        <div className="mr-3 ml-3">특이사항</div>
-        <textarea
-          rows={4}
-          cols={50}
-          name="rsSignificant"
-          value={reserve.rsSignificant}
-          onChange={handleChangeReserve}
-        />
-      </div>
+            <tr>
+              <td className="w-1/3" colSpan={2}>
+                현장 예약확인 시, 성함 및 번호 뒷자리가 사용됩니다.
+              </td>
+            </tr>
 
-      <button
-        type="button"
-        className="bg-orange-300 w-32 h-10 border border-black rounded mt-5"
-        onClick={handleClickRegist}
-      >
-        예약접수
-      </button>
+            <tr className="border-2 border-black">
+              <td>핸드폰 번호</td>
+              <th>
+                <input
+                  type="text"
+                  size={11}
+                  className="w-full bg-customColor2"
+                  name="rsPhn"
+                  value={reserve.rsPhn}
+                  onChange={handleChangeReserve}
+                />
+              </th>
+            </tr>
+            <tr>
+              <td colSpan={2}>
+                <div className="">핸드폰 번호제외 11자 입력</div>
+              </td>
+            </tr>
+
+            <tr>
+              <td colSpan={2}>1-20인까지 정수만 입력 가능</td>
+            </tr>
+
+            <tr className="border-2 border-black">
+              <td>성인</td>
+              <td>
+                <input
+                  type="number"
+                  size={3}
+                  className="text-center w-full bg-customColor1"
+                  min={0} // 최소값 설정
+                  max={20} // 최대값 설정
+                  value={reserve.rsAdultPersonCnt}
+                  name="rsAdultPersonCnt"
+                  onChange={handleChangeReserve}
+                />
+              </td>
+            </tr>
+            <tr className="border-2 border-black">
+              <td>아동</td>
+              <td>
+                <input
+                  type="number"
+                  size={3}
+                  className=" text-center w-full bg-customColor1"
+                  min={0} // 최소값 설정
+                  max={20} // 최대값 설정
+                  value={reserve.rsChildPersonCnt}
+                  name="rsChildPersonCnt"
+                  onChange={handleChangeReserve}
+                />
+              </td>
+            </tr>
+
+            <tr className="border-2 border-black ">
+              <td>미취학</td>
+              <td>
+                <input
+                  type="number"
+                  size={3}
+                  className=" text-center w-full bg-customColor1"
+                  min={0} // 최소값 설정
+                  max={20} // 최대값 설정
+                  value={reserve.rsPreagePersonCnt}
+                  name="rsPreagePersonCnt"
+                  onChange={handleChangeReserve}
+                />
+              </td>
+            </tr>
+
+            <tr className="border-2 border-black ">
+              <td colSpan={2}>
+                <p className="pt-3 text-lg">날짜를 선택해주세요</p>
+                <div className="m-5 min-w-[500px] md:min-w-[500px] min-h-[300px]">
+                  <DateTimePicker
+                    selectedDate={selectedDate} // 선택된 날짜 전달
+                    onDateChange={handleDateChange}
+                  />{" "}
+                  {/* 날짜 변경시 호출*/}
+                </div>
+              </td>
+            </tr>
+
+            <tr className="border-2 border-black ">
+              <td>
+                <div className="text-sm">
+                  <div className="text-center m-auto h-auto">특이사항</div>
+                </div>
+              </td>
+
+              <td colSpan={2}>
+                <textarea
+                  rows={4}
+                  cols={50}
+                  name="rsSignificant"
+                  value={reserve.rsSignificant}
+                  onChange={handleChangeReserve}
+                />
+              </td>
+            </tr>
+          </tbody>
+
+          <tfoot className="border-2 border-black bg-customColor4">
+            <tr>
+              <td>
+                <button
+                  type="button"
+                  className="bg-orange-300 w-32 h-10 border border-black rounded my-3"
+                  onClick={handleClickRegist}
+                >
+                  예약접수
+                </button>
+              </td>
+
+              <td>
+                <button
+                  type="button"
+                  className="bg-orange-200 border rounded-lg py-5 px-10 text-fontColor 
+                hover:bg-orange-400 hover:text-white transition duration-200 ease-in-out hover:shadow-xl hover:font-bold"
+                  onClick={handleBackClick}
+                >
+                  뒤로가기
+                </button>
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
     </div>
   );
 };
