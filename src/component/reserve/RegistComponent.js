@@ -181,7 +181,7 @@ const RegistComponent = () => {
           <input
             type="text"
             size={10}
-            className="m-3"
+            className="m-3 border border-black"
             name="rsNm"
             value={reserve.rsNm}
             onChange={handleChangeReserve}
@@ -196,7 +196,7 @@ const RegistComponent = () => {
           <input
             type="text"
             size={11}
-            className="m-3"
+            className="m-3 border border-black"
             name="rsPhn"
             value={reserve.rsPhn}
             onChange={handleChangeReserve}
@@ -211,7 +211,7 @@ const RegistComponent = () => {
           <input
             type="number"
             size={3}
-            className="m-4 text-center"
+            className="m-4 text-center border border-black"
             min={0} // 최소값 설정
             max={20} // 최대값 설정
             value={reserve.rsAdultPersonCnt}
@@ -224,7 +224,7 @@ const RegistComponent = () => {
           <input
             type="number"
             size={3}
-            className="m-4 text-center"
+            className="m-4 text-center border border-black"
             min={0} // 최소값 설정
             max={20} // 최대값 설정
             value={reserve.rsChildPersonCnt}
@@ -237,7 +237,7 @@ const RegistComponent = () => {
           <input
             type="number"
             size={3}
-            className="m-4 text-center"
+            className="m-4 text-center border border-black"
             min={0} // 최소값 설정
             max={20} // 최대값 설정
             value={reserve.rsPreagePersonCnt}
@@ -262,6 +262,7 @@ const RegistComponent = () => {
       <div className="text-sm flex flex-row mt-5">
         <div className="mr-3 ml-3">특이사항</div>
         <textarea
+        className="border border-black"
           rows={4}
           cols={50}
           name="rsSignificant"

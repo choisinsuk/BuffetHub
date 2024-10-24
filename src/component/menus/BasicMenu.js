@@ -39,6 +39,12 @@ const BasicMenu = () => {
         {/* 오른쪽 메뉴 배치 - 햄버거 아이콘 옆으로 정렬 */}
         <ul className={`flex flex-col md:flex-row md:space-x-6 text-fontColor font-bold ${isOpen ? "block" : "hidden"} md:flex`}>
           {/* 각 메뉴 항목 */}
+          {/* urAuthCode가 'ADMIN'인 경우에만 관리자 페이지 링크 표시 */}
+          {loginState.urAuthCode === "ADMIN" && (
+            <li className="text-2xl p-2">
+              <Link to={"/admin"}>관리자페이지</Link>
+            </li>
+          )}
           <li className="text-2xl p-2">
             <Link to={"/"}>메인페이지</Link>
           </li>
@@ -70,6 +76,7 @@ const BasicMenu = () => {
               <a href="/" onClick={handleLogout}>로그아웃</a>
             )}
           </li>
+           {/* 각 메뉴 항목 */}  
         </ul>
 
         {/* 반응형 햄버거 아이콘 */}

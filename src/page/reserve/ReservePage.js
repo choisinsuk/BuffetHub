@@ -6,14 +6,14 @@ import AsideComponent from "../../component/reserve/AsideComponent";
 const ReservePage = () => {
   const asideContent = (
     <div>
-      <AsideComponent></AsideComponent>
+      <AsideComponent />
     </div>
   );
 
   const mainContent = (
-    <div className="flex-col border border-black p-4">
-      <div className="text-4xl font-bold border border-black text-center p-4">
-        예약 안내사항
+    <div className="flex flex-col border-2 border-gray-300 bg-white shadow-lg rounded-xl p-7 transition duration-300">
+      <div className="text-4xl font-bold bg-customColor3 w-full rounded-xl text-center py-4 h-24">
+        <p className="pt-3 text-fontColor">예약 전 안내사항</p>
       </div>
       <ReserveComponent />
     </div>

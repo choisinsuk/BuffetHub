@@ -65,7 +65,7 @@ const Buffetinfo = () => {
       </div>
 
       <div className="space-x-4 text-center pb-10">
-        <button className="bg-orange-100 text-fontColor py-5 px-10 rounded shadow-lg transition transform hover:scale-110 duration-200 ease-in-out text-2xl hover:bg-customColor2 font-bold" onClick={() => setActiveTab("LocationInfo")} >
+        <button className="bg-orange-100 text-fontColor py-5 px-10 rounded shadow-lg transition transform hover:scale-110 duration-200 ease-in-out text-2xl hover:bg-customColor2 font-bold " onClick={() => setActiveTab("LocationInfo")} >
           매장 위치
         </button>
 

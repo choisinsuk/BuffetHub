@@ -74,12 +74,24 @@ const MyReserveComponent = () => {
           ></PaidListComponent>
           <div className="p-5">
             <div className="flex flex-row justify-center">
-              <button
+              {/* <button
                 type="button"
                 className="bg-orange-300 w-32 h-10 border border-black rounded m-5"
               >
                 후기 작성
+              </button> */}
+              <button
+                type="button"
+                className="bg-red-600 w-32 h-10 border border-black rounded m-5"
+                onClick={handleClickDelete}
+              >
+                예약삭제
               </button>
+            </div>
+            <div>-예약 삭제 시, 영업일로부터 2-3일 후 환불됩니다.</div>
+            <div>-예약일 이후 예약 삭제 시, 본인 부담금 20%가 부과됩니다.
+              <br/>
+              -결제된 예약 수정은 불가하므로 삭제 후 재예약 또는 당일 예약 변경 시, 대표번호 0000-0000으로 연락 바랍니다.
             </div>
           </div>
         </div>
