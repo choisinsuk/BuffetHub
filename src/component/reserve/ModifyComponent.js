@@ -137,7 +137,7 @@ const ModifyComponent = ({ rsNb }) => {
           <input
             type="text"
             size={10}
-            className="m-3"
+            className="m-3 border border-black"
             name="rsNm"
             value={reserve.rsNm} // rsNm 값을 연결
             onChange={handleChangeReserve}
@@ -152,7 +152,7 @@ const ModifyComponent = ({ rsNb }) => {
           <input
             type="text"
             size={11}
-            className="m-3"
+            className="m-3 border border-black"
             name="rsPhn"
             value={reserve.rsPhn} // rsPhn 값을 연결
             onChange={handleChangeReserve}
@@ -167,7 +167,7 @@ const ModifyComponent = ({ rsNb }) => {
           <input
             type="number"
             size={3}
-            className="m-4 text-center"
+            className="m-4 text-center border border-black"
             min={0}
             max={20}
             value={reserve.rsAdultPersonCnt} // 성인 인원수 연결
@@ -180,7 +180,7 @@ const ModifyComponent = ({ rsNb }) => {
           <input
             type="number"
             size={3}
-            className="m-4 text-center"
+            className="m-4 text-center border border-black"
             min={0}
             max={20}
             value={reserve.rsChildPersonCnt} // 아동 인원수 연결
@@ -193,7 +193,7 @@ const ModifyComponent = ({ rsNb }) => {
           <input
             type="number"
             size={3}
-            className="m-4 text-center"
+            className="m-4 text-center border border-black"
             min={0}
             max={20}
             value={reserve.rsPreagePersonCnt} // 미취학 인원수 연결
@@ -218,6 +218,7 @@ const ModifyComponent = ({ rsNb }) => {
       <div className="text-sm flex flex-row mt-5">
         <div className="mr-3 ml-3">특이사항</div>
         <textarea
+        className="border border-black"
           rows={4}
           cols={50}
           name="rsSignificant"
