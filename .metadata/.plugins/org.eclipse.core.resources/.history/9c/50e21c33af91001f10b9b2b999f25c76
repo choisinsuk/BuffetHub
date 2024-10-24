@@ -1,0 +1,43 @@
+package com.hub.service;
+
+import org.springframework.stereotype.Service;
+import jakarta.transaction.Transactional;
+
+import com.hub.domain.PersonStat;
+import com.hub.domain.Reserve;
+import com.hub.repository.PersonStatRepository;
+
+import lombok.RequiredArgsConstructor;
+
+@Service
+@Transactional
+@RequiredArgsConstructor
+public class PersonStatServiceImpl implements PersonStatService {
+
+    private final PersonStatRepository personStatRepository;
+
+    @Override
+    public void updatePersonStat(Reserve reserve) {
+        // 해당 날짜의 통계 데이터를 조회
+        PersonStat personStat = personStatRepository.findByPsDt(reserve.getRsDt())
+                .orElseGet(() -> createNewPersonStat(reserve));
+
+        // 인원 수 업데이트
+        personStat.setPsTotalAdults(personStat.getPsTotalAdults() + reserve.getRsAdultPersonCnt());
+        personStat.setPsTotalChildren(personStat.getPsTotalChildren() + reserve.getRsChildPersonCnt());
+        personStat.setPsTotalPreage(personStat.getPsTotalPreage() + reserve.getRsPreagePersonCnt());
+
+        // 통계 데이터 저장
+        personStatRepository.save(personStat);
+    }
+
+    // 새 통계 데이터를 생성하는 메서드
+    private PersonStat createNewPersonStat(Reserve reserve) {
+        PersonStat newPersonStat = new PersonStat();
+        newPersonStat.setPsDt(reserve.getRsDt());
+        newPersonStat.setPsTotalAdults(reserve.getRsAdultPersonCnt());
+        newPersonStat.setPsTotalChildren(reserve.getRsChildPersonCnt());
+        newPersonStat.setPsTotalPreage(reserve.getRsPreagePersonCnt());
+        return newPersonStat;
+    }
+}

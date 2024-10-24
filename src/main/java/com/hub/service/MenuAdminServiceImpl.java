@@ -30,6 +30,22 @@ public class MenuAdminServiceImpl implements MenuAdminService {
                     .collect(Collectors.toList());
     }
     
+    //메뉴 추가 기능 추가
+    @Override
+    public MenuDTO addMenu(MenuDTO menuDTO) {
+        Menu menu = new Menu();
+        menu.setMenuName(menuDTO.getMenuName());
+        menu.setMenuCategory(menuDTO.getMenuCategory());
+        Menu savedMenu = menuRepository.save(menu); // ID는 자동으로 생성됨
+        return new MenuDTO(savedMenu.getMenuId(), savedMenu.getMenuName(), savedMenu.getMenuCategory());
+    }
+
+    // 메뉴 삭제 기능 추가
+    @Override
+    public void deleteMenu(Long menuId) {
+        menuRepository.deleteById(menuId);
+    }
+    
     // 엔티티를 DTO로 변환하는 메서드
     private MenuDTO convertToDTO(Menu menu) {
         MenuDTO menuDTO = new MenuDTO();

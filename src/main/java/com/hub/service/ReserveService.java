@@ -1,5 +1,7 @@
 package com.hub.service;
 
+import java.util.Map;
+
 import com.hub.dto.PageRequestDTO;
 import com.hub.dto.PageResponseDTO;
 import com.hub.dto.ReserveDTO;
@@ -26,5 +28,7 @@ public interface ReserveService {
 
     // 결제 완료된 예약 리스트 조회
     PageResponseDTO<ReserveDTO> paidReservationsList(PageRequestDTO pageRequestDTO);
+
+	Map<String, Integer> getReservationStats();
 	
 }

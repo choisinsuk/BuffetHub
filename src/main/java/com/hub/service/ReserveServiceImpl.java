@@ -1,7 +1,9 @@
 package com.hub.service;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -199,5 +201,28 @@ public class ReserveServiceImpl implements ReserveService {
             .totalCount(totalCount)
             .build();
     }
+    
+    public Map<String, Integer> getReservationStats() {
+        // 모든 예약 데이터 가져오기
+        List<Reserve> reservations = reserveRepository.findAll(); // 예약 데이터 리포지토리에서 가져오기
+
+        int adultCount = 0;
+        int teenagerCount = 0;
+        int preaCount = 0;
+
+        for (Reserve reservation : reservations) {
+            adultCount += reservation.getRsAdultPersonCnt(); // 성인 인원수 추가
+            teenagerCount += reservation.getRsChildPersonCnt(); // 청소년 인원수 추가 (변경 필요)
+            preaCount += reservation.getRsPreagePersonCnt(); // 미취학 아동 인원수 추가
+        }
+
+        Map<String, Integer> stats = new HashMap<>();
+        stats.put("adultCount", adultCount);
+        stats.put("teenagerCount", teenagerCount);
+        stats.put("preaCount", preaCount);
+
+        return stats;
+    }
+
 
 }

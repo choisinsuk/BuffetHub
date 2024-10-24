@@ -1,6 +1,5 @@
 package com.hub.domain;
 
-
 import java.time.LocalDateTime;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

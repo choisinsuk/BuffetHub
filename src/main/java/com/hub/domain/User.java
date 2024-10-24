@@ -4,9 +4,7 @@ import java.util.Date;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import com.hub.dto.UserDTO;
 import com.hub.dto.UserJoinDTO;
-
 import jakarta.persistence.*;
 import lombok.*;
 
