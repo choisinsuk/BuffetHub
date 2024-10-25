@@ -81,7 +81,7 @@ public class JWTCheckFilter extends OncePerRequestFilter {
         log.info("Check uri: {}", path);
 
         // api/user/login, api/user/register 요청은 체크하지 않음
-        if (path.startsWith("/api/user/login") || path.startsWith("/api/user/register")) {
+        if (path.startsWith("/api/user/login") || path.startsWith("/api/user/register")|| path.startsWith("/api/user/checkId")) {
             return true;
         }
 

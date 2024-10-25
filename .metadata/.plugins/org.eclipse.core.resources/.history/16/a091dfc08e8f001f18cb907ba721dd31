@@ -1,0 +1,51 @@
+@Override
+protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+        throws ServletException, IOException {
+    log.info("-------------JWTCheckFilter--------------");
+    
+    // Authorization 헤더 확인
+    String authHeaderStr = request.getHeader("Authorization");
+    if (authHeaderStr == null || !authHeaderStr.startsWith("Bearer ")) {
+        log.error("Authorization header is missing or does not start with 'Bearer '");
+        sendErrorResponse(response, "ERROR_ACCESS_TOKEN_MISSING");
+        return;
+    }
+
+    try {
+        // Bearer accestoken...
+        String accessToken = authHeaderStr.substring(7); // "Bearer " 부분을 제외한 토큰 값
+        Map<String, Object> claims = JWTUtil.validateToken(accessToken); // JWT 검증
+        log.info("JWT claims: " + claims);
+
+        String ur_id = (String) claims.get("urId");
+        String ur_pw = (String) claims.get("urPw");
+        String ur_nm = (String) claims.get("urNm");
+        String ur_phn = (String) claims.get("urPhn");
+        String ur_eml = (String) claims.get("urEml");
+        UserRole ur_auth_code = UserRole.valueOf((String) claims.get("urAuthCode"));
+
+        UserDTO userDTO = new UserDTO(ur_id, ur_pw, ur_nm, ur_phn, ur_eml, null, null, ur_auth_code, null, null);
+
+        log.info("Authenticated User: " + userDTO);
+
+        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userDTO,
+                ur_pw, userDTO.getAuthorities());
+        SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+
+    } catch (Exception e) {
+        log.error("JWT Check Error: " + e.getMessage());
+        sendErrorResponse(response, "ERROR_ACCESS_TOKEN_INVALID");
+        return;
+    }
+
+    filterChain.doFilter(request, response);
+}
+
+private void sendErrorResponse(HttpServletResponse response, String errorMessage) throws IOException {
+    Gson gson = new Gson();
+    String msg = gson.toJson(Map.of("error", errorMessage));
+    response.setContentType("application/json");
+    PrintWriter printWriter = response.getWriter();
+    printWriter.println(msg);
+    printWriter.close();
+}
