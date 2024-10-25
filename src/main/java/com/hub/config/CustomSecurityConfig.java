@@ -62,16 +62,6 @@ public class CustomSecurityConfig {
 			config.accessDeniedHandler(new CustomAccessDeniedHandler());
 		});
 
-		// 회원가입 엔드포인트 및 관리자 페이지 접근 권한 설정
-		http.authorizeHttpRequests(authorizeRequests -> {
-			authorizeRequests
-					.requestMatchers("/api/user/register", "api/user/login").permitAll() // 인증 없이 회원가입 엔드포인트 접근 허용
-					.requestMatchers("/api/user/**").hasRole("USER")// 사용자 페이지 접근 권한 설정
-					.requestMatchers("/api/reserve/**").hasRole("USER")// 사용자 페이지 접근 권한 설정
-					.requestMatchers("/api/admin/**").hasRole("ADMIN")// 관리자 페이지 접근 권한 설정
-					.anyRequest().authenticated(); // 그 외의 모든 요청은 인증 필요
-		});
-
 
 		return http.build();
 	}

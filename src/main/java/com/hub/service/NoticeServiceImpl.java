@@ -2,10 +2,13 @@ package com.hub.service;
 
 import com.hub.domain.NoticeBoard;
 
+
+
 import com.hub.dto.NoticeDTO;
 import com.hub.dto.PageRequestDTO;
 import com.hub.dto.PageResponseDTO;
 import com.hub.repository.NoticeRepository;
+
 
 import jakarta.xml.ws.Response;
 
@@ -22,24 +25,25 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+
 @Service
 public class NoticeServiceImpl implements NoticeService {
 
 	@Autowired
-	private NoticeRepository noticeBoardRepository;
+	private NoticeRepository noticeRepository;
 
 	@Autowired
 	private ModelMapper modelMapper;
 
 	@Override
 	public List<NoticeDTO> getAllNotices() {
-		return noticeBoardRepository.findAll().stream().map(notice -> modelMapper.map(notice, NoticeDTO.class))
+		return noticeRepository.findAll().stream().map(notice -> modelMapper.map(notice, NoticeDTO.class))
 				.collect(Collectors.toList());
 	}
 
 	@Override
 	public NoticeDTO get(Long ntNb) {
-		java.util.Optional<NoticeBoard> result = noticeBoardRepository.findById(ntNb);
+		java.util.Optional<NoticeBoard> result = noticeRepository.findById(ntNb);
 
 		NoticeBoard noticeBoard = result.orElseThrow();
 		NoticeDTO dto = modelMapper.map(noticeBoard, NoticeDTO.class);
@@ -51,27 +55,27 @@ public class NoticeServiceImpl implements NoticeService {
 	public NoticeDTO createNotice(NoticeDTO noticeDto) {
 		NoticeBoard noticeBoard = modelMapper.map(noticeDto, NoticeBoard.class);
 		noticeBoard.setNtRegdt(LocalDateTime.now());
-		return modelMapper.map(noticeBoardRepository.save(noticeBoard), NoticeDTO.class);
+		return modelMapper.map(noticeRepository.save(noticeBoard), NoticeDTO.class);
 	}
 
 	@Override
 	public void modify(NoticeDTO noticeDTO) {
-		Optional<NoticeBoard> result = noticeBoardRepository.findById(noticeDTO.getNtNb());
+		Optional<NoticeBoard> result = noticeRepository.findById(noticeDTO.getNtNb());
 		NoticeBoard noticeBoard = result.orElseThrow(() -> new IllegalArgumentException("게시글이 존재하지 않습니다."));
 
 		noticeBoard.changeNtTitle(noticeDTO.getNtTitle());
 		noticeBoard.changeNtCtt(noticeDTO.getNtCtt());
 		noticeBoard.changeNtRegdt(noticeDTO.getNtRegdt());
 
-		noticeBoardRepository.save(noticeBoard);
+		noticeRepository.save(noticeBoard);
 	}
 
 	@Override
 	public void remove(Long ntNb) {
-		if (!noticeBoardRepository.existsById(ntNb)) {
+		if (!noticeRepository.existsById(ntNb)) {
 			throw new IllegalArgumentException("게시글이 존재하지 않습니다.");
 		}
-		noticeBoardRepository.deleteById(ntNb);
+		noticeRepository.deleteById(ntNb);
 	}
 
 	@Override
@@ -79,7 +83,7 @@ public class NoticeServiceImpl implements NoticeService {
 		Pageable pageable = PageRequest.of(pageRequestDTO.getPage() - 1, pageRequestDTO.getSize(),
 				Sort.by("ntNb").descending());
 
-		Page<NoticeBoard> result = noticeBoardRepository.findAll(pageable);
+		Page<NoticeBoard> result = noticeRepository.findAll(pageable);
 
 		List<NoticeDTO> dtoList = result.getContent().stream()
 				.map(noticeBoard -> modelMapper.map(noticeBoard, NoticeDTO.class)).collect(Collectors.toList());
