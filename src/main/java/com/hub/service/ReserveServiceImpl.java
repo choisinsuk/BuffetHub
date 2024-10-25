@@ -57,13 +57,10 @@ public class ReserveServiceImpl implements ReserveService {
 
 		// 유저 설정
 		reserve.setUser(user);
-		
+
 		// rsTotalPersonCnt 계산
-	    reserve.setRsTotalPersonCnt(
-	        reserve.getRsAdultPersonCnt() + 
-	        reserve.getRsChildPersonCnt() + 
-	        reserve.getRsPreagePersonCnt()
-	    );
+		reserve.setRsTotalPersonCnt(
+				reserve.getRsAdultPersonCnt() + reserve.getRsChildPersonCnt() + reserve.getRsPreagePersonCnt());
 
 		log.info("@@@@@@@@@urId : " + reserve.getUser());
 
@@ -90,20 +87,12 @@ public class ReserveServiceImpl implements ReserveService {
 		Optional<Reserve> result = reserveRepository.findById(reserveDTO.getRsNb());
 
 		Reserve reserve = result.orElseThrow();
-
 		reserve.changeRs_dt(reserveDTO.getRsDt());
-
 		reserve.changeRs_adult_person_cnt(reserveDTO.getRsAdultPersonCnt());
 		reserve.changeRs_child_person_cnt(reserveDTO.getRsChildPersonCnt());
 		reserve.changeRs_preage_person_cnt(reserveDTO.getRsPreagePersonCnt());
-
-		reserve.changeRs_visit_adult_cnt(reserveDTO.getRsVisitAdultCnt());
-		reserve.changeRs_visit_child_cnt(reserveDTO.getRsVisitChildCnt());
-		reserve.changeRs_visit_preage_cnt(reserveDTO.getRsVisitPreageCnt());
-
 		reserve.changeRs_payment_complete_yn(reserveDTO.isRsPaymentCompleteYn());
 		reserve.changeRs_visit_yn(reserveDTO.isRsVisitYn());
-
 		reserve.changeRs_nm(reserveDTO.getRsNm());
 		reserve.changeRs_phn(reserveDTO.getRsPhn());
 		reserve.changeRs_significant(reserveDTO.getRsSignificant());
@@ -128,26 +117,26 @@ public class ReserveServiceImpl implements ReserveService {
 		// User 객체를 찾는 로직
 		User user = userRepository.findByUrId(loginUrId); // 사용자 이름으로 User 객체 조회
 		if (user == null) {
-            throw new RuntimeException("User not found with ID: " + loginUrId);
-        }
-		
+			throw new RuntimeException("User not found with ID: " + loginUrId);
+		}
+
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		
-		 boolean isAdmin = authentication.getAuthorities().stream()
-                 .anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals("ROLE_ADMIN")); // 관리자 권한 여부
+
+		boolean isAdmin = authentication.getAuthorities().stream()
+				.anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals("ROLE_ADMIN")); // 관리자 권한 여부
 
 		Pageable pageable = PageRequest.of(pageRequestDTO.getPage() - 1, // 1페이지가 0이므로 주의
 				pageRequestDTO.getSize(), Sort.by("rsNb").descending());
 
 		Page<Reserve> result;
-		
+
 		if (isAdmin) {
-	        // 관리자일 경우 모든 데이터 조회
-	        result = reserveRepository.findAll(pageable);
-	    } else {
-	        // 일반 사용자일 경우 자신의 urId와 일치하는 데이터만 조회
-	        result = reserveRepository.findByUser(user, pageable);
-	    }
+			// 관리자일 경우 모든 데이터 조회
+			result = reserveRepository.findAll(pageable);
+		} else {
+			// 일반 사용자일 경우 자신의 urId와 일치하는 데이터만 조회
+			result = reserveRepository.findByUser(user, pageable);
+		}
 
 		List<ReserveDTO> dtoList = result.getContent().stream()
 				.map(reserve -> modelMapper.map(reserve, ReserveDTO.class)).collect(Collectors.toList());
@@ -159,70 +148,63 @@ public class ReserveServiceImpl implements ReserveService {
 
 		return responseDTO;
 	}
-	
+
 	// 예약일이 오늘까지인 예약 리스트 조회
-    @Override
-    public PageResponseDTO<ReserveDTO> activeReservationsList(PageRequestDTO pageRequestDTO) {
-        String loginUrId = SecurityContextHolder.getContext().getAuthentication().getName();
+	@Override
+	public PageResponseDTO<ReserveDTO> activeReservationsList(PageRequestDTO pageRequestDTO) {
+		String loginUrId = SecurityContextHolder.getContext().getAuthentication().getName();
 
-        Pageable pageable = PageRequest.of(pageRequestDTO.getPage() - 1, pageRequestDTO.getSize(), Sort.by("rsNb").descending());
-        LocalDateTime today = LocalDateTime.now(); // 오늘 날짜
+		Pageable pageable = PageRequest.of(pageRequestDTO.getPage() - 1, pageRequestDTO.getSize(),
+				Sort.by("rsNb").descending());
+		LocalDateTime today = LocalDateTime.now(); // 오늘 날짜
 
-        Page<Reserve> result = reserveRepository.findActiveReservationsByUrId(loginUrId, today, pageable);
+		Page<Reserve> result = reserveRepository.findActiveReservationsByUrId(loginUrId, today, pageable);
 
-        List<ReserveDTO> dtoList = result.getContent().stream()
-            .map(reserve -> modelMapper.map(reserve, ReserveDTO.class))
-            .collect(Collectors.toList());
+		List<ReserveDTO> dtoList = result.getContent().stream()
+				.map(reserve -> modelMapper.map(reserve, ReserveDTO.class)).collect(Collectors.toList());
 
-        long totalCount = result.getTotalElements();
-        return PageResponseDTO.<ReserveDTO>withAll()
-            .dtoList(dtoList)
-            .pageRequestDTO(pageRequestDTO)
-            .totalCount(totalCount)
-            .build();
-    }
+		long totalCount = result.getTotalElements();
+		return PageResponseDTO.<ReserveDTO>withAll().dtoList(dtoList).pageRequestDTO(pageRequestDTO)
+				.totalCount(totalCount).build();
+	}
 
- // 결제 완료된 예약 리스트 조회
-    @Override
-    public PageResponseDTO<ReserveDTO> paidReservationsList(PageRequestDTO pageRequestDTO) {
-        String loginUrId = SecurityContextHolder.getContext().getAuthentication().getName();
+	// 결제 완료된 예약 리스트 조회
+	@Override
+	public PageResponseDTO<ReserveDTO> paidReservationsList(PageRequestDTO pageRequestDTO) {
+		String loginUrId = SecurityContextHolder.getContext().getAuthentication().getName();
 
-        Pageable pageable = PageRequest.of(pageRequestDTO.getPage() - 1, pageRequestDTO.getSize(), Sort.by("rsNb").descending());
-        Page<Reserve> result = reserveRepository.findPaidReservationsByUrId(loginUrId, pageable);
+		Pageable pageable = PageRequest.of(pageRequestDTO.getPage() - 1, pageRequestDTO.getSize(),
+				Sort.by("rsNb").descending());
+		Page<Reserve> result = reserveRepository.findPaidReservationsByUrId(loginUrId, pageable);
 
-        List<ReserveDTO> dtoList = result.getContent().stream()
-            .map(reserve -> modelMapper.map(reserve, ReserveDTO.class))
-            .collect(Collectors.toList());
+		List<ReserveDTO> dtoList = result.getContent().stream()
+				.map(reserve -> modelMapper.map(reserve, ReserveDTO.class)).collect(Collectors.toList());
 
-        long totalCount = result.getTotalElements();
-        return PageResponseDTO.<ReserveDTO>withAll()
-            .dtoList(dtoList)
-            .pageRequestDTO(pageRequestDTO)
-            .totalCount(totalCount)
-            .build();
-    }
-    
-    public Map<String, Integer> getReservationStats() {
-        // 모든 예약 데이터 가져오기
-        List<Reserve> reservations = reserveRepository.findAll(); // 예약 데이터 리포지토리에서 가져오기
+		long totalCount = result.getTotalElements();
+		return PageResponseDTO.<ReserveDTO>withAll().dtoList(dtoList).pageRequestDTO(pageRequestDTO)
+				.totalCount(totalCount).build();
+	}
 
-        int adultCount = 0;
-        int teenagerCount = 0;
-        int preaCount = 0;
+	public Map<String, Integer> getReservationStats() {
+		// 모든 예약 데이터 가져오기
+		List<Reserve> reservations = reserveRepository.findAll(); // 예약 데이터 리포지토리에서 가져오기
 
-        for (Reserve reservation : reservations) {
-            adultCount += reservation.getRsAdultPersonCnt(); // 성인 인원수 추가
-            teenagerCount += reservation.getRsChildPersonCnt(); // 청소년 인원수 추가 (변경 필요)
-            preaCount += reservation.getRsPreagePersonCnt(); // 미취학 아동 인원수 추가
-        }
+		int adultCount = 0;
+		int teenagerCount = 0;
+		int preaCount = 0;
 
-        Map<String, Integer> stats = new HashMap<>();
-        stats.put("adultCount", adultCount);
-        stats.put("teenagerCount", teenagerCount);
-        stats.put("preaCount", preaCount);
+		for (Reserve reservation : reservations) {
+			adultCount += reservation.getRsAdultPersonCnt(); // 성인 인원수 추가
+			teenagerCount += reservation.getRsChildPersonCnt(); // 청소년 인원수 추가 (변경 필요)
+			preaCount += reservation.getRsPreagePersonCnt(); // 미취학 아동 인원수 추가
+		}
 
-        return stats;
-    }
+		Map<String, Integer> stats = new HashMap<>();
+		stats.put("adultCount", adultCount);
+		stats.put("teenagerCount", teenagerCount);
+		stats.put("preaCount", preaCount);
 
+		return stats;
+	}
 
 }
