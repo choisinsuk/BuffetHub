@@ -102,8 +102,6 @@ const UserList = () => {
 
       {error && <div className="text-red-500 text-center">{error}</div>} {/* 에러 메시지 표시 */}
 
-      <hr className="my-4" />
-
       <div className="bg-white w-5/6 mx-auto text-center flex justify-center pb-9">
         <table className="w-full bg-white border-collapse text-center ">
           <thead>
@@ -119,7 +117,7 @@ const UserList = () => {
                     onKeyPress={handleKeyPress}
                   />
                   <button
-                    className="ml-2 bg-customColor1 text-fontColor px-4 py-2 rounded hover:bg-customColor4 font-bold"
+                    className="ml-2 bg-customColor5 text-fontColor px-4 py-2 rounded hover:bg-orange-200 font-bold"
                     onClick={handleSearch}
                   >
                     검색
@@ -127,7 +125,7 @@ const UserList = () => {
                 </div>
               </td>
             </tr>
-            <tr className="bg-gray-200">
+            <tr className="bg-orange-100">
               <th className="py-2 px-4 border-b">
                 회원 이름
                 <span onClick={handleSort} className="cursor-pointer ml-1 text-gray-500">▼</span>

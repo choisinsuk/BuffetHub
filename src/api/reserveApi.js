@@ -67,9 +67,21 @@ export const putPaymentStatus = async (rsNb) => {
 
 // 예약 방문 여부 변경 메서드
 // 방문 시 통계 데이터 산출
-export const putVisitStatus = async (rsNb, visitStatus) => {
-  const res = await jwtAxios.put(`${prefix}/${rsNb}/visit-status`, null, {
-    params: { visitStatus }, // 방문 여부를 파라미터로 전달
-  });
-  return res.data;
+export const putVisitStatus = async (rsNb) => {
+  // 현재 예약 정보 가져오기
+  const currentReserve = await getOne(rsNb);
+  console.log("Current Reserve:", currentReserve);
+  console.log(`Calling API to update visit status for reservation ID: ${rsNb}`);
+
+  // 상태 검증
+  if (!currentReserve.rsVisitYn) {
+      // 방문 상태가 false인 경우에만 true로 변경
+      const res = await jwtAxios.put(`${prefix}/${rsNb}/visit-status`, { rsVisitYn: true });
+      return res.data;
+  } else {
+      alert("이미 방문 상태입니다."); // 상태가 이미 true일 경우
+  }
 };
+
+
+
