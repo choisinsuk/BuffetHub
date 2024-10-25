@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import BasicMenu from "../components/menu/BasicMenu";
+import { putVisitStatus } from "../../api/reserveApi";
 
 const Reservation = () => {
   const [reserves, setReserves] = useState([]);
@@ -86,15 +87,38 @@ const Reservation = () => {
     }
   };
   // 식사 중 테이블로 이동  ------------------------------------------------------------------------------------------
-  const moveToDining = (reservationId) => {
-    const reservationToMove = reserves.find(
-      (res) => res.rsNb === reservationId
-    );
+  const moveToDining = async (reservationId) => {
+    const reservationToMove = reserves.find((res) => res.rsNb === reservationId);
+  
+    // 확인 메시지를 출력하고, 사용자가 확인을 누를 경우에만 진행
+    const isConfirmed = window.confirm("예약을 매장으로 이동하시겠습니까?");
+    if (!isConfirmed) {
+      return; // 사용자가 취소를 누르면 함수 실행을 중단
+    }
+  
     if (reservationToMove) {
-      setDining([...dining, reservationToMove]);
-      setReserves(reserves.filter((res) => res.rsNb !== reservationId));
+      try {
+        // 방문 여부 변경 메서드 호출
+        const updatedVisitStatus = await putVisitStatus(reservationId);
+        
+        if (updatedVisitStatus) { // 방문 상태가 성공적으로 변경되었다면
+          // 방문 여부가 변경되면 상태를 업데이트
+          setDining((prevDining) => [...prevDining, reservationToMove]);
+          setReserves((prevReserves) => prevReserves.filter((res) => res.rsNb !== reservationId));
+        } else {
+          alert("방문 상태 변경에 실패했습니다.");
+        }
+        
+      } catch (error) {
+        console.error("방문 상태 업데이트 중 오류가 발생했습니다:", error);
+        alert("방문 상태 업데이트에 실패했습니다.");
+      }
+    } else {
+      alert("예약을 찾을 수 없습니다.");
     }
   };
+  
+  
 
   // 이전 버튼: 좌석 테이블에서 다시 입장 대기 테이블로 이동 -----------------------------------------------------------
   const moveToReserves = (reservationId) => {
