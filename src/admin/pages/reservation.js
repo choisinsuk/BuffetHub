@@ -175,6 +175,7 @@ const Reservation = () => {
   return (
     <div>
       <BasicMenu />
+      <div className="py-10">
       <ReservationTable
         data={isSearchActive ? filteredReserve : reserves}
         handleSort={handleSort}
@@ -195,6 +196,7 @@ const Reservation = () => {
         handleSearchName={handleSearchName}
         isDining={true}
       />
+      </div>
     </div>
   );
 };
