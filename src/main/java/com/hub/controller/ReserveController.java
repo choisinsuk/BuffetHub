@@ -118,5 +118,14 @@ public class ReserveController {
 
 		return Map.of("RESULT", "SUCCESS");
 	}
+	
+	//예약자 인원수 확인을 위한 API메소드
+	@GetMapping("/stats")
+	public Map<String, Integer> getReservationStats() {
+	    // 예약 통계 가져오기
+	    Map<String, Integer> stats = service.getReservationStats();
+	    return stats;
+	}
+
 
 }

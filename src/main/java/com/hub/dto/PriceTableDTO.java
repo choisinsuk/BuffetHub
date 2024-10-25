@@ -12,7 +12,7 @@ public class PriceTableDTO {
 	private Integer dayAdultPrice;
 	private Integer dayChildPrice;
 	private Integer dayKidsPrice;
-	private Integer WeekAdultPrice;
-	private Integer WeekChildPrice;
-	private Integer WeekKidsPrice;
+	private Integer weekAdultPrice;
+	private Integer weekChildPrice;
+	private Integer weekKidsPrice;
 }

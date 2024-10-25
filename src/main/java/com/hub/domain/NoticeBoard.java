@@ -1,6 +1,5 @@
 package com.hub.domain;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -8,6 +7,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
 
 @Entity // 이 클래스가 JPA의 엔티티임을 나타냄
 @SequenceGenerator(name = "NOTICE_SEQ_GEN", // 시퀀스 제너레이터 이름
@@ -37,13 +37,22 @@ public class NoticeBoard {
 
     @Column(nullable = false) // 등록일자 컬럼 정의
     private LocalDateTime ntRegdt; // 등록일자
+   
+    
+   public void changeNtNb(Long ntNb) {
+	   this.ntNb = ntNb;
+   }
+    
+    
     public void changeNtTitle(String ntTitle) {
     	this.ntTitle = ntTitle;
-}
+    }
+    
     public void changeNtCtt(String ntCtt) {
     	this.ntCtt = ntCtt;
     }
+    
     public void changeNtRegdt(LocalDateTime ntRegdt) {
     	this.ntRegdt = ntRegdt;
-    }
+    }  
 }
