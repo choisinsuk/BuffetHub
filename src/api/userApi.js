@@ -139,19 +139,19 @@ export const checkIdApi = async (urId) => {
 export const withdrawUser = async (urId, dispatch) => {
 
   try {
-    const response = await fetch(`${host}/withdraw/${urId}`, {
+    const response = await jwtAxios.delete(`${host}/withdraw/${urId}`, {
       method: "DELETE",
     });
 
-    if (response.ok) {
-      const message = await response.text();
+    if (response.status === 200) {
+      const message = await response.data;
       alert(message); // 탈퇴 완료 메시지
 
       // 쿠키 제거 및 메인 페이지로 이동
       dispatch(logout()); // 쿠키 제거 및 로그아웃 처리
       window.location.href = "/"; // 메인 페이지로 이동
     } else {
-      const errorMessage = await response.text();
+      const errorMessage = response.data;
       alert("진행 중인 예약이 있으면 탈퇴가 불가능합니다."); // 오류 메시지
     }
   } catch (error) {
