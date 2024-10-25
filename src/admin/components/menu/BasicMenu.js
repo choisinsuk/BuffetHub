@@ -44,6 +44,9 @@ const BasicMenu = () => {
           <li className="pr-10 text-2xl">
             <Link to={"/admin/noticeBoard"}>게시판 관리</Link>
           </li>
+          <li className="pr-10 text-2xl">
+            <Link to={"/admin/freeBoard"}>자유게시판 관리</Link>
+          </li>
           <li className="text-2xl pr-2">
             {!loginState.urId ? (
               <Link to={"/user/login"}>로그인</Link>

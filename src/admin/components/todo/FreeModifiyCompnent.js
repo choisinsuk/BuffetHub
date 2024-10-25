@@ -1,18 +1,18 @@
 import { useEffect, useState } from "react";
-import { deleteOne, getOne, putOne } from "../../api/noticeApi";
+import { deleteOne, getOne, putOne } from "../../api/freeBoardApi";
 import useCustomMove from "../../hooks/useCustomMove";
 import ResultModal from "../common/ResultModal";
 
 const initState = {
-  NtNb: 0,
-  ntTitle: "",
-  ntCtt: "",
-  ntRegdt: "",
+  FTNb: 0,
+  ftTitle: "",
+  ftCtt: "",
+  ftRegdt: "",
   complete: false,
 };
 
-const ModifyComponent = ({ NtNb }) => {
-  const [notice, setNotice] = useState({ ...initState });
+const FreeModifyComponent = ({ FTNb }) => {
+  const [freeboard, setFreeboard] = useState({ ...initState });
 
   //모달 창을 위한 상태
   const [result, setResult] = useState(null);
@@ -21,12 +21,12 @@ const ModifyComponent = ({ NtNb }) => {
   const { moveToList, moveToRead } = useCustomMove();
 
   useEffect(() => {
-    getOne(NtNb).then((data) => setNotice(data));
-  }, [NtNb]);
+    getOne(FTNb).then((data) => setFreeboard(data));
+  }, [FTNb]);
 
   const handleClickModify = () => {
     // 수정 버튼 클릭시
-    putOne(notice).then((data) => {
+    putOne(freeboard).then((data) => {
       //console.log("modify result: " + data)
       setResult("Modified");
     });
@@ -34,7 +34,7 @@ const ModifyComponent = ({ NtNb }) => {
 
   const handleClickDelete = () => {
     // 석제 버튼 클릭시
-    deleteOne(NtNb).then((data) => {
+    deleteOne(FTNb).then((data) => {
       //console.log("delete result: " + data)
       setResult("Deleted");
     });
@@ -45,25 +45,25 @@ const ModifyComponent = ({ NtNb }) => {
     if (result === "Deleted") {
       moveToList();
     } else {
-      moveToRead(NtNb);
+      moveToRead(FTNb);
     }
   };
 
-  const handleChangeNotice = (e) => {
-    notice[e.target.name] = e.target.value;
-    setNotice({ ...notice });
+  const handleChangeFreeboard = (e) => {
+    freeboard[e.target.name] = e.target.value;
+    setFreeboard({ ...freeboard });
   };
-  const handleChangeNoticeComplete = (e) => {
+  const handleChangeFreeboardComplete = (e) => {
     const value = e.target.value;
-    notice.complete = value === "Y";
-    setNotice({ ...notice });
+    freeboard.complete = value === "Y";
+    setFreeboard({ ...freeboard });
   };
 
   return (
     <div className="border-2 border-sky-200 mt-10 m-2 p-4">
       {result ? (
         <ResultModal
-          ntTitle={"처리결과"}
+          ftTitle={"처리결과"}
           content={result}
           callbackFn={closeModal}
         ></ResultModal>
@@ -73,41 +73,41 @@ const ModifyComponent = ({ NtNb }) => {
       <div className="flex justify-center mt-10">
         <div className="relative mb-4 flex w-full flex-wrap items-stretch">
           {" "}
-          <div className="w-1/5 p-6 text-right font-bold">NTNB</div>
+          <div className="w-1/5 p-6 text-right font-bold">FTNB</div>
           <div className="w-4/5 p-6 rounded-r border border-solid shadow-md bg-gray-100">
-            {notice.NtNb}
+            {freeboard.FtNb}
           </div>
         </div>
       </div>
       <div className="flex justify-center">
         <div className="relative mb-4 flex w-full flex-wrap items-stretch">
-          <div className="w-1/5 p-6 text-right font-bold">NTCTT</div>
+          <div className="w-1/5 p-6 text-right font-bold">FTCTT</div>
           <div className="w-4/5 p-6 rounded-r border border-solid shadow-md bggray-100">
-            {notice.ntCtt}
+            {freeboard.ftCtt}
           </div>
         </div>
       </div>
       <div className="flex justify-center">
         <div className="relative mb-4 flex w-full flex-wrap items-stretch">
-          <div className="w-1/5 p-6 text-right font-bold">NTTITLE</div>{" "}
+          <div className="w-1/5 p-6 text-right font-bold">FTITLE</div>{" "}
           <input
             className="w-4/5 p-6 rounded-r border border-solid borderneutral-300 shadow-md"
-            name="ntTitle"
+            name="ftTitle"
             type={"text"}
-            value={notice.ntTitle}
-            onChange={handleChangeNotice}
+            value={freeboard.ftTitle}
+            onChange={handleChangeFreeboard}
           ></input>
         </div>
       </div>
       <div className="flex justify-center">
         <div className="relative mb-4 flex w-full flex-wrap items-stretch">
-          <div className="w-1/5 p-6 text-right font-bold">NTREDGF</div>{" "}
+          <div className="w-1/5 p-6 text-right font-bold">FTREDGF</div>{" "}
           <input
             className="w-4/5 p-6 rounded-r border border-solid borderneutral-300 shadow-md"
-            name="ntRegdt"
+            name="ftRegdt"
             type={"date"}
-            value={notice.ntRegdt}
-            onChange={handleChangeNotice}
+            value={freeboard.ftRegdt}
+            onChange={handleChangeFreeboard}
           ></input>
         </div>
       </div>
@@ -118,8 +118,8 @@ const ModifyComponent = ({ NtNb }) => {
             name="status"
             className="border-solid border-2 
  rounded m-1 p-2"
-            onChange={handleChangeNoticeComplete}
-            value={notice.complete ? "Y" : "N"}
+            onChange={handleChangeFreeboardComplete}
+            value={freeboard.complete ? "Y" : "N"}
           >
             <option value="Y">Completed</option>
             <option value="N">Not Yet</option>
@@ -147,4 +147,4 @@ const ModifyComponent = ({ NtNb }) => {
   );
 };
 
-export default ModifyComponent;
+export default FreeModifyComponent;

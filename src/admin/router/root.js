@@ -11,7 +11,9 @@ const UserList = lazy(() => import("../pages/userlist"));
 const NoticeBoard = lazy(() => import("../pages/board/noticeBoard"));
 const Create = lazy(() => import("../pages/board/create"));
 const NoticeModify = lazy(() => import("../pages/board/noticeModify"))
-
+const FreeBoard = lazy(() => import("../pages/free/freeBoard"))
+const FreeCreate = lazy(() => import("../pages/free/freeCreate"))
+const FreeModify = lazy(() => import("../pages/free/freeModify"))
 
 const adminRouter = () => [
   {
@@ -42,6 +44,18 @@ const adminRouter = () => [
 {
   path: "noticemodify/:ntNb",
   element: <Suspense fallback={Loading}><NoticeModify/></Suspense>
+},
+{
+  path: "freeBoard",
+  element: <Suspense fallback={Loading}><FreeBoard/></Suspense>
+},
+{
+  path: "freeCreate",
+  element: <Suspense fallback={Loading}><FreeCreate/></Suspense>
+},
+{
+  path: "freeModify/:ftNb",
+  element: <Suspense fallback={Loading}><FreeModify/></Suspense>
 }
 
 ];
