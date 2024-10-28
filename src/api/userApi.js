@@ -79,7 +79,7 @@ export const changePassword = async (
   console.log("Request body:", JSON.stringify(requestBody, null, 2)); // 요청 본문을 JSON 형식으로 출력
 
   try {
-    const res = await axios.put(
+    const res = await jwtAxios.put(
       `${host}/change-password/${urId}`,
       requestBody, // JSON 형식으로 데이터 전송
       { headers }
