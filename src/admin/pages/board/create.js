@@ -89,7 +89,7 @@ const Create = () => {
             rows="4"
           />
         </div>
-        <button type="submit" className="bg-blue-500 text-white p-2">
+        <button type="submit" className="bg-orange-200 text-black p-2 font-semibold">
           {ntNb ? "수정" : "작성"}
         </button>
     

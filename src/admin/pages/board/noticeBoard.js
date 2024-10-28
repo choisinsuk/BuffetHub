@@ -19,16 +19,31 @@ const NoticeBoard = () => {
     fetchNotices(); // 공지사항을 불러옴
   }, []);
 
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    const seconds = String(date.getSeconds()).padStart(2, '0');
+
+    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+  };
+
   const fetchNotices = async () => {
     try {
       const response = await getList({ page: 0, size: 100 });
-      //공지사항 등록 날짜를 기준으로 내림차순 정렬
-      const sortedNotices = response.sort(
-        (a, b) => new Date(b.ntRegdt) - new Date(a.ntRegdt)
-      );
+      // 공지사항 등록 날짜를 기준으로 내림차순 정렬
+      const sortedNotices = response
+        .map(notice => ({
+          ...notice,
+          ntRegdt: formatDate(notice.ntRegdt), // 날짜 포맷팅 적용
+        }))
+        .sort((a, b) => new Date(b.ntRegdt) - new Date(a.ntRegdt));
 
-      setNotices(response);
-      setFilteredNotices(response);
+      setNotices(sortedNotices);
+      setFilteredNotices(sortedNotices);
     } catch (error) {
       console.error("데이터를 불러오는 중 오류가 발생했습니다:", error);
       alert("공지사항을 불러오는 중 오류가 발생했습니다. 다시 시도해 주세요.");
@@ -120,7 +135,7 @@ const NoticeBoard = () => {
         <table className="m-auto w-full text-center">
           <tr>
             <td colSpan={4} className="pt-5 font-bord">
-            <hr className="pt-4 w-full border-orange-200 border-t-2 justify-center text-center items-center " />
+              <hr className="pt-4 w-full border-orange-200 border-t-2 justify-center text-center items-center " />
             </td>
           </tr>
           <tr>
@@ -163,8 +178,7 @@ const NoticeBoard = () => {
               >
                 <td className="py-2 px-4 border-b">
                   {indexOfFirstNotice + index + 1}
-                </td>{" "}
-                {/* 번호를 1부터 시작하도록 계산 */}
+                </td>
                 <td className="py-2 px-4 border-b">
                   <button
                     onClick={() => handleTitleClick(notice.ntNb)}
@@ -218,7 +232,6 @@ const NoticeBoard = () => {
           </tr>
         </table>
       </div>
-      {/* 페이지네이션 추가 */}
 
       {selectedNotice && (
         <div className="fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center">
