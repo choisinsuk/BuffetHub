@@ -26,7 +26,7 @@ public class JWTCheckFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
         log.info("-------------JWTCheckFilter--------------");
         String authHeaderStr = request.getHeader("Authorization");
-        
+        log.info( "@@@@@",authHeaderStr);
         try {
             if (authHeaderStr == null || !authHeaderStr.startsWith("Bearer ")) {
                 throw new RuntimeException("Authorization 헤더가 없거나 형식이 잘못되었습니다.");
