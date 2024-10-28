@@ -112,13 +112,13 @@ const NoticeModify = () => {
                         rows="4"
                     />
                 </div>
-                <button type="submit" className="bg-blue-500 text-white p-2">
+                <button type="submit" className="bg-orange-200 text-black p-2 font-semibold">
                     수정
                 </button>
-                <button type="button" onClick={handleDelete} className="bg-red-500 text-white p-2 ml-2">
+                <button type="button" onClick={handleDelete} className="bg-orange-200 text-black p-2 ml-2 font-semibold">
                     삭제
                 </button>
-                <button type="button" onClick={handleCancel} className="bg-gray-500 text-white p-2 ml-2">
+                <button type="button" onClick={handleCancel} className="bg-orange-200 text-black p-2 ml-2 font-semibold">
                     취소
                 </button>
             </form>

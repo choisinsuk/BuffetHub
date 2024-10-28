@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { getOne, putOne, deleteOne, setAuthToken } from "../../../api/freeBoardApi"; // noticeApi에서 필요한 함수 임포트
+import { getOne, putOne, deleteOne, setAuthToken } from "../../../api/freeBoardApi"; // freeBoard 필요한 함수 임포트
 
 const initState = {
     ftNb: 0,
@@ -10,7 +10,7 @@ const initState = {
     complete: false,
 };
 
-const FreeBoardModify = () => {
+const FreeModify = () => {
     const { ftNb } = useParams(); // URL 파라미터에서 공지사항 번호 가져오기
     const navigate = useNavigate(); // 페이지 이동을 위한 navigate 훅
     const [freeBoard, setFreeBoard] = useState({ ...initState }); // 공지사항 상태 초기화
@@ -23,16 +23,16 @@ const FreeBoardModify = () => {
     // 공지사항 데이터를 가져오는 useEffect
     useEffect(() => {
         if (ftNb) {
-            getOne(ftNb) // noticeApi의 getOne 함수 사용
+            getOne(ftNb) // freeboardApi의 getOne 함수 사용
                 .then((data) => {
                     if (data) {
                         setFreeBoard(data); // 가져온 데이터를 상태에 설정
                     } else {
-                        console.error("공지사항 정보를 찾을 수 없습니다.");
+                        console.error("자유게시판 정보를 찾을 수 없습니다.");
                     }
                 })
                 .catch((e) => {
-                    console.error("공지사항을 가져오는 중 오류 발생:", e);
+                    console.error("자유개시판 가져오는 중 오류 발생:", e);
                 });
         }
     }, [ftNb]);
@@ -56,11 +56,11 @@ const FreeBoardModify = () => {
 
         try {
             await putOne(freeBoard); // freeBoard의 putOne 함수 사용
-            alert("공지사항이 성공적으로 수정되었습니다.");
+            alert("자유게시판 성공적으로 수정되었습니다.");
             navigate(-1); // 수정 후 공지사항 목록으로 이동
         } catch (error) {
             console.error("공지사항 수정 중 오류 발생:", error);
-            alert("공지사항 수정 중 오류가 발생했습니다. 다시 시도해 주세요.");
+            alert("자유게시판 수정 중 오류가 발생했습니다. 다시 시도해 주세요.");
         }
     };
 
@@ -69,11 +69,11 @@ const FreeBoardModify = () => {
         if (ftNb) {
             try {
                 await deleteOne(ftNb); // freeBoard의 deleteOne 함수 사용
-                alert("공지사항이 성공적으로 삭제되었습니다.");
-                navigate(-1); // 삭제 후 공지사항 목록으로 이동
+                alert("자유게시판 성공적으로 삭제되었습니다.");
+                navigate(-1); // 삭제 후 자유게시판 목록으로 이동
             } catch (error) {
-                console.error("공지사항 삭제 중 오류 발생:", error);
-                alert("공지사항 삭제 중 오류가 발생했습니다. 다시 시도해 주세요.");
+                console.error("자유게시판 삭제 중 오류 발생:", error);
+                alert("자유게시판 삭제 중 오류가 발생했습니다. 다시 시도해 주세요.");
             }
         } else {
             alert("게시글 ID가 없습니다.");
@@ -88,7 +88,7 @@ const FreeBoardModify = () => {
 
     return (
         <div className="bg-white my-5 w-full text-center px-10 py-10">
-            <h2 className="text-xl font-bold mb-4">공지사항 수정</h2>
+            <h2 className="text-xl font-bold mb-4">자유게시판 수정</h2>
             <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
                     <input
@@ -112,13 +112,13 @@ const FreeBoardModify = () => {
                         rows="4"
                     />
                 </div>
-                <button type="submit" className="bg-blue-500 text-white p-2">
+                <button type="submit" className="bg-orange-200 text-black p-2 font-semibold">
                     수정
                 </button>
-                <button type="button" onClick={handleDelete} className="bg-red-500 text-white p-2 ml-2">
+                <button type="button" onClick={handleDelete} className="bg-orange-200 text-black p-2 ml-2 font-semibold">
                     삭제
                 </button>
-                <button type="button" onClick={handleCancel} className="bg-gray-500 text-white p-2 ml-2">
+                <button type="button" onClick={handleCancel} className="bg-orange-200 text-black p-2 ml-2 font-semibold">
                     취소
                 </button>
             </form>
@@ -126,4 +126,4 @@ const FreeBoardModify = () => {
     );
 };
 
-export default FreeBoardModify;
+export default FreeModify;

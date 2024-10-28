@@ -33,8 +33,8 @@ const FreeCreate = () => {
       const freeBoardData = await getOne(id);
       setNewFreeBoard({ ftTitle: freeBoardData.ftTitle, ftCtt: freeBoardData.ftCtt });
     } catch (error) {
-      console.error("자유게시판을 불러오는 중 오류가 발생했습니다:", error);
-      alert("자유게시판을 불러오는 중 오류가 발생했습니다.");
+      console.error("자유게시판 불러오는 중 오류가 발생했습니다:", error);
+      alert("자유게시판 불러오는 중 오류가 발생했습니다.");
     }
   };
 
@@ -43,20 +43,19 @@ const FreeCreate = () => {
     setNewFreeBoard({ ...newFreeBoard, [name]: value });
   };
 
- 
   const handleSubmit = async (e) => {
-    e.preventDefault(); // 기본 폼 제출 방지
+    e.preventDefault();
     try {
       if (ftNb) {
         await putOne({ ...newFreeBoard, ftNb });
-        alert("자유게시판이 성공적으로 수정되었습니다.");
+        alert("자유게시판 성공적으로 수정되었습니다.");
       } else {
         await postAdd(newFreeBoard);
-        alert("자유게시판이 성공적으로 작성되었습니다.");
+        alert("자유게시판 성공적으로 작성되었습니다.");
       }
       
-      navigate(-1); // 이전 페이지로 이동
-      console.log("Navigating back to the previous page"); // 로그 추가
+      navigate(-1);
+      console.log("Navigating back to the previous page");
     } catch (error) {
       console.error("자유게시판 작성/수정 중 오류 발생:", error);
       alert("자유게시판 작성/수정 중 오류가 발생했습니다. 다시 시도해 주세요.");
@@ -89,10 +88,9 @@ const FreeCreate = () => {
             rows="4"
           />
         </div>
-        <button type="submit" className="bg-blue-500 text-white p-2">
+        <button type="submit" className="bg-orange-200 text-black p-2 font-semibold">
           {ftNb ? "수정" : "작성"}
         </button>
-    
       </form>
     </div>
   );
