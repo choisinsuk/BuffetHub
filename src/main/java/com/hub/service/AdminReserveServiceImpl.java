@@ -1,7 +1,9 @@
 package com.hub.service;
 
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -9,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.hub.domain.Reserve;
 import com.hub.dto.ReserveDTO;
 import com.hub.repository.AdminReserveRepository;
+import com.hub.repository.ReserveRepository;
 
 import jakarta.transaction.Transactional;
 
@@ -26,8 +29,8 @@ public class AdminReserveServiceImpl implements AdminReserveService {
 
     
     @Override
-    public List<ReserveDTO> getAllReservationsSortedByDate() {
-        return reserveRepository.findAllByOrderByRsDtDesc() // 날짜순으로 정렬된 예약 조회
+    public List<ReserveDTO> getAllReservations() {
+        return reserveRepository.findAll()
                 .stream()
                 .map(reserve -> modelMapper.map(reserve, ReserveDTO.class)) // Entity를 DTO로 변환
                 .collect(Collectors.toList());
@@ -60,6 +63,30 @@ public class AdminReserveServiceImpl implements AdminReserveService {
     	reserveRepository.deleteById(reservationId);
     }
     
+   @Override
+   public Map<String, Integer> getTotalPersonCounts() {
+	   
+	   List<Reserve> reservations = reserveRepository.findAll();
+	   
+	   int totalAdults = 0;
+	   int totalChildren = 0;
+	   int totalPreage = 0;
+	   
+	   for(Reserve reservation : reservations) {
+		   totalAdults += reservation.getRsAdultPersonCnt();
+           totalChildren += reservation.getRsChildPersonCnt();
+           totalPreage += reservation.getRsPreagePersonCnt();
+	   }
+	   
+	   Map<String, Integer> totalCounts = new HashMap<>();
+	   totalCounts.put("성인", totalAdults);
+	   totalCounts.put("청소년", totalChildren);
+	   totalCounts.put("미취학", totalPreage);
+	   
+	   return totalCounts;
+   }
+    
+    //엔티티 DTO변환
     public ReserveDTO convertToDTO(Reserve reserve) {
         ReserveDTO reserveDTO = new ReserveDTO();
         reserveDTO.setRsNb(reserve.getRsNb());

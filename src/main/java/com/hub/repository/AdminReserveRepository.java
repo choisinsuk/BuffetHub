@@ -16,7 +16,7 @@ import com.hub.domain.Reserve;
 public interface AdminReserveRepository extends JpaRepository<Reserve, Long>{
 	
 	//DB예약 정보를 내림차순 정렬을 하기 위해 사용
-	List<Reserve> findAllByOrderByRsDtDesc();
+	List<Reserve> findAll();
 	// 필요한 경우 쿼리 메서드를 추가할 수 있음
 
 	List<Reserve> findByrsDt(LocalDate rsDt);

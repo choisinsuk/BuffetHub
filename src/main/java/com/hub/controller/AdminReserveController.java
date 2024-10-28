@@ -2,12 +2,14 @@ package com.hub.controller;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import com.hub.dto.ReserveDTO;
 import com.hub.service.AdminReserveService;
@@ -17,7 +19,6 @@ import org.slf4j.LoggerFactory;
 
 @RestController
 @RequestMapping("/api/admin/reserves")
-@CrossOrigin(origins = "http://localhost:3000")
 public class AdminReserveController {
 
     private final AdminReserveService reserveService;
@@ -30,7 +31,7 @@ public class AdminReserveController {
 
     @GetMapping
     public ResponseEntity<List<ReserveDTO>> getAllReservations() {
-        List<ReserveDTO> reservations = reserveService.getAllReservationsSortedByDate();
+        List<ReserveDTO> reservations = reserveService.getAllReservations();
         return ResponseEntity.ok(reservations);
     }
 
@@ -61,5 +62,11 @@ public class AdminReserveController {
     public ResponseEntity<Void> deleteReservation(@PathVariable Long reservationId) {
         reserveService.deleteReservation(reservationId);
         return ResponseEntity.noContent().build(); // 삭제 성공 시 204 No Content 반환
+    }
+    
+    @GetMapping("/totalCounts")
+    public ResponseEntity<Map<String, Integer>> getTotalPersonCounts() {
+        Map<String, Integer> totalCounts = reserveService.getTotalPersonCounts();
+        return ResponseEntity.ok(totalCounts);
     }
 }
