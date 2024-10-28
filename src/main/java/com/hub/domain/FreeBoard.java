@@ -29,7 +29,7 @@ import lombok.Setter;
 
 public class FreeBoard {
 	
-	  @Id // 기본 키를 나타냄
+	  	@Id // 기본 키를 나타냄
 	    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "FREEBAORD_SEQ_GEN") // 시퀀스 전략으로 값 생성
 	    @Column(nullable = false, columnDefinition = "NUMBER(8)") // 데이터베이스 컬럼 정의
 	    private Long ftNb; // 공지번호

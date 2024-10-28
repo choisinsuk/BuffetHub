@@ -22,11 +22,6 @@ public class ReserveDTO {
 	private Integer rsChildPersonCnt; // 예약 아동 인원수
 	private Integer rsPreagePersonCnt; // 예약 미취학 인원수
 
-	private Integer rsVisitTotalCnt; // 방문 총 인원수
-	private Integer rsVisitAdultCnt; // 방문 성인 인원수
-	private Integer rsVisitChildCnt; // 방문 아동 인원수
-	private Integer rsVisitPreageCnt; // 방문 미취학 인원수
-	
 	private String rsNm; // 예약자 이름
 	private String rsPhn; // 예약자 전화번호
 	private String rsSignificant; // 특이사항

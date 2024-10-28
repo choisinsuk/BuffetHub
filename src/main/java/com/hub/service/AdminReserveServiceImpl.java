@@ -68,10 +68,6 @@ public class AdminReserveServiceImpl implements AdminReserveService {
         reserveDTO.setRsAdultPersonCnt(reserve.getRsAdultPersonCnt());
         reserveDTO.setRsChildPersonCnt(reserve.getRsChildPersonCnt());
         reserveDTO.setRsPreagePersonCnt(reserve.getRsPreagePersonCnt());
-        reserveDTO.setRsVisitTotalCnt(reserve.getRsVisitTotalCnt());  // 자동 계산된 값 사용
-        reserveDTO.setRsVisitAdultCnt(reserve.getRsVisitAdultCnt());
-        reserveDTO.setRsVisitChildCnt(reserve.getRsVisitChildCnt());
-        reserveDTO.setRsVisitPreageCnt(reserve.getRsVisitPreageCnt());
         reserveDTO.setRsNm(reserve.getRsNm());
         reserveDTO.setRsPhn(reserve.getRsPhn());
         reserveDTO.setRsSignificant(reserve.getRsSignificant());
