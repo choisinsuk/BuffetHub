@@ -49,7 +49,6 @@ public class CustomSecurityConfig {
 		http.sessionManagement(sessionConfig -> sessionConfig.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 		http.csrf(config -> config.disable());
 
-		
 		http.formLogin(config -> {
 			config.loginPage("/api/user/login");
 			config.successHandler(new APILoginSuccessHandler()); // 로그인 후 처리는 APILoginSuccessHandler
@@ -62,6 +61,7 @@ public class CustomSecurityConfig {
 			config.accessDeniedHandler(new CustomAccessDeniedHandler());
 		});
 
+<<<<<<< HEAD
 //		// 회원가입 엔드포인트 및 관리자 페이지 접근 권한 설정
 //		http.authorizeHttpRequests(authorizeRequests -> {
 //			authorizeRequests
@@ -72,6 +72,8 @@ public class CustomSecurityConfig {
 //					.anyRequest().authenticated(); // 그 외의 모든 요청은 인증 필요
 //		});
 
+=======
+>>>>>>> 48e78ec20a129135da3ce0551104c87605e20978
 
 		return http.build();
 	}
