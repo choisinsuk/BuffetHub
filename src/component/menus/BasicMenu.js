@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import logo from "../../images/logoimage/Logo.png"; // 로고 이미지 경로
+import logo from "../../images/logoimage/BuffetHubLogoVery.png"; // 로고 이미지 경로
 import { removeCookie } from "../../util/cookieUtil"; // 쿠키 제거 함수
 import { logout } from "../../slice/loginSlice"; // 로그아웃 액션
 
