@@ -39,7 +39,7 @@ const BasicMenu = () => {
             <Link to={"/admin/infoManager"}>뷔페 정보 관리</Link>
           </li>
           <li className="pr-10 text-2xl">
-            <Link to={"/admin/userManager"}>회원관리</Link>
+            <Link to={"/admin/userManager"}>회원 정보</Link>
           </li>
           <li className="pr-10 text-2xl">
             <Link to={"/admin/noticeBoard"}>게시판 관리</Link>

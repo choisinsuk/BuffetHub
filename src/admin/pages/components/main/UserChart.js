@@ -22,7 +22,6 @@ const ReservationStatsChart = ({ setTotalCounts }) => {
   }, [setTotalCounts]);
 
   const options = {
-    title: '현재 예약 인원',
     is3D: true,
   };
 
