@@ -58,7 +58,7 @@ const BasicMenu = () => {
             <Link to={"/board"}>게시판</Link>
           </li>
           <li className="text-2xl p-2">
-            <Link to={"/board"}>고객문의</Link>
+            <Link to={"/inquiry"}>고객문의</Link>
           </li>
           <li className="text-2xl p-2">
             {loginState.urId ? (
