@@ -81,9 +81,9 @@ const PriceTable = () => {
           {/* 평일 가격 */}
           <tr>
             <td className="py-2 px-1 border border-black" rowSpan="2">평일 <br /> 가격</td>
-            <td className="py-2 px-1 border border-black">{priceTable.dayAdultPrice}원</td>
-            <td className="py-2 px-1 border border-black">{priceTable.dayChildPrice}원</td>
-            <td className="py-2 px-1 border border-black">{priceTable.dayKidsPrice}원</td>
+            <td className="py-2 px-1 border border-black">{priceTable.dayAdultPrice.toLocaleString()}원</td>
+            <td className="py-2 px-1 border border-black">{priceTable.dayChildPrice.toLocaleString()}원</td>
+            <td className="py-2 px-1 border border-black">{priceTable.dayKidsPrice.toLocaleString()}원</td>
           </tr>
           <tr>
             <td className="py-2 px-1 border border-black">
@@ -112,9 +112,9 @@ const PriceTable = () => {
           {/* 주말 가격 */}
           <tr>
             <td className="py-2 px-1 border border-black" rowSpan="2">주말 <br /> 가격</td>
-            <td className="py-2 px-1 border border-black">{priceTable.weekAdultPrice}원</td>
-            <td className="py-2 px-1 border border-black">{priceTable.weekChildPrice}원</td>
-            <td className="py-2 px-1 border border-black">{priceTable.weekKidsPrice}원</td>
+            <td className="py-2 px-1 border border-black">{priceTable.weekAdultPrice.toLocaleString()}원</td>
+            <td className="py-2 px-1 border border-black">{priceTable.weekChildPrice.toLocaleString()}원</td>
+            <td className="py-2 px-1 border border-black">{priceTable.weekKidsPrice.toLocaleString()}원</td>
           </tr>
           <tr>
             <td className="py-2 px-1 border border-black">

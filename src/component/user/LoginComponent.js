@@ -47,7 +47,7 @@ const LoginComponent = () => {
   };
 
   return (
-    <div className="border-2 border-sky-200 mt-10 m-2 p-4">
+    <div className="border-2 border-sky-200 mt-10 m-2 p-4 w-[550px]">
       <div className="flex justify-center">
         <div className="text-4xl m-4 p-4 font-extrabold text-blue-500">
           로그인
@@ -92,20 +92,20 @@ const LoginComponent = () => {
 
       <div className="w-4/5">
         <ul className="flex p-4 text-white font-bold">
-          <li className="pr-6 text-2xl text-gray-500">
+          <li className="pr-6 text-lg text-gray-500">
             <Link to={"/user/search/id"}>아이디 찾기</Link>
           </li>
-          <li className="pr-6 text-2xl text-gray-500">
+          <li className="pr-6 text-lg text-gray-500">
             <Link to={"/user/search/password"}>비밀번호 찾기</Link>
           </li>
-          <li className="pr-6 text-2xl text-gray-500">
+          <li className="pr-6 text-lg text-gray-500">
             <Link to={"/user/register"}>회원가입</Link>
           </li>
         </ul>
       </div>
       <div>
         <ul className="flex p-4 text-white font-bold">
-          <li className="pr-6 text-2xl text-gray-500">
+          <li className="pr-6 text-lg text-gray-500">
             <KakaoLoginComponent />
           </li>
         </ul>
