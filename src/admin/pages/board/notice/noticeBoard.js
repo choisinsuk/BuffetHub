@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import BasicMenu from "../../../components/menu/BasicMenu";
-import { setAuthToken, getList, getOne } from "../../../../api/noticeApi";
+import { setAuthToken, getList, getOne } from "../../../../";
 
 const NoticeBoard = () => {
   // 공지사항 목록 상태

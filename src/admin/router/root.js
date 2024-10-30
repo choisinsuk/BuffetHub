@@ -15,6 +15,9 @@ const FreeBoard = lazy(() => import("../pages/board/free/freeBoard"))
 const FreeCreate = lazy(() => import("../pages/board/free/freeCreate"))
 const FreeModify = lazy(() => import("../pages/board/free/freeModify"))
 
+
+
+
 const adminRouter = () => [
   {
     path: "", // 기본 경로는 /admin 자체
