@@ -8,12 +8,12 @@ const Main = lazy(() => import("../pages/main"));
 const Reserve = lazy(() => import("../pages/reservation"));
 const BuffetInfo = lazy(() => import("../pages/buffetinfo"));
 const UserList = lazy(() => import("../pages/userlist"));
-const NoticeBoard = lazy(() => import("../pages/board/noticeBoard"));
-const Create = lazy(() => import("../pages/board/create"));
-const NoticeModify = lazy(() => import("../pages/board/noticeModify"))
-const FreeBoard = lazy(() => import("../pages/free/freeBoard"))
-const FreeCreate = lazy(() => import("../pages/free/freeCreate"))
-const FreeModify = lazy(() => import("../pages/free/freeModify"))
+const NoticeBoard = lazy(() => import("../pages/board/notice/noticeBoard"));
+const Create = lazy(() => import("../pages/board/notice/create"));
+const NoticeModify = lazy(() => import("../pages/board/notice/noticeModify"))
+const FreeBoard = lazy(() => import("../pages/board/free/freeBoard"))
+const FreeCreate = lazy(() => import("../pages/board/free/freeCreate"))
+const FreeModify = lazy(() => import("../pages/board/free/freeModify"))
 
 const adminRouter = () => [
   {
