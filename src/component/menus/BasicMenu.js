@@ -58,6 +58,9 @@ const BasicMenu = () => {
             <Link to={"/board"}>게시판</Link>
           </li>
           <li className="text-2xl p-2">
+            <Link to={"/inquiry"}>고객문의</Link>
+          </li>
+          <li className="text-2xl p-2">
             {loginState.urId ? (
               <Link to={"/mypage"}>마이페이지</Link>
             ) : null}
