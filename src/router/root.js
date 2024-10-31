@@ -61,7 +61,7 @@ const root = createBrowserRouter([
     children: adminRouter(),  // adminRouter에서 자식 라우터 설정 가져오기
   },
   {   
-    path: "board",  // 공지사항 경로
+    path: "board",  // 공지사항 리스트 경로
     element: (
       <Suspense fallback={Loading}> {/* 로딩 중 로딩 컴포넌트 표시 */}
         <NoticeBoard />  {/* 공지사항 리스트 페이지 렌더링 */}
