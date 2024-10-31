@@ -11,8 +11,6 @@ import org.springframework.stereotype.Service;
 import com.hub.domain.Reserve;
 import com.hub.dto.ReserveDTO;
 import com.hub.repository.AdminReserveRepository;
-import com.hub.repository.ReserveRepository;
-
 import jakarta.transaction.Transactional;
 
 @Service
@@ -85,7 +83,13 @@ public class AdminReserveServiceImpl implements AdminReserveService {
 	   
 	   return totalCounts;
    }
-    
+   
+   @Override
+   public List<Object[]> getReservationData() {
+     return reserveRepository.findReservationsByDateTime();
+   }
+   
+   
     //엔티티 DTO변환
     public ReserveDTO convertToDTO(Reserve reserve) {
         ReserveDTO reserveDTO = new ReserveDTO();

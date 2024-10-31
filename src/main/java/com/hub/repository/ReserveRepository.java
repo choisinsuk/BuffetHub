@@ -1,6 +1,7 @@
 package com.hub.repository;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -24,4 +25,6 @@ public interface ReserveRepository extends JpaRepository<Reserve, Long> {
 	// 결제 완료된 예약 조회
 	@Query("SELECT r FROM Reserve r WHERE r.user.urId = :urId AND r.rsPaymentCompleteYn = true")
 	Page<Reserve> findPaidReservationsByUrId(@Param("urId") String urId, Pageable pageable);
+	
+	
 }

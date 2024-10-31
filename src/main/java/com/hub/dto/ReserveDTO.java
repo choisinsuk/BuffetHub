@@ -20,10 +20,6 @@ public class ReserveDTO {
 	private Integer rsAdultPersonCnt; // 예약 성인 인원수
 	private Integer rsChildPersonCnt; // 예약 아동 인원수
 	private Integer rsPreagePersonCnt; // 예약 미취학 인원수
-<<<<<<< HEAD
-=======
-
->>>>>>> 48e78ec20a129135da3ce0551104c87605e20978
 	private String rsNm; // 예약자 이름
 	private String rsPhn; // 예약자 전화번호
 	private String rsSignificant; // 특이사항

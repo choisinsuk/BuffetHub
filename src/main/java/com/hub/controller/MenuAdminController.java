@@ -33,13 +33,13 @@ public class MenuAdminController {
 
     // 메뉴 이름으로 검색하는 엔드포인트
     @GetMapping("/search")
-    public ResponseEntity<List<MenuDTO>> searchMenu(@RequestParam("name") String menuName) {
+    public ResponseEntity<List<MenuDTO>> searchMenu(@RequestParam("name") String menuName) 
+    {
         try {
             List<MenuDTO> menus = menuService.searchMenuByName(menuName);
             return ResponseEntity.ok(menus);
         } catch (Exception e) {
-            // 예외 발생 시 500 상태 코드와 메시지 반환
-            return ResponseEntity.status(500).body(null); // 필요 시 메시지를 추가
+            return ResponseEntity.status(500).body(null);
         }
     }
     

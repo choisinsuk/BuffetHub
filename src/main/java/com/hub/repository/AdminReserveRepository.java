@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.hub.domain.Reserve;
@@ -22,6 +23,10 @@ public interface AdminReserveRepository extends JpaRepository<Reserve, Long>{
 	List<Reserve> findByrsDt(LocalDate rsDt);
 
 	List<Reserve> findByrsNm(String rsNm);
+	
+	// 예약 날짜와  시간을 기준으로 데이터를 그룹화하여 가져오는 쿼리
+		@Query("SELECT r.rsDt, SUM(r.rsTotalPersonCnt) FROM Reserve r GROUP BY r.rsDt ORDER BY r.rsDt")
+	    List<Object[]> findReservationsByDateTime();
 }
 
 // -> 컨트롤러 
