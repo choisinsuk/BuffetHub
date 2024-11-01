@@ -49,7 +49,7 @@ public class FreeBoardController {
 
 	    @PutMapping("/{ftNb}")
 	    public ResponseEntity<String> modifyFreeBoard(@PathVariable Long ftNb, @RequestBody FreeBoardDTO freeBoardDTO) {
-	    	freeBoardDTO.setFtNb(ftNb); // ntNb를 FreeBoardDTO에 설정
+	    	freeBoardDTO.setFtNb(ftNb); // ftNb를 FreeBoardDTO에 설정
 	    	freeBoardService.modify(freeBoardDTO);
 	        return ResponseEntity.ok("게시글이 수정되었습니다.");
 	    }
