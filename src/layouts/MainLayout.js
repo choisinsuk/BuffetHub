@@ -16,7 +16,7 @@ const MainLayout = ({ children }) => {
           </main>
 
           {/* Footer - 가로 100%, 높이 10% */}
-          <footer className="flex-shrink-0 w-full bg-orange-100 flex items-center text-center justify-center text-black" style={{ fontSize: '0.7rem' }}>
+          <footer className="flex-shrink-0 w-full bg-orange-100 flex items-center text-center justify-center text-black" style={{ fontSize: '0.8rem' }}>
             <table className="text-center">
               <tr>
                 <td colSpan={2}>서울특별시 금천구 가산디지털2로 101 한라원앤원타워3층</td>
