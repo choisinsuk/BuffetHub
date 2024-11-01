@@ -100,6 +100,7 @@ const FreeCreate = () => {
         <button type="submit" className="bg-orange-200 text-black p-2 font-semibold">
           {ftNb ? "수정" : "작성"} {/* 수정 또는 작성 버튼 텍스트 설정 */}
         </button>
+        
       </form>
     </div>
   );
