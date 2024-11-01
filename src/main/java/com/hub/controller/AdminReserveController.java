@@ -1,6 +1,7 @@
 package com.hub.controller;
 
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -69,4 +70,5 @@ public class AdminReserveController {
         Map<String, Integer> totalCounts = reserveService.getTotalPersonCounts(); // 총 인원 수 조회
         return ResponseEntity.ok(totalCounts); // 조회된 총 인원 수를 200 OK 상태로 반환
     }
+    
 }

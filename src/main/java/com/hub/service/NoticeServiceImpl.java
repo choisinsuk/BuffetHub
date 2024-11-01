@@ -1,17 +1,10 @@
 package com.hub.service;
 
 import com.hub.domain.NoticeBoard;
-
-
-
 import com.hub.dto.NoticeDTO;
 import com.hub.dto.PageRequestDTO;
 import com.hub.dto.PageResponseDTO;
 import com.hub.repository.NoticeRepository;
-
-
-import jakarta.xml.ws.Response;
-
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -19,7 +12,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;

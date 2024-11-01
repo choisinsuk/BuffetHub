@@ -18,4 +18,6 @@ public interface AdminReserveService {
 	
 	//인원 수를 합산, 반환하는 메서드
 	Map<String, Integer> getTotalPersonCounts();
+	
+	List<Object[]> getReservationData();
 }

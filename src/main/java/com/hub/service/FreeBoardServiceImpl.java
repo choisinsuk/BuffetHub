@@ -1,15 +1,10 @@
 package com.hub.service;
 
 import com.hub.domain.FreeBoard;
-
-
 import com.hub.dto.FreeBoardDTO;
 import com.hub.dto.PageRequestDTO;
 import com.hub.dto.PageResponseDTO;
 import com.hub.repository.FreeBoardRepository;
-
-import jakarta.xml.ws.Response;
-
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

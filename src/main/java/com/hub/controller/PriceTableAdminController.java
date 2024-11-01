@@ -30,11 +30,13 @@ public class PriceTableAdminController {
     @GetMapping
     public ResponseEntity<PriceTableDTO> getPrices() {
         PriceTableDTO priceTable = priceTableService.getPriceTable();
-        return priceTable != null ? ResponseEntity.ok(priceTable) : ResponseEntity.notFound().build();
+        return priceTable != null ? 
+        		ResponseEntity.ok(priceTable) : ResponseEntity.notFound().build();
     }
-
     @PutMapping("/{id}")
-    public ResponseEntity<PriceTableDTO> updatePriceTable(@PathVariable Long id, @Valid @RequestBody PriceTableDTO priceTableDTO) {
+    public ResponseEntity<PriceTableDTO> 
+    		updatePriceTable(@PathVariable Long id, @Valid @RequestBody PriceTableDTO priceTableDTO) 
+    {
         PriceTableDTO updatedPriceTable = priceTableService.updatePriceTable(id, priceTableDTO);
         if (updatedPriceTable != null) {
             return ResponseEntity.ok(updatedPriceTable); // 성공적으로 업데이트된 가격 정보를 반환

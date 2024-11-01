@@ -3,12 +3,11 @@ package com.hub.dto;
 import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.Builder;
+
 
 // 고객 문의 DTO 클래스
 @Getter
 @Setter
-@Builder
 public class CustomerInquiryBoardDTO {
 
     private Long cqNb; // 고객 문의 번호

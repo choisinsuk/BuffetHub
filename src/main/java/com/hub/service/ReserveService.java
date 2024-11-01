@@ -30,5 +30,6 @@ public interface ReserveService {
     PageResponseDTO<ReserveDTO> paidReservationsList(PageRequestDTO pageRequestDTO);
 
 	Map<String, Integer> getReservationStats();
+
 	
 }

@@ -61,8 +61,11 @@ public class CustomSecurityConfig {
 			config.accessDeniedHandler(new CustomAccessDeniedHandler());
 		});
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 60b81c32453c95f1a8f53840c563a43f5aa7b4cd
 		return http.build();
 	}
 

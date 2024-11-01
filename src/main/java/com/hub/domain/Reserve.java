@@ -41,7 +41,11 @@ public class Reserve {
 	
 	@Column( nullable = false, columnDefinition = "NUMBER(4)")
 	private Integer rsPreagePersonCnt; // 예약 미취학 인원수
+<<<<<<< HEAD
 
+=======
+	
+>>>>>>> 60b81c32453c95f1a8f53840c563a43f5aa7b4cd
 	@Builder.Default
 	@Column( nullable = false)
 	private boolean rsVisitYn = false; // 방문여부
@@ -92,7 +96,10 @@ public class Reserve {
 		updateTotalPersonCount(); // 총 인원수 업데이트
 	}
 
+<<<<<<< HEAD
 	
+=======
+>>>>>>> 60b81c32453c95f1a8f53840c563a43f5aa7b4cd
 	// 방문여부 변경 메서드
 	public void changeRs_visit_yn(boolean rsVisitYn) {
 		this.rsVisitYn = rsVisitYn;
