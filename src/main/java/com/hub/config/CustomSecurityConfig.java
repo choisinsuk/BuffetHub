@@ -1,0 +1,86 @@
+package com.hub.config;
+
+import java.util.Arrays;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import com.hub.domain.UserRole;
+import com.hub.security.filter.JWTCheckFilter;
+import com.hub.security.handler.APILoginFailHandler;
+import com.hub.security.handler.APILoginSuccessHandler;
+import com.hub.security.handler.CustomAccessDeniedHandler;
+
+import jakarta.servlet.DispatcherType;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
+
+@Configuration
+@EnableWebSecurity // 없으니 HttpSecurity 타입의 빈(bean)을 찾지 못해 발생하는 문제가 발생하여 추가함
+@Log4j2
+@RequiredArgsConstructor
+@EnableMethodSecurity
+public class CustomSecurityConfig {
+
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
+
+	@Bean
+	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+		log.info("-----------------securityConfig-----------------");
+
+		http.cors(httpSecurityCorsConfigurer -> {
+			httpSecurityCorsConfigurer.configurationSource(corsConfigurationSource());
+		});
+
+		http.sessionManagement(sessionConfig -> sessionConfig.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+		http.csrf(config -> config.disable());
+
+		http.formLogin(config -> {
+			config.loginPage("/api/user/login");
+			config.successHandler(new APILoginSuccessHandler()); // 로그인 후 처리는 APILoginSuccessHandler
+			config.failureHandler(new APILoginFailHandler()); // 로그인 실패 후 처리 APILoginFailHandler
+		});
+
+		http.addFilterBefore(new JWTCheckFilter(), UsernamePasswordAuthenticationFilter.class); // JWT 체크
+
+		http.exceptionHandling(config -> {
+			config.accessDeniedHandler(new CustomAccessDeniedHandler());
+		});
+
+<<<<<<< HEAD
+
+
+=======
+>>>>>>> 60b81c32453c95f1a8f53840c563a43f5aa7b4cd
+		return http.build();
+	}
+
+	@Bean
+	public CorsConfigurationSource corsConfigurationSource() {
+		CorsConfiguration configuration = new CorsConfiguration();
+
+		configuration.setAllowedOriginPatterns(Arrays.asList("*"));
+		configuration.setAllowedMethods(Arrays.asList("HEAD", "GET", "POST", "PUT", "DELETE"));
+		configuration.setAllowedHeaders(Arrays.asList("Authorization", "Cache-Control", "Content-Type"));
+		configuration.setAllowCredentials(true);
+
+		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+		source.registerCorsConfiguration("/**", configuration);
+
+		return source;
+	}
+}

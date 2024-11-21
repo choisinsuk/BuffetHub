@@ -1,0 +1,75 @@
+package com.hub.domain;
+
+import java.time.LocalDate;
+import java.time.format.TextStyle;
+import java.util.Locale;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
+@Entity
+@SequenceGenerator(name = "PERSONSTAT_SEQ_GEN", // 시퀀스 제너레이터 이름
+sequenceName = "PERSONSTAT_SEQ", // 시퀀스 이름
+initialValue = 1, // 시작 값
+allocationSize = 1 // 메모리를 통해 할당할 범위 사이즈
+)
+@Table(name = "tbl_person_stat")
+@Getter
+@ToString
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+public class PersonStat {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PERSONSTAT_SEQ_GEN")
+	// 사용할 전략을 시퀀스로 선택
+	@Column( nullable = false, columnDefinition = "NUMBER(8)")
+    private Long psNb; // 통계 번호
+
+    @Column(nullable = false)
+    private LocalDate psDt; // 통계가 계산된 날짜
+    
+    @Column(nullable = false, columnDefinition = "VARCHAR2(20)")
+    private String psDayOfWeek; // 요일
+    
+    @Column(nullable = false, columnDefinition = "NUMBER(5)")
+    private Integer psAdultCnt; // 성인
+
+    @Column(nullable = false, columnDefinition = "NUMBER(5)")
+    private Integer psChildrenCnt; // 아동
+
+    @Column(nullable = false, columnDefinition = "NUMBER(5)")
+    private Integer psPreageCnt; // 미취학
+    
+    // 요일 설정 메서드
+    public void setDayOfWeek() {
+        this.psDayOfWeek = psDt.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.ENGLISH);
+    }
+    
+
+    public void setPsAdultCnt(Integer psAdultCnt) {
+        this.psAdultCnt = psAdultCnt;
+    }
+
+    public void setPsChildrenCnt(Integer psChildrenCnt) {
+        this.psChildrenCnt = psChildrenCnt;
+    }
+
+    public void setPsPreageCnt(Integer psPreageCnt) {
+        this.psPreageCnt = psPreageCnt;
+    }
+    
+    
+}
